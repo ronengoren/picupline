@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "519571937136",
+    "firebase_url": "https://pic-up-line.firebaseio.com",
+    "project_id": "pic-up-line",
+    "storage_bucket": "pic-up-line.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:519571937136:android:b7b4df1e7c7943437f61b5",
+        "android_client_info": {
+          "package_name": "com.picupline"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "519571937136-6gujk9tpghst9lvo6s38cocj0bd23plr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.picupline",
+            "certificate_hash": "4699e710b99a0cf12db3cca7fc43204c462a0d4f"
+          }
+        },
+        {
+          "client_id": "519571937136-ll818js0p81rnaksmtmsn4g79e8k8h8p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClpN7U40BLIS3KQ-WOwai-ShE6NNfwTQo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "519571937136-ll818js0p81rnaksmtmsn4g79e8k8h8p.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "519571937136-ce9n6d080n869vpl82qekn2nn12p2iih.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.picupline"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
