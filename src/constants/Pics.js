@@ -1,4 +1,32 @@
+import React, {useState, useEffect} from 'react';
+
 import shuffleArray from '../utils/shuffleArray';
+import firestore from '@react-native-firebase/firestore';
+
+const users = firestore()
+  .collection('Users')
+  .get()
+  .then((querySnapshot) => {
+    // console.log('Total users: ');
+    // console.log(querySnapshot.size);
+    const list = [];
+    querySnapshot.forEach((documentSnapshot) => {
+      const {email} = documentSnapshot.data();
+      list.push({
+        id: documentSnapshot.id,
+        name: documentSnapshot.data().name,
+        email,
+      });
+      // console.log('User ID: ');
+      // console.log(documentSnapshot.id);
+      // console.log(documentSnapshot.data().name);
+      // console.log(list);
+      // console.log(HomeScreenPics);
+
+      // setUsers(documentSnapshot.id, documentSnapshot.data());
+      // console.log(users);
+    });
+  });
 
 export const HomeScreenPics = shuffleArray([
   {

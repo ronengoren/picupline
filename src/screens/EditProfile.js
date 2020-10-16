@@ -15,6 +15,7 @@ export default function EditProfile({props}) {
   const {user, updateUser} = useAuth();
   const [text, setText] = React.useState('');
   const [language] = React.useState('java');
+  const [userid] = useState('');
 
   const options = [
     {label: 'Basic', value: 1},
@@ -65,9 +66,6 @@ export default function EditProfile({props}) {
     ],
   ];
 
-  const usersCollection = firestore().collection('Users');
-  console.log(usersCollection);
-
   firestore()
     .collection('Users')
     .get()
@@ -75,12 +73,13 @@ export default function EditProfile({props}) {
       console.log('Total users: ', querySnapshot.size);
 
       querySnapshot.forEach((documentSnapshot) => {
+        userid(documentSnapshot.id);
         console.log('User ID: ', documentSnapshot.id, documentSnapshot.data());
       });
     });
 
   async function onSubmit(data) {
-    setLoading(true);
+    // setLoading(true);
 
     console.log(data);
   }
