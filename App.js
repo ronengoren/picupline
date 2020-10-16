@@ -10,12 +10,13 @@ import {
 import 'react-native-gesture-handler';
 // import MainTabNavigator from './src/navigation';
 import {MainTabNavigator} from './src/navigation/';
+import Providers from './src/navigation';
 
 export default class App extends React.Component {
   state = {
     isLoadingComplete: false,
   };
   render() {
-    return <MainTabNavigator />;
+    return <Providers />;
   }
 }
