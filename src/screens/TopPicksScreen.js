@@ -11,7 +11,6 @@ import {TopPicksScreenPics} from '../constants/Pics';
 import {useAuth} from '../navigation/AuthProvider';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import {User} from '../constants/User';
 
 function onResult(QuerySnapshot) {
   console.log('Got Users collection result.');
@@ -38,7 +37,7 @@ export default function TopPicksScreen({props}) {
 
   const Users = () => {
     const usersList = users.map((number) => number);
-    console.log(total);
+    // console.log(usersList);
     return (
       <View style={styles.grid}>
         <Text h2 h2Style={styles.h2Style}>
@@ -48,11 +47,11 @@ export default function TopPicksScreen({props}) {
           Featured profiles of the day, picked just for you
         </Text>
 
-        {usersList.map(({id, email, name}, i) => (
+        {usersList.map(({id, email, displayName}, i) => (
           <Tile
             // imageSrc={pic}
             activeOpacity={0.9}
-            title={name}
+            title={displayName}
             titleStyle={styles.title}
             caption={email}
             captionStyle={styles.caption}
@@ -68,11 +67,11 @@ export default function TopPicksScreen({props}) {
     return ref.onSnapshot((querySnapshot) => {
       const list = [];
       querySnapshot.forEach((doc) => {
-        const {email, name} = doc.data();
-        // console.log(email, name);
+        const {email, displayName, name} = doc.data();
+        console.log(doc.data());
         list.push({
           id: doc.id,
-          name,
+          displayName,
           email,
         });
       });

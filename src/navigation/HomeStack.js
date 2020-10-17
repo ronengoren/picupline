@@ -10,6 +10,7 @@ import ProfileScreen from '../screens/ProfileScreen';
 import MessagesScreen from '../screens/MessagesScreen';
 import TopPicksScreen from '../screens/TopPicksScreen';
 import EditProfile from '../screens/EditProfile';
+import EditAvatar from '../screens/EditAvatar';
 
 import AddRoomScreen from '../screens/AddRoomScreen';
 import RoomScreen from '../screens/RoomScreen';
@@ -24,10 +25,10 @@ const Stack = createStackNavigator();
 
 const ProfileStack = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator headerMode="none">
       <Stack.Screen name="Profile" component={ProfileScreen} />
       <Stack.Screen name="EditProfile" component={EditProfile} />
-      {/* <Stack.Screen name="記事詳細" component={ ArticleScreen }/>  */}
+      <Stack.Screen name="EditAvatar" component={EditAvatar} />
     </Stack.Navigator>
   );
 };
@@ -40,6 +41,7 @@ function ChatApp() {
 
   return (
     <ChatAppStack.Navigator
+      headerMode="none"
       screenOptions={{
         headerStyle: {
           backgroundColor: '#6646ee',
@@ -51,7 +53,7 @@ function ChatApp() {
       }}>
       <ChatAppStack.Screen
         name="Home"
-        component={TopPicksScreen}
+        component={ProfileStack}
         options={({navigation}) => ({
           headerRight: () => (
             <IconButton

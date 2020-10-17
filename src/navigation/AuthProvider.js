@@ -26,12 +26,19 @@ export const AuthProvider = ({children}) => {
         },
         register: async (email, password) => {
           try {
-            await auth().createUserWithEmailAndPassword(email, password);
+            const response = await auth().createUserWithEmailAndPassword(
+              email,
+              password,
+            );
+            const {uid} = response.user;
+            const userData = {email, uid};
+            console.log(userData);
+
+            console.log(uid);
             firestore()
               .collection('Users')
-              .add({
-                email: email,
-              })
+              .doc(`${userData.uid}`)
+              .set(userData)
               .then(() => {
                 console.log('User added!');
               });
