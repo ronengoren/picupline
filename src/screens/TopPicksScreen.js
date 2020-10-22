@@ -26,18 +26,24 @@ export default function TopPicksScreen({props}) {
   const [total, setTotals] = useState('');
 
   const [loading, setLoading] = useState(true);
+  const [avatars, setAvatars] = useState();
+
   const currentUser = auth().currentUser;
   const ref = firestore().collection('Users');
+
   const totalUsers = firestore()
     .collection('Users')
     .get()
     .then((querySnapshot) => {
       setTotals(querySnapshot.size);
+      // setAvatars(querySnapshot.docs);
     });
 
   const Users = () => {
     const usersList = users.map((number) => number);
+
     // console.log(usersList);
+
     return (
       <View style={styles.grid}>
         <Text h2 h2Style={styles.h2Style}>
@@ -47,9 +53,9 @@ export default function TopPicksScreen({props}) {
           Featured profiles of the day, picked just for you
         </Text>
 
-        {usersList.map(({id, email, displayName}, i) => (
+        {usersList.map(({id, email, displayName, pic}, i) => (
           <Tile
-            // imageSrc={pic}
+            imageSrc={{url: pic}}
             activeOpacity={0.9}
             title={displayName}
             titleStyle={styles.title}
@@ -67,12 +73,15 @@ export default function TopPicksScreen({props}) {
     return ref.onSnapshot((querySnapshot) => {
       const list = [];
       querySnapshot.forEach((doc) => {
-        const {email, displayName, name} = doc.data();
-        console.log(doc.data());
+        const {email, displayName, name, avatar} = doc.data();
+        // console.log(doc.data().avatar.uri);
+        // console.log('users');
+
         list.push({
           id: doc.id,
           displayName,
           email,
+          avatar,
         });
       });
       setUsers(list);

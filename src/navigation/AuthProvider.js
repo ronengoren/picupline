@@ -30,17 +30,17 @@ export const AuthProvider = ({children}) => {
               email,
               password,
             );
+            const isNewUser = response.additionalUserInfo;
             const {uid} = response.user;
-            const userData = {email, uid};
-            console.log(userData);
+            const userData = {email, uid, isNewUser};
 
-            console.log(uid);
+            // console.log(uid);
             firestore()
               .collection('Users')
               .doc(`${userData.uid}`)
               .set(userData)
               .then(() => {
-                console.log('User added!');
+                console.log('user added');
               });
           } catch (e) {
             console.log(e);

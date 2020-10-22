@@ -5,6 +5,8 @@ import AuthStack from './AuthStack';
 import TabNavigator from './HomeStack';
 import {AuthContext} from './AuthProvider';
 import Loading from '../components/Loading';
+import firestore from '@react-native-firebase/firestore';
+import SignUpWizard from './SignUpWizard';
 
 export default function Routes() {
   const {user, setUser} = useContext(AuthContext);
@@ -13,13 +15,16 @@ export default function Routes() {
 
   // Handle user state changes
   function onAuthStateChanged(user) {
+    // console.log(user);
     setUser(user);
+
     if (initializing) setInitializing(false);
     setLoading(false);
   }
 
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+
     return subscriber; // unsubscribe on unmount
   }, []);
 

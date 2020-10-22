@@ -6,61 +6,95 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from 'react-native';
-import {List, Divider} from 'react-native-paper';
+import {List} from 'react-native-paper';
 import firestore from '@react-native-firebase/firestore';
 import Loading from '../components/Loading';
 import useStatsBar from '../utils/useStatusBar';
 import Swiper from 'react-native-deck-swiper';
 import {HomeScreenPics} from '../constants/Pics';
 import {Card} from '../components/Card';
+import PinchableBox from '../components/PinchableBox';
+import {
+  Divider,
+  Text,
+  Avatar,
+  Accessory,
+  Image,
+  ListItem,
+} from 'react-native-elements';
 
 export default function HomeScreen({navigation}) {
   useStatsBar('light-content');
 
   const [threads, setThreads] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [posts, setPosts] = useState([null]);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   /**
    * Fetch threads from Firestore
    */
   useEffect(() => {
-    const unsubscribe = firestore()
-      .collection('THREADS')
-      .orderBy('latestMessage.createdAt', 'desc')
-      .onSnapshot((querySnapshot) => {
-        const threads = querySnapshot.docs.map((documentSnapshot) => {
-          return {
-            _id: documentSnapshot.id,
-            // give defaults
-            name: '',
-
-            latestMessage: {
-              text: '',
-            },
-            ...documentSnapshot.data(),
-          };
-        });
-
-        setThreads(threads);
-
-        if (loading) {
-          setLoading(false);
-        }
+    firestore()
+      .collection('posts')
+      .get()
+      .then((querySnapshot) => {
+        let posts = querySnapshot.docs.map((doc) => doc.data());
+        setPosts(posts);
+        // setIsRefreshing(false);
+        setLoading(false);
+        // console.log(posts[0]);
+      })
+      .catch(function (error) {
+        console.log('Error getting documents: ', error);
       });
-
-    /**
-     * unsubscribe listener
-     */
-    return () => unsubscribe();
   }, []);
 
   if (loading) {
     return <Loading />;
   }
+  const renderItem = ({item}) => (
+    <View style={styles.card}>
+      {/* <PinchableBox imageUri={item.postPhoto.uri} /> */}
+      <View style={styles.cardHeader}>
+        <Text category="s1" style={styles.cardTitle}>
+          {item.postTitle}
+        </Text>
+        <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+          <Avatar
+            rounded
+            source={{
+              uri:
+                'https://images.unsplash.com/photo-1559526323-cb2f2fe2591b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80',
+            }}
+            size="xlarge"
+            style={{width: 50, height: 50, marginRight: 16}}
+          />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.cardContent}>
+        <Text category="p2">{item.postDescription}</Text>
+      </View>
+    </View>
+  );
 
+  // console.log(posts);
+  // onRefresh = () => {
+  //   setIsRefreshing(true);
+  // };
   return (
     <View style={styles.container}>
-      <SafeAreaView style={styles.container}>
+      {posts ? (
+        <FlatList
+          style={styles.container}
+          data={posts}
+          renderItem={renderItem}
+          keyExtractor={posts.id}
+        />
+      ) : (
+        <Text>I</Text>
+      )}
+      {/* <SafeAreaView style={styles.container}>
         <Swiper
           cards={HomeScreenPics}
           renderCard={Card}
@@ -69,7 +103,7 @@ export default function HomeScreen({navigation}) {
           cardHorizontalMargin={0}
           stackSize={2} // number of cards shown in background
         />
-      </SafeAreaView>
+      </SafeAreaView> */}
       {/* <FlatList
         data={threads}
         keyExtractor={(item) => item._id}
@@ -102,5 +136,26 @@ const styles = StyleSheet.create({
   },
   listDescription: {
     fontSize: 16,
+  },
+  card: {
+    backgroundColor: 'white',
+    marginBottom: 25,
+  },
+  cardHeader: {
+    padding: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  cardTitle: {
+    color: 'black',
+  },
+  cardAvatar: {
+    marginRight: 16,
+  },
+  cardContent: {
+    padding: 10,
+    borderWidth: 0.25,
+    borderColor: 'black',
   },
 });

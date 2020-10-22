@@ -13,7 +13,7 @@ export default function SignupScreen({navigation}) {
 
   return (
     <View style={styles.container}>
-      <Title style={styles.titleText}>Register to chat</Title>
+      <Title style={styles.titleText}>SIYU</Title>
       <FormInput
         labelName="Email"
         value={email}

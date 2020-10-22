@@ -28,6 +28,24 @@ const users = firestore()
     });
   });
 
+export const WelcomeScreenPics = shuffleArray([
+  {
+    pic: require('../assets/images/welcome1.jpg'),
+    title: 'SIYU',
+    caption: 'What you SEE',
+  },
+  {
+    pic: require('../assets/images/welcome2.jpg'),
+    title: 'Joanna, 19',
+    caption: '2 miles away',
+  },
+  {
+    pic: require('../assets/images/welcome3.jpg'),
+    title: 'Charlie, 32',
+    caption: '24 miles away',
+  },
+]);
+
 export const HomeScreenPics = shuffleArray([
   {
     pic: require('../assets/images/women/women1.jpg'),

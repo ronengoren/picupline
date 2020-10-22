@@ -1,10 +1,4 @@
-import React, {
-  useMemo,
-  useReducer,
-  useContext,
-  useState,
-  useEffect,
-} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Image,
   SafeAreaView,
@@ -12,6 +6,7 @@ import {
   View,
   TouchableOpacity,
   Button,
+  Dimensions,
 } from 'react-native';
 import {Divider, Text, Avatar, Accessory} from 'react-native-elements';
 import Layout from '../constants/Layout';
@@ -22,6 +17,7 @@ import {useNavigation} from '@react-navigation/native';
 import {useAuth} from '../navigation/AuthProvider';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import Gallery from '../components/Gallery';
 
 const {pic, title} = HomeScreenPics[randomNo(1, HomeScreenPics.length)];
 
@@ -35,82 +31,85 @@ const Social = ({name}) => (
 );
 export default function ProfileScreen({navigation, route}) {
   // const {navigate} = props.navigation;
+  console.log(route);
   const [userDetails, setUserDetails] = useState([]);
-  const [images, SetImages] = useState([]);
-  console.log(route.params);
+  const [images, setImages] = useState([]);
+  const [avatar, setAvatar] = useState([]);
+
+  React.useEffect(() => {
+    if (route.params?.avatar) {
+      // console.log(route.params);
+      setAvatar(route.params.avatar);
+      // console.log(avatar);
+      // Post updated, do something with `route.params.post`
+      // For example, send the post to the server
+    }
+  }, [route.params?.avatar]);
+
   useEffect(() => {
     const user = auth().currentUser;
+
+    firestore()
+      .collection('posts')
+      .where('uid', '==', user.uid)
+      .get()
+      .then((querySnapshot) => {
+        // let posts = querySnapshot.docs.map((doc) => doc.data());
+        let posts = querySnapshot.docs.map((doc) => doc.data());
+        let images = posts.map((item) => {
+          return item.postPhoto;
+        });
+        setImages(images);
+
+        // setIsRefreshing(false);
+        // setLoading(false);
+      })
+      .catch(function (error) {
+        console.log('Error getting documents: ', error);
+      });
     return firestore()
       .collection('Users')
       .doc(user.uid)
       .onSnapshot((querySnapshot) => {
         let info = [];
         let newUserDetails = querySnapshot.data();
-
-        // console.log(info);
+        let avatarFile = querySnapshot.data().avatar;
+        // setAvatar(avatarFile);
         setUserDetails(newUserDetails);
-
-        // const user = [];
-        // querySnapshot.forEach((doc) => {
-        //   console.log(doc.data());
-        //   const {email, displayName, name} = doc.data();
-        //   // console.log(email, displayName, name);
-        //   //   list.push({
-        //   //     id: doc.id,
-        //   //     displayName,
-        //   //     email,
-        //   //   });
-        // });
-        // setUsers(list);
+        // console.log(querySnapshot.data().avatar);
       });
   }, []);
-
   // useEffect(() => {
-  //   const info = [];
   //   const user = auth().currentUser;
-  //   firestore()
+  //   return firestore()
   //     .collection('Users')
   //     .doc(user.uid)
-  //     .onSnapshot((documentSnapshot) => {
-  //       let userInfo = documentSnapshot.data();
-  //       // console.log('User data: ', documentSnapshot.data());
-  //       // return fetchUserDetails;
-  //       // console.log(userInfo);
-  //       // return userInfo;
-  //       // info.push(userInfo);
-  //       console.log(userInfo);
+  //     .onSnapshot((querySnapshot) => {
+  //       let info = [];
+  //       let newUserDetails = querySnapshot.data();
+
+  //       setUserDetails(newUserDetails);
+  //       console.log(userDetails);
   //     });
-  //   // setUserDetails(userInfo);
-
-  //   // console.log(fetchUserDetails);
-  //   // .then(function (doc) {
-  //   //   let userDetails = doc.data();
-  //   //   // console.log('USER DETAILS ===========>>', doc.data());
-  //   //   console.log(userDetails);
-  //   // })
-
-  //   // setUserDetails(userDetails);
-  //   return () => userInfo();
   // }, []);
-  // const user = state.user;
   return (
     <SafeAreaView style={styles.container}>
       <View style={[styles.header, styles.bordered]}>
         <View>
           <Avatar
             rounded
-            source={userDetails.avatar}
+            source={avatar}
             size="xlarge"
             style={{width: 100, height: 100}}
           />
           <View style={styles.add}>
-            <TouchableOpacity onPress={() => navigation.navigate('EditAvatar')}>
+            <TouchableOpacity onPress={() => navigation.navigate('Avatar')}>
               <Icon name="pencil" width={20} height={20} fill="#111" />
             </TouchableOpacity>
           </View>
         </View>
         <Text category="h6" style={styles.name}>
-          {userDetails.name}
+          {userDetails.email}
         </Text>
       </View>
       <View style={[styles.userInfo, styles.bordered]}>
@@ -147,12 +146,13 @@ export default function ProfileScreen({navigation, route}) {
           status="danger"
           onPress={this.handleSignout}></Button> */}
         <View style={styles.separator} />
-        <Button
+        {/* <Button
           style={styles.button}
           appearance="ghost"
           status="danger"
-          title="MESSAGE"></Button>
+          title="MESSAGE"></Button> */}
       </View>
+      <Gallery items={images} />
     </SafeAreaView>
   );
 }

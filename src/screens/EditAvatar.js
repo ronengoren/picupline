@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, Text, Button, Image} from 'react-native';
+import {View, StyleSheet, Text, Button, Image, Platform} from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+var RNFS = require('react-native-fs');
 
 export default function EditAvatar({navigation, route}) {
   const [avatarImage, setAvatarImage] = useState(null);
@@ -20,15 +21,16 @@ export default function EditAvatar({navigation, route}) {
         console.log('User tapped custom button: ', response.customButton);
       } else {
         const source = {uri: response.uri};
-        // console.log(source)
         setAvatarImage(source);
+        // setAvatarFileName(fileName);
+        // console.log(source);
       }
     });
   };
 
-  onSubmit = async () => {
+  const onSubmit = async () => {
     let user = auth().currentUser;
-    // console.log(avatarImage);
+    console.log(avatarImage);
     try {
       firestore().collection('Users').doc(user.uid).update({
         avatar: avatarImage,

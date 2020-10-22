@@ -1,0 +1,2822 @@
+{
+  "chat": {
+    "action_sheet": {
+      "view_profile": "צפו בפרופיל",
+      "block_user": "חסמו הודעות מהמשתמש",
+      "unblock_user": "הסירו את החסימה"
+    },
+    "form_input_placeholder": "הקלידו כאן...",
+    "disabled_chat_toast_message": "המשתמש חסם את האפשרות לקבל הודעות.",
+    "blocked_user_toast_message": "המשתמש לא יוכל לשלוח לך יותר הודעות",
+    "unblock_user_button": "ביטול חסימה",
+    "empty_state": "זמן טוב להגיד שלום",
+    "failed_message_warning": "</b>ההודעה לא נשלחה.<b> לחצו כאן ונסו שוב.",
+    "block": {
+      "message": "האם לאשר ל-{{participantFullName}} לשלוח לך הודעות מעכשיו?",
+      "decline_button": "סרב לשיחה",
+      "allow_button": "אישור"
+    },
+    "image_fallback_message": "אנחנו אוהבים תמונות, אבל לא יכולנו להציג את התמונה הזו. לצפייה בתמונה יש לעדכן את האפליקציה.\nhttps://www.homeis.com/downloads",
+    "interactions": {
+      "drink": {
+        "interaction_screen": {
+          "header_title": "דרינק עם {{firstName}}",
+          "title": "היי {{firstName}} 👋🏼",
+          "subtitle": "אפשר להזמין אותך לדרינק?",
+          "input_placeholder": "כמה מילים על עצמך יעזרו...",
+          "cta_button": "שליחה"
+        },
+        "chat_message": {
+          "subtitle": "היי {{firstName}},\nאפשר להזמין אותך לדרינק?"
+        }
+      },
+      "coffee": {
+        "interaction_screen": {
+          "header_title": "קפה עם {{firstName}}",
+          "title": "היי {{firstName}} 👋🏼",
+          "subtitle": "שנעשה קפה?",
+          "input_placeholder": "ונדבר על...",
+          "cta_button": "שליחה"
+        },
+        "chat_message": {
+          "subtitle": "היי {{firstName}}, שנעשה קפה?"
+        }
+      },
+      "business": {
+        "interaction_screen": {
+          "header_title": "עבודה עם {{firstName}}",
+          "title": "היי {{firstName}} 👋🏼",
+          "subtitle": "אשמח שנדבר עבודה",
+          "input_placeholder": "כדאי לנו, כי...",
+          "cta_button": "שליחה"
+        },
+        "chat_message": {
+          "subtitle": "היי {{firstName}}, אשמח שנדבר עבודה"
+        }
+      },
+      "types": {
+        "drink": "דרינק",
+        "coffee": "קפה",
+        "business": "עבודה",
+        "general": "הודעה"
+      },
+      "job": {
+        "interaction_screen": {
+          "header_title": "כתבו הודעה ל-{{firstName}}...",
+          "input_placeholder": "שלחו הודעה ל-{{firstName}}..."
+        }
+      },
+      "realEstate": {
+        "interaction_screen": {
+          "header_title": "כתבו הודעה ל-{{firstName}}...",
+          "input_placeholder": "שלחו הודעה ל-{{firstName}}..."
+        }
+      },
+      "giveAndTake": {
+        "interaction_screen": {
+          "header_title": "כתבו הודעה ל-{{firstName}}...",
+          "input_placeholder": "כתבו הודעה ל-{{firstName}}...",
+          "cta_button": "שלח"
+        }
+      }
+    },
+    "interaction_sent_snackbar": {
+      "title": "ההודעה נשלחה!",
+      "subTitle": "לחצו לצפייה בהודעות"
+    },
+    "message_action_sheet": {
+      "copy": "העתק טקסט",
+      "delete": "מחק הודעה"
+    },
+    "delete_message_action_sheet": {
+      "title": "ההודעה תימחק מהשיחה",
+      "confirm": "מחק הודעה"
+    },
+    "turn_on_notifications_dialog": {
+      "title": "שלא תפספסו את ההודעה הבאה!",
+      "subtitle": "רוצה לקבל עדכון על כל ההודעות החדשות שלך?",
+      "buttonText": "כן, שלחו לי עדכונים"
+    },
+    "page_filter": {
+      "all": "כל העמודים"
+    }
+  },
+  "common": {
+    "buttons": {
+      "add_a_post": "הוספ/י פוסט",
+      "edit_profile": "עריכת פרופיל",
+      "friends": "חברים",
+      "request_sent": "בקשה נשלחה",
+      "respond": "השב/י",
+      "add_friend": "בקשת חברות",
+      "unfriend": "הסר/י חברות",
+      "message": "הודעה",
+      "update": "עדכן",
+      "cancel": "ביטול",
+      "set": "אישור",
+      "save": "שמירה",
+      "next": "הבא",
+      "close": "סגור",
+      "contact": "הודעה",
+      "publish": "פרסמו"
+    },
+    "form": {
+      "first_name": "שם פרטי",
+      "last_name": "שם משפחה",
+      "email": "אימייל",
+      "password": "סיסמה",
+      "password_min_chars": "הסיסמה חייבת לכלול לפחות {{minChars}} תווים.",
+      "min_chars": "מינימום של {{minChars}} תווים",
+      "required_field": "שדה חובה",
+      "optional_field": "לא חובה"
+    },
+    "share": {
+      "share_externally": "אפשרויות שיתוף נוספות",
+      "share_internally": "שתפ/י בהומיז",
+      "whatsApp": "וואטסאפ",
+      "email": "אימייל",
+      "homeis": "הומיז",
+      "link": "העתק לינק",
+      "sms": "הודעת טקסט",
+      "facebook": "פייסבוק",
+      "more": "עוד"
+    },
+    "natives_name": {
+      "israelis": "ישראלים",
+      "french": "צרפתים",
+      "expats": "expats"
+    },
+    "by": "מאת",
+    "X_in_Y": "{{origin}} ב{{destination}}",
+    "country_picker": {
+      "title": "מדינה",
+      "sub_title": "יוצג רק לאנשים מהמדינה הנבחרת"
+    },
+    "filters": {
+      "unanswered": "לא נענו"
+    },
+    "indicators": {
+      "exclusive_offer": "בלעדי לחברי הומיז"
+    },
+    "price_units": {
+      "USD": {
+        "text": "$"
+      }
+    }
+  },
+  "feed": {
+    "suggested_items": {
+      "pages_header": "עמודים נבחרים",
+      "posts_guide_header": "מדריכים מומלצים",
+      "posts_promotion_header": "עכשיו במבצע",
+      "posts_tipRequest_header": "שאלות בקהילה",
+      "posts_recommendation_header": "המלצות מהקהילה",
+      "posts_statusUpdate_header": "פוסטים אהובים",
+      "posts_job_header": "הצעות עבודה",
+      "posts_realEstate_sublet_header": "עכשיו בסאבלט",
+      "posts_realEstate_roommates_header": "דרושים שותפים",
+      "posts_realEstate_rent_header": "נכסים להשכרה",
+      "posts_giveAndTake_header": "מכירה/מסירה",
+      "events_header": "בקרוב בעיר!",
+      "groups_header": "קבוצות מומלצות",
+      "generic_header": "פוסטים מומלצים",
+      "see_all": "הצג עוד",
+      "lists_header": "רשימות מומלצות",
+      "suggestedPages_header": "עמודים מומלצים",
+      "suggestedGroups_header": "קבוצות מומלצות",
+      "suggestedEvents_header": "אירועים מומלצים",
+      "suggestedLists_header": "רשימות מומלצות",
+      "suggestedMixed_header": "מומלצים",
+      "suggestedThemes_header": "קבוצות מומלצות"
+    },
+    "suggested_group": {
+      "join": "הצטרפו",
+      "joined": "חברים"
+    },
+    "suggested_page": {
+      "following": "עוקבים",
+      "follow": "עקוב"
+    },
+    "suggested_post": {
+      "free": "למסירה"
+    },
+    "single_post_feed": {
+      "recommendation": "המלצות מהקהילה",
+      "promotion": "מבצעים בקהילה",
+      "tipRequest": "שאלות בקהילה",
+      "package": "חבילות בקהילה"
+    },
+    "post_header": {
+      "friendship_button": {
+        "add_friend": "הוסף חבר",
+        "pending": "בקשת חברות ממתינה"
+      },
+      "page_follow_button": {
+        "follow": "עקבו אחרי העמוד"
+      }
+    },
+    "header_buttons": {
+      "tipRequest": "שאלות",
+      "guide": "מדריכים",
+      "job": "עבודות",
+      "realEstate": "דירות",
+      "giveAndTake": "קח/תן",
+      "promotion": "מבצעים",
+      "pages": "בעלי מקצוע",
+      "lists": "רשימות",
+      "recommendation": "המלצות",
+      "events": "אירועים",
+      "list": "רשימה",
+      "event": "אירוע"
+    }
+  },
+  "onboarding": {
+    "welcome": {
+      "slide1": "הכירו ישראלים חדשים\n<b>באזור שלכם</b>",
+      "slide2": "גלו <b>דירות ועבודות</b>\nבעיר שלכם",
+      "slide3": "התחברו עם אנשי מקצוע\nשמדברים <b>בשפה שלכם</b>",
+      "button": "הצטרפו לקהילת הומיז!",
+      "have_account_button": "התחבר",
+      "have_account": "כבר יש לך חשבון?"
+    },
+    "sign_in": {
+      "page_header": "ברוכים הבאים הביתה!",
+      "facebook_button": "התחבר/י עם פייסבוק",
+      "methods_separator": "או",
+      "submit_button": "התחבר",
+      "password_recovery_button": "שכחת סיסמה?",
+      "no_account_button": " לחצו כדי להצטרף",
+      "no_account": "חדשים כאן?",
+      "apple_button": "התחבר/י עם Apple",
+      "email_verification_button": "הבא",
+      "protected_info": "המידע האישי שלך בטוח איתנו."
+    },
+    "reset_password": {
+      "page_header": "איפוס סיסמה",
+      "button": "שלח",
+      "explanation": "הוראות לאיפוס הסיסמה ישלחו לאימייל שלך"
+    },
+    "password_reset_modal": {
+      "title": "שלחנו לך אימייל",
+      "description_before_email": "שלחנו אימייל ל ",
+      "description_after_email": "יש לעקוב אחר הוראות איפוס סיסמה באימייל",
+      "dismiss_button": "בחזרה להתחברות"
+    },
+    "sign_up": {
+      "page_header": "הרשמה",
+      "facebook_button": "התחבר/י עם פייסבוק",
+      "methods_separator": "או הירשמו באמצעות אימייל",
+      "submit_button": "בואו נתחיל",
+      "legal": {
+        "agreement": "בעת ההרשמה, הינך מסכים ל",
+        "terms_link": "תנאי שימוש והגבלות",
+        "conjunction": "ו",
+        "privacy_policy": "מדיניות הפרטיות שלנו",
+        "gdpr_terms_link": "מדיניות השימוש",
+        "terms_of_service": "תנאי השימוש"
+      },
+      "have_account": "כבר יש לך חשבון?",
+      "apple_button": "התחבר/י עם Apple",
+      "email_button": "התחבר/י עם אימייל"
+    },
+    "add_friends": {
+      "page_header": "הומיז באזור שלך",
+      "continue_button": "המשך",
+      "fb_friends_button": "חברים שכבר נמצאים בהומיז",
+      "list_title": "הצעות",
+      "title": "מזהים את החברים שלכם? הוסיפו אותם עכשיו!",
+      "submit_button": "סיימתי!",
+      "more_users_link": "יש עוד {{count}} אנשים בקהילה שלך!"
+    },
+    "allow_notifications": {
+      "title": "אל תישארו מאחור!",
+      "description": "קבלו עדכונים על הודעות חדשות, הצעות חברות ועדכונים חשובים בקהילה",
+      "approve_button": "כן, שלחו לי עדכונים",
+      "decline_button": "אולי בפעם הבאה"
+    },
+    "new_user_welcome_message": "ברוכים הבאים הביתה!",
+    "welcome_people": "Israelis",
+    "search_country": {
+      "no_country": "'{{searchTerm}}' לא נמצא\n",
+      "suggested_title": "מדינות פופולריות בהומיז",
+      "suggested_countries": {
+        "israel": "ישראל",
+        "india": "הודו",
+        "france": "צרפת",
+        "belgium": "בלגיה",
+        "mexico": "מקסיקו"
+      },
+      "search_input_placeholder": {
+        "destinationCountry": "איפה את/ה גר עכשיו?",
+        "originCountry": "מאיפה את/ה במקור?"
+      },
+      "close_button": "סגור"
+    },
+    "discover_pages": {
+      "page_header": "אילו תחומים מעניינים אותך?",
+      "continue_button": "אישור",
+      "title": "יש לבחור לפחות שני תחומי עניין",
+      "unfollow_all_button": "בטל/י הכל",
+      "follow_all_button": "בחר/י הכל",
+      "error_title": "יש לבחור לפחות שני תחומי עניין"
+    },
+    "set_user_details": {
+      "destination_city_field": {
+        "placeholder": "מהי עיר המגורים שלך?",
+        "label": "אני מתגורר ב",
+        "search_input_placeholder": "בחר/י עיר"
+      },
+      "submit_button": "הבא",
+      "sub_title": "עזור/י לקהילה להכיר אותך טוב יותר"
+    },
+    "set_user_gender": {
+      "header": "בחר/י מגדר",
+      "next": "הבא",
+      "im_a": ["אני", "אני"],
+      "title": "אהלן"
+    },
+    "new_user_nationality": {
+      "US": "ישראלים",
+      "IL": "ארה״ב"
+    },
+    "set_user_nationality": {
+      "title": "התחברו לקהילה שלכם בחו״ל",
+      "origin_field": {
+        "label": "מאיפה את/ה <b>במקור?</b>",
+        "label_empty_field": "מאיפה את/ה <b>במקור?</b>",
+        "placeholder": "חפשו מדינה",
+        "hint_text": "בחר/י את המדינה <b>שבה נולדת</b> כדי להתחבר לקהילה המקומית שלך"
+      },
+      "destination_field": {
+        "label": "איפה את/ה גר <b>עכשיו?</b>",
+        "label_empty_field": "איפה את/ה גר <b>עכשיו?</b>",
+        "placeholder": "חפשו מדינה",
+        "hint_text": "בחר/י את המדינה שאת/ה <b>גר/ה בה כרגע</b>, או <b>עובר/ת אליה בקרוב</b>, כדי להתחבר עם הקהילה הישראלית המקומית שלך"
+      },
+      "next": "הצטרפ/י לקהילה שלך!",
+      "country_selector": {
+        "usa_note": "בחר/י את המדינה שבה נולדת כדי להתחבר לקהילה המקומית שלך"
+      }
+    },
+    "no_nationality": {
+      "submitted_waiting_list_form": {
+        "title": "אנחנו על זה!",
+        "info": "נשלח לך אימייל ברגע שהקהילה שלך תהיה באוויר",
+        "button_text": "אחלה"
+      },
+      "form": {
+        "title": "עדיין בעבודה!",
+        "info": "אנחנו מבטיחים לשלוח לך עדכון ברגע שהקהילה שלך תתחיל לרוץ",
+        "email_field": {
+          "placeholder": "אימייל",
+          "error": "כתובת האימייל לא תקינה"
+        },
+        "button_text": "עדכנו אותי",
+        "show_suggested_nationalities": "הראו לי קהילות פעילות"
+      },
+      "suggested_nationalities": {
+        "title": "הקהילות הפעילות שלנו",
+        "button_text": "הצטרפ/י לקהילה"
+      }
+    },
+    "continue_with_nationality_screen": {
+      "title": "הצטרפו ל-%0% {{nationalityTranslation}}"
+    },
+    "sign_up_methods_screen": {
+      "title": "הצטרפו ל-%0% {{nationalityTranslation}}",
+      "disclaimer": "המידע האישי שלך בטוח איתנו. על ידי הרשמה, הינך מסכים ל%0% ול%1% שלנו",
+      "gdpr_disclaimer": "המידע שלך מאובטח אצלנו. קראת/י ואני מקבל/ת את %0% ו%1%."
+    },
+    "user_profile_header": {
+      "edit_button": "שנה/י תמונה",
+      "upload_button": "בחר/י תמונה"
+    }
+  },
+  "posts": {
+    "group": {
+      "groups": "קבוצות",
+      "private_group": "קבוצה פרטית",
+      "public_group": "קבוצה פתוחה",
+      "nationality": {
+        "all": "{{nationality}} בארה״ב"
+      }
+    },
+    "action_sheets": {
+      "delete": "מחיקה",
+      "delete_title": "בטוח שרצית למחוק את הפוסט?",
+      "delete_confirm": "כן",
+      "edit": "עריכה",
+      "pin_post": {
+        "group": "נעץ פוסט בראש הקבוצה",
+        "page": "נעץ פוסט לראש העמוד"
+      },
+      "unpin_post": {
+        "group": "הסר פוסט מראש הקבוצה",
+        "page": "הסר פוסט מראש העמוד"
+      },
+      "report": {
+        "button": "דווחו על הפוסט",
+        "spam": "ספאם",
+        "inappropriate": "תוכן לא ראוי",
+        "bad_content": "תוכן לא ראוי"
+      },
+      "hide": "הסתר פוסט",
+      "highlight_post": {
+        "group": "הוסף לפוסטים מומלצים",
+        "page": "הוסף פוסט לפוסטים המומלצים"
+      },
+      "dehighlight_post": {
+        "group": "הסר מפוסטים מומלצים",
+        "page": "הסר פוסט מהפוסטים המומלצים"
+      },
+      "boost_up": "קדם למעלה   (ערך נוכחי {{contentQuality}})",
+      "boost_down": "הורד למטה   (ערך נוכחי {{contentQuality}})",
+      "delete_from_feed_title": "הפוסט ימחק",
+      "delete_guide": "מחק מדריך לצמיתות",
+      "delete_guide_from_feed": "מחק מדריך",
+      "delete_guide_from_feed_title": "המדריך ימחק"
+    },
+    "cta_button": "הצג עוד",
+    "events": "אירועים",
+    "users_list": {
+      "recommendation": {
+        "empty_state": "שמרו את ההמלצה!"
+      },
+      "guide": {
+        "empty_state": "שמרו את המדריך!"
+      },
+      "group": {
+        "text": {
+          "one": "חבר אחד",
+          "other": "חברים"
+        }
+      },
+      "list": {
+        "empty_state": "שמרו את הרשימה!"
+      },
+      "listitem": {
+        "empty_state": "שמרו את העמוד!"
+      },
+      "page": {
+        "savers_text": "שמרו",
+        "savers_empty_state": "שמרו את העמוד!"
+      }
+    },
+    "actions": {
+      "message": "שלחו הודעה",
+      "save": "שמירה",
+      "saved": "נשמר",
+      "answer": "יש לי תשובה",
+      "message_short": "הודעה",
+      "share": "שתפו"
+    },
+    "header": {
+      "shared": {
+        "page": " עמוד"
+      },
+      "today": "היום",
+      "weeks": {
+        "one": "השבוע",
+        "other": "לפני {{count}} שבועות"
+      },
+      "nationality_references": {
+        "all": "{{nationalityName}} בארה״ב "
+      }
+    },
+    "footer": {
+      "comment_button": "הגיבו",
+      "share_button": "שתפו",
+      "inactive": {
+        "realEstate": "אופס, הדירה כבר לא רלוונטית",
+        "job": "מצטערים, המשרה אויישה.",
+        "giveAndTake": "הפריט נמסר."
+      }
+    },
+    "introduction": {
+      "screen_header": "עריכה",
+      "header": {
+        "first_line": "ספרו קצת על עצמכם",
+        "second_line": "שתפו במסע המהמם שלכם, אנחנו סקרנים."
+      },
+      "sub_header": "אהלן הומיז, כיף להיות פה!\nקוראים לי <azure>{{name}}</azure>",
+      "picture_placeholder": "קדימה, תנו \nבסלפי",
+      "origin_text": "במקור אני מ-",
+      "current_text": "היום אני גר/ה ב-",
+      "arrival_date_text": "עברתי",
+      "select": "בחירה",
+      "about_placeholder": "+ ספרו עוד על עצמכם",
+      "post_action": "עדכנו",
+      "post_text": "במקור אני מ-{{origin}}. היום אני גר/ה ב-{{currentlyLiveIn}}. עברתי {{arrivedDate}}.",
+      "welcome_btn": "Welcome",
+      "welcomed_btn": "Welcomed",
+      "when": "מתי?"
+    },
+    "activation": {
+      "post_actor_header": "מאת {{name}}",
+      "published_in": "פורסם בקבוצה",
+      "see_more": {
+        "activation_question": "צפו בעוד {{count}} אנשים שכתבו על זה",
+        "activation_list": "צפו ב-{{count}} שכבר נוספו לרשימה",
+        "activation_action": "צפו ב-{{count}} {{contextType}} בקהילה"
+      },
+      "entityTypes": {
+        "recommendation": "המלצות",
+        "guide": "מדריכים",
+        "job": "הצעות עבודה",
+        "event": "אירועים",
+        "list": "רשימות",
+        "realEstate": "מודעות נדל״ן",
+        "giveAndTake": "מודעות קח/תן"
+      }
+    },
+    "community_joined": {
+      "view_all": "צפו בהכל"
+    },
+    "instagram": {
+      "connect_header": "שתפו את הגלריה שלכם",
+      "connect_cta": "חברו את חשבון האינסטגרם"
+    },
+    "job": {
+      "work_from_home": "עבודה מהבית"
+    }
+  },
+  "postTypes": {
+    "job": {
+      "offering": "הצעת עבודה",
+      "seeking": "חיפוש עבודה"
+    },
+    "realEstate": {
+      "generic_header": "דירות",
+      "offering": {
+        "rent": "הצעת נכס להשכרה",
+        "buy/sell": "הצעת נכס למכירה",
+        "sublet": "הצעת סאבלט",
+        "roommates": "הזדמנות לשותפים",
+        "commercial": "הצעת נכס מסחרי"
+      },
+      "seeking": {
+        "rent": "חיפוש נכס להשכרה",
+        "buy/sell": "חיפוש נכס למכירה",
+        "sublet": "חיפוש סאבלט",
+        "roommates": "חיפוש לשותפים",
+        "commercial": "חיפוש נכס מסחרי"
+      }
+    },
+    "giveAndTake": {
+      "generic_header": "קח/תן",
+      "offering": {
+        "free": "למסירה",
+        "for sale": "למכירה"
+      },
+      "seeking": "מעוניין/ת לקנות"
+    },
+    "tipRequest": "יש לי שאלה",
+    "package": "משלוח חבילה",
+    "promotion": "עכשיו במבצע",
+    "recommendation": "יש לי המלצה",
+    "guide": "מדריך",
+    "homeNostalgic": "געגועים לבית",
+    "meeting": "בואו נפגש",
+    "groupAnnouncement": "הודעה קבוצתית",
+    "titles": {
+      "statusUpdate": "פוסט מאת:",
+      "tipRequest": "שאלה מאת:",
+      "recommendation": "המלצה מאת:",
+      "meeting": "בואו נפגש",
+      "homeNostalgic": "מתגעגעים הביתה",
+      "package": "חבילות",
+      "guide": "מדריך",
+      "entityShare": "שיתוף מאת:",
+      "promotion": "מבצע מאת:",
+      "job": "הצעת עבודה מאת:",
+      "realEstate": "הצעת דירה מאת:",
+      "giveAndTake": "מודעת קח/תן מאת:",
+      "groupAnnouncement": "הודעות קבוצתיות"
+    }
+  },
+  "profile": {
+    "view": {
+      "image_placeholder": "קדימה, תנו בסלפי!",
+      "bio_placeholder": "ספרו קצת על עצמכם...",
+      "friends": "חברים",
+      "city": "פרופיל",
+      "date_of_birth_placeholder": "+ תאריך לידה",
+      "relationship_placeholder": "+ הוסיפו סטטוס זוגי",
+      "workplace_placeholder": "+ הוסיפו מקום עבודה",
+      "groups": "קבוצות",
+      "pages": "עמוד",
+      "details_title": {
+        "mine": "קצת עלי",
+        "others": "קצת על {{firstName}}"
+      },
+      "workplace": "{{title}} / {{place}}",
+      "activity_header": {
+        "mine": "הפוסטים שלי",
+        "others": "פוסטים אחרונים"
+      },
+      "action_sheet": {
+        "edit": "עריכת פרופיל",
+        "settings": "הגדרות חשבון"
+      },
+      "owner_of": "מנהל/ת",
+      "owner_of_pages": "{{count}} עמודים:",
+      "create_a_business": "+ צור/י עמוד עסקי",
+      "instagram": {
+        "connect_btn": "חברו את חשבון האינסטגרם"
+      },
+      "carousels_all_btn": "הצג עוד",
+      "saved_items_title": "פריטים שמורים",
+      "journey": {
+        "view": {
+          "from": {
+            "title": "במקור אני מ-",
+            "placeholder": "מאיפה במקור?"
+          },
+          "to": {
+            "title": "עכשיו גר/ה ב-",
+            "placeholder": "ועכשיו?"
+          }
+        },
+        "edit": {
+          "from": {
+            "title": "במקור אני מ",
+            "placeholder": "מאיפה במקור?"
+          },
+          "to": {
+            "title": "היום אני גר/ה ב",
+            "placeholder": "ועכשיו?"
+          }
+        }
+      },
+      "my_journey": {
+        "own_title": "הסיפור שלי באמריקה",
+        "others_title": "המסע של {{name}}"
+      }
+    },
+    "edit": {
+      "basic_info": "פרטים כלליים",
+      "first_name_placeholder": "שם פרטי",
+      "last_name_placeholder": "שם משפחה",
+      "date_of_birth": {
+        "title": "תאריך לידה",
+        "placeholder": "מתי נולדת?",
+        "picker_header": "מתי יום ההולדת שלך?",
+        "picker_subheader": "תאריך לידה"
+      },
+      "relationship": {
+        "title": "מצב משפחתי",
+        "placeholder": "הוסיפו סטטוס זוגי",
+        "checkboxes_title": "סטטוס זוגי",
+        "kids_checkboxes_title": "יש לך ילדים?",
+        "have_kids": "כן, יש לי",
+        "privacy_toggle_label": "הצג בפרופיל",
+        "options": [
+          "רווק/ה",
+          "בזוגיות",
+          "מאורס/ת",
+          "נשוי/אה",
+          "גרוש/ה",
+          "אלמן/ה",
+          "זה מסובך"
+        ]
+      },
+      "gender": {
+        "title": "מגדר",
+        "placeholder": "הוסף מגדר",
+        "checkboxes_title": "מהו מגדרך?"
+      },
+      "work": {
+        "title_placeholder": "תפקיד",
+        "place_placeholder": "מקום עבודה"
+      },
+      "my_journey": {
+        "title": "הסיפור שלי באמריקה",
+        "origin_label": "במקור אני מ-",
+        "current_label": "בשכונה / אזור",
+        "arrival_picker_header": "מתי הגעת לעיר?",
+        "arrival_picker_subheader": "תאריך מעבר",
+        "arrival_date_header": "מתי עברתי לעיר?",
+        "current_city_label": "כרגע אני גר בעיר",
+        "search_city": "חיפוש עיר"
+      },
+      "bio": {
+        "title": "קצת עלי",
+        "placeholder": "ספרו לקהילה משהו על עצמכם"
+      },
+      "date_privacy_toggle_label": "הצג בפרופיל",
+      "generic_header": "עריכת פרופיל",
+      "kid_selector_modal": {
+        "cancel_button": "ביטול"
+      },
+      "instagram": {
+        "disconnect_btn": "התנתקות"
+      }
+    },
+    "friends_list": {
+      "search_friends_button": "חיפוש חברים"
+    },
+    "saved_pages": {
+      "my_pages": {
+        "empty_state_title": "עדיין לא שמרת עמודים",
+        "empty_state": "העמודים השמורים שלך יופיעו כאן"
+      },
+      "header": "עמודים שמורים"
+    },
+    "gender": ["זכר", "נקבה", "אחר"],
+    "edit_profile_relationship": {
+      "header": "סטטוס זוגי"
+    },
+    "others_friends_list": {
+      "header": "החברים של {{name}}",
+      "sub_tabs": {
+        "sub_tab_1": "חברים משותפים",
+        "sub_tab_2": "כל החברים"
+      }
+    },
+    "entities_in_location": {
+      "around_header": "אזור {{name}}"
+    },
+    "settings": {
+      "screen_header": "הגדרות חשבון",
+      "general": {
+        "header": "מידע אישי",
+        "email": "אימייל",
+        "password": "סיסמה",
+        "language": "שפה",
+        "email_verification": {
+          "non_verified": "אימות אימייל",
+          "verification_sent": "אימייל אימות נשלח"
+        }
+      },
+      "notifications": {
+        "header": "הגדרות עדכונים",
+        "description": "הגדירו את העדכונים שאתם מקבלים מאיתנו",
+        "likes": {
+          "description": "כאשר אנשים מודים על הפוסטים שלך"
+        },
+        "comments": {
+          "label": "תגובות",
+          "description": "כאשר אנשים מגיבים על הפוסטים שלך, או משיבים לתגובה שלך"
+        },
+        "friend_requests": {
+          "label": "בקשות חברות",
+          "description": "כאשר מישהו שולח לך בקשת חברות או מאשר את הבקשה שלך"
+        },
+        "ongoing_updates": {
+          "label": "עדכונים שוטפים",
+          "description": "המלצות קריאה, פוסטים חשובים בקהילה, ומידע שכדאי לדעת"
+        },
+        "messages": {
+          "label": "הודעות פרטיות",
+          "description": "כאשר מישהו שולח לך הודעה פרטית"
+        },
+        "group_updates": {
+          "label": "עדכוני קבוצות",
+          "description": "פעילות בקבוצות שאתם חברים בהן"
+        },
+        "list_updates": {
+          "label": "עדכוני רשימות",
+          "description": "כאשר מישהו מוסיף פריט לרשימה שיצרת"
+        },
+        "tipRequest_updates": {
+          "label": "שאלות",
+          "description": "כשמישהו מבקש בעצתך"
+        },
+        "inactive_posts": {
+          "label": "מבצעים ופוסטים לא פעילים",
+          "description": "עדכונים חשובים על מודעות שפרסמת בלוחות של הומיז (עבודות, נדל״ן, קח ותן, או מבצעים)"
+        }
+      },
+      "legal": {
+        "header": "פרטיות ומשפטי",
+        "privacy_policy": "מדיניות הפרטיות",
+        "terms_of_service": "תנאי שימוש",
+        "friend_requests_header": "מי יכול לשלוח לך בקשות חברות",
+        "friend_requests": {
+          "all": "כולם",
+          "none": "אף אחד",
+          "male": "גברים",
+          "female": "נשים"
+        }
+      },
+      "app_version": "גרסת אפליקציה",
+      "contact_us_button": "צרו קשר",
+      "sign_out_button": "התנתק",
+      "feature_flags": {
+        "lists": "רשימות"
+      },
+      "app_sounds": "צלילי הודעות",
+      "delete_account_button": "מחק חשבון",
+      "emailNotifications": {
+        "header": "הגדרות אימייל",
+        "description": "הגדירו את המיילים שאתם מקבלים מאיתנו",
+        "friend_requests": {
+          "label": "בקשות חברות",
+          "description": "סיכום שבועי של הצעות החברות שלך,\nיישלח רק אם לא אישרת/דחית אותן"
+        },
+        "messages": {
+          "label": "הודעות פרטיות",
+          "description": "אם פספסת הודעה פרטית שנשלחה אליך"
+        },
+        "inactive_posts": {
+          "label": "פוסטים לא פעילים",
+          "description": "כאשר מודעה שפרסמת במרקטפלייס של הומיז עומדת לפוג"
+        }
+      },
+      "settings_updated_snackbar": "הגדרות החשבון עודכנו בהצלחה!",
+      "delete_account": {
+        "title": "קרה משהו? אנחנו מבטיחים להשתפר",
+        "text": "ברגע שתהליך מחיקת החשבון שלך יתחיל, לא יהיה ניתן לשחזר את חשבונך או להחזיר את התוכן שהוספת אליו",
+        "disableNotifications": {
+          "title": "אוקיי, החלטתי להישאר",
+          "text": "אבל אל תשלחו לי יותר התראות"
+        },
+        "disableNotificationsAndEmails": {
+          "title": "אוקיי, החלטתי להישאר",
+          "text": "אבל אל תשלחו לי יותר התראות ואימיילים"
+        },
+        "delete": {
+          "title": "מחקו את החשבון שלי",
+          "text": "אני מודע/ת שכל המידע שיש לי בחשבון ימחק לתמיד"
+        },
+        "turn_off_flags": {
+          "cancel": "ביטול"
+        },
+        "delete_permanently": {
+          "title": "אוקיי, נתחיל בתהליך למחיקת החשבון שלך",
+          "info": "אלו הדברים שימחקו עם החשבון שלך:",
+          "deleted_entities": {
+            "friends": "חברים",
+            "posts": "פוסטים",
+            "groups": "קבוצות",
+            "pages": "עמודים",
+            "events": "אירועים",
+            "Saves": "דברים שמורים"
+          },
+          "confirm": "מחיקת החשבון שלי",
+          "cancel": "ביטול",
+          "confirmation_modal": {
+            "title": "החשבון שלך עומד להימחק",
+            "info": "ברגע שתהליך מחיקת החשבון שלך יתחיל, לא יהיה ניתן לשחזר את חשבונך או להחזיר את התוכן שהוספת אליו",
+            "confirm": "מחיקה",
+            "cancel": "ביטול"
+          }
+        }
+      },
+      "privacy_screen": {
+        "friend_requests": {
+          "title": "בקשות חברות",
+          "description": "מי יכול לשלוח לך בקשות חברות",
+          "all": {
+            "label": "כולם",
+            "description": "אוהבים שיש הרבה חברים בסביבה? אשרו לכולם לשלוח בקשות חברות, מי יודע מה יצא מזה :)"
+          },
+          "byGender": {
+            "choices": {
+              "male": "גברים",
+              "female": "נשים"
+            },
+            "label": "לפי מגדר",
+            "description": "מרגישים בנוח עם מגדר מסויים? בחרו את המגדר הרצוי לקבלת בקשות חברות"
+          },
+          "none": {
+            "label": "אף אחד",
+            "description": "לא תקבלו בקשות חברות בכלל, אבל אל תדאגו - עדיין תוכלו לשלוח בקשות חברות בעצמכם"
+          }
+        }
+      }
+    },
+    "action_sheets": {
+      "unfriend": "בטלו חברות מ-{{userName}}",
+      "report": {
+        "button": "דווחו על המשתמש",
+        "title": "מה היא סיבת הדיווח?",
+        "inappropriate": "מעליב ופוגעני",
+        "scam": "הונאה או זיוף"
+      },
+      "cancel_friend_request": "ביטול בקשת חברות"
+    },
+    "profile_groups_list": {
+      "own_header": "הקבוצות שלי"
+    },
+    "profile_pages_list": {
+      "own_header": "העמודים שלי"
+    },
+    "profile_relationship": {
+      "0": {
+        "0": "רווק/ה",
+        "default": "רווק/ה +{{count}}"
+      },
+      "1": {
+        "0": "בזוגיות",
+        "default": "בזוגיות +{{count}}"
+      },
+      "2": {
+        "0": "מאורס/ת",
+        "default": "מאורס/ת +{{count}}"
+      },
+      "3": {
+        "0": "נשוי/אה",
+        "default": "נשוי/אה +{{count}}"
+      },
+      "4": {
+        "0": "גרוש/ה",
+        "default": "גרוש/ה +{{count}}"
+      },
+      "5": {
+        "0": "אלמן/ה",
+        "default": "אלמן/ה +{{count}}"
+      },
+      "6": {
+        "0": "זה מסובך",
+        "default": "זה מסובך +{{count}}"
+      },
+      "default": {
+        "0": " ",
+        "default": " "
+      }
+    }
+  },
+  "people": {
+    "sub_tabs": {
+      "sub_tab_1": "הוסיפו חברים",
+      "sub_tab_2": "הצעות חברות"
+    },
+    "invite_friends": {
+      "invitation_method": {
+        "whatsapp": "דרך וואטסאפ",
+        "text": "דרך הודעת טקסט",
+        "email": "דרך אימייל",
+        "more": "עוד"
+      },
+      "share_download_link": "או העתיקו ושתפו את הלינק הבא",
+      "screen_header": "הזמינו חברים להומיז",
+      "invitation": "היוש!\nשמעת על הומיז?\nרשת חברתית שנבנתה במיוחד בשביל ישראלים ב-ארצות הברית, הנה לינק להורדה!\n\n{{downloadLink}}"
+    },
+    "friends_list": {
+      "header": "החברים שלי"
+    },
+    "entities_in_location": {
+      "around_header": "השכנים שלך ב-{{name}}"
+    },
+    "friendship_request_approved": "אישרת את החברות עם {{name}}",
+    "friendship_request_declined": "הצעת חברות נדחתה",
+    "friendship_request": {
+      "mutual_friends": {
+        "one": "חבר אחד משותף",
+        "other": "{{count}} חברים משותפים"
+      },
+      "empty_state": "אין חברים משותפים",
+      "approve": "אישור",
+      "decline": "סירוב"
+    },
+    "decline_friendship_modal": {
+      "cancel_button": "ביטול"
+    },
+    "header": "אנשים בעיר",
+    "subheader": "מצאו חברים שגרים בעיר",
+    "invite_friends_button": "הזמינו חברים להומיז",
+    "referral_program_invite_annotation": {
+      "title": "הזמינו חברים ותרוויחו עד {{sum}}",
+      "desc_line": "יש לכם חברים שעדיין לא שמעו על הומיז? הנה\nההזדמנות שלכם לעשות להם טוב ולהרוויח!",
+      "explanation_link": "איך זה עובד?"
+    },
+    "referral_explanation": {
+      "title": "איך זה עובד?",
+      "description": "מעתיקים את הלינק המצורף ושולחים אותו לחברים שלכם בכל דרך שתבחרו (חוץ מיונת דואר)\n\nעל כל חבר שנרשם דרך הלינק ששלחתם (במידה ואין לו משתמש קיים בהומיז) תקבלו {{sumPerUser}} למימוש באמזון! בום!\n\nכל קופון שווה {{maxRedeem}} אז תצטרכו להזמין לפחות 5 חברים כדי לממש את הזכיה"
+    },
+    "referral_status_button": "צפו ברשימת החברים שהצטרפו בזכותכם!",
+    "invite_banner": {
+      "title": "!יש לנו מתנה בשבילך",
+      "subtitle": "הזמינו חברים כדי לקבל אותה",
+      "button": "קבלו {{sum}}"
+    }
+  },
+  "groups": {
+    "edit": {
+      "manage_group_members": {
+        "group_announcement_button": "שלחו הודעה קבוצתית",
+        "member_removed": "החבר הוצא מהקבוצה",
+        "member_declined": "בקשת המשתמש נדחתה",
+        "member_joined": "יאיי! צירפת את {{name}} לקבוצה",
+        "requests": {
+          "empty_state": {
+            "header": "אין בקשות ממתינות",
+            "text": "כל הבקשות להצטרפות יופיעו כאן"
+          }
+        }
+      },
+      "screen_header": "עריכת פרטי קבוצה",
+      "basic_details": {
+        "header": "פרטים כלליים",
+        "name_input_label": "שם הקבוצה",
+        "description_input_label": "תיאור הקבוצה",
+        "rules_input_label": "חוקי הקבוצה"
+      },
+      "group_type": {
+        "header": "סוג הקבוצה",
+        "public_group_checkbox": "קבוצה פתוחה",
+        "public_group_checkbox_label": "כל המשתמשים יכולים להצטרף ולצפות בתוכן הקבוצה",
+        "private_group_checkbox": "קבוצה פרטית",
+        "private_group_checkbox_label": "התוכן בקבוצה גלוי למשתמשים בלבד. חברים יכולים להזמין חברים נוספים. רק מנהלי הקבוצה יכולים לאשר חברים חדשים"
+      },
+      "save_button": "שמירה",
+      "action_sheets": {
+        "remove": {
+          "header": "האם להסיר {{role}}?",
+          "action": "כן, הסר {{role}}"
+        },
+        "view_profile": "צפייה בפרופיל",
+        "remove_admin": "הסרה מניהול הקבוצה",
+        "make_admin": "הוספה לניהול הקבוצה",
+        "remove_member": "הוצאת חבר מהקבוצה"
+      },
+      "hide_members_list": {
+        "label": "הצג חברים בקבוצה",
+        "text": "רשימת החברים תהיה זמינה גם לאנשים שטרם הצטרפו לקבוצה"
+      },
+      "header_items": {
+        "header": "לוחות בקבוצה",
+        "sub_header": "בחרו את סוגי הלוחות שתרצו להציג בקבוצה - מקסימום 6",
+        "selection_limit_modal": {
+          "body": "ניתן לבחור עד 6 לוחות"
+        }
+      },
+      "group_posts": {
+        "header": "פוסטים בקבוצה",
+        "sub_header": "בחרו את סוגי הפוסטים שחברים יכולים לפרסם בקבוצה",
+        "selection_limit_modal": {
+          "header": "הגעת למקסימום"
+        }
+      }
+    },
+    "sub_tabs": {
+      "sub_tab_1": "קבוצות מומלצות",
+      "sub_tab_2": "הקבוצות שלי"
+    },
+    "group_list_item": {
+      "joined_button": "חברים",
+      "join_button": "הצטרפו",
+      "mutual_friends_count": {
+        "one": "חבר אחד משותף בקבוצה",
+        "other": "{{count}} חברים משותפים בקבוצה"
+      }
+    },
+    "create": {
+      "screen_header": "קבוצה חדשה",
+      "group_name_input_placeholder": "שם הקבוצה",
+      "continue_button": "המשך",
+      "image_placeholder": "הוסיפו תמונה שתהיה הלוגו של הקבוצה",
+      "update_image_button": "עדכון תמונה",
+      "closed_group": "קבוצה פרטית",
+      "type_selector": "גלוי לחברי הקבוצה בלבד",
+      "description": "תיאור מדויק ואטרקטיבי",
+      "description_placeholder": "הוסיפו תיאור קצר על אופי הקבוצה"
+    },
+    "view": {
+      "created_modal": {
+        "header": "מזל טוב!\nיצרת קבוצה חדשה!",
+        "text": "עכשיו זה זמן נפלא לפרסם את הפוסט הראשון של הקבוצה שלך",
+        "button": "יאללה קדימה!"
+      },
+      "members_info": {
+        "manage_members": "ניהול הקבוצה"
+      },
+      "manager_info": {
+        "title": "מנהל/ת הקבוצה"
+      },
+      "activity_empty_states": {
+        "member": {
+          "header": "עדיין לא פורסמו פוסטים בקבוצה.",
+          "text": "כתבו את הפוסט הראשון!👆"
+        },
+        "private_group": {
+          "header": "סורי, הקבוצה הזו פרטית.",
+          "text": "רק חברים יכולים לראות ולפרסם פוסטים בקבוצה"
+        },
+        "public_group": {
+          "header": "עדיין לא פורסמו פוסטים בקבוצה.",
+          "text": "כתבו את הפוסט הראשון!👆"
+        }
+      },
+      "action_buttons": {
+        "edit": "עריכה",
+        "pending_approval": "ממתינים לאישור",
+        "join": "הצטרפו",
+        "rules": "חוקי הקבוצה",
+        "accept_invite": "אישור הזמנה"
+      },
+      "action_sheets": {
+        "edit_group": "הגדרות קבוצה",
+        "share_group": "שיתוף קבוצה",
+        "delete_group": "מחיקת קבוצה",
+        "leave_group": "יציאה מהקבוצה",
+        "report_group": "דווחו על הקבוצה",
+        "report": {
+          "header": "מה היא סיבת הדיווח?",
+          "inappropriate": "מעליב ופוגעני",
+          "scam": "הונאה או זיוף",
+          "duplicate": "קבוצה כפולה",
+          "not_relevant": "לא רלוונטי/סגור",
+          "bad_content": "תוכן לא ראוי"
+        },
+        "add_members": "הזמינו חברים"
+      },
+      "delete_modal": {
+        "header": "בטוח שרצית למחוק?",
+        "body": "כל תוכן הקבוצה ימחק, האם להמשיך?"
+      },
+      "description_placeholder": "תן/י תיאור קצר וכיפי על אופי הקבוצה",
+      "add_members_button": "+ הזמינו",
+      "awaiting_approvals": "ממתינים לאישור",
+      "highlights": {
+        "header": "פוסטים מומלצים",
+        "explanation": "לחצו על 3 הנקודות בפוסט ובחרו <b>הוסף לפוסטים מומלצים</b>.",
+        "entities": {
+          "page": "עמוד",
+          "group": "קבוצה",
+          "event": "אירוע",
+          "list": "רשימה",
+          "post": {
+            "guide": "מדריך",
+            "promotion": "מבצע",
+            "tipRequest": "יש לי שאלה",
+            "recommendation": "המלצה",
+            "job": "הצעת עבודה",
+            "realEstate": "מודעת נדל״ן",
+            "giveAndTake": "קח/תן",
+            "groupAnnouncement": "הודעה קבוצתית"
+          }
+        },
+        "dehighlight_modal": {
+          "header": "להסיר מפוסטים מומלצים?",
+          "body": "התוכן עדיין יוצג בקבוצה."
+        }
+      },
+      "private_group_label": {
+        "one": "קבוצה פרטית · חבר אחד",
+        "other": "קבוצה פרטית · {{count}} חברים"
+      },
+      "public_group_label": {
+        "one": "קבוצה פתוחה · חבר אחד",
+        "other": "קבוצה פתוחה · {{count}} חברים"
+      },
+      "topic_label": {
+        "one": "עוקב אחד",
+        "other": "{{count}} עוקבים"
+      },
+      "unfollow_modal": {
+        "confirmText": "כן",
+        "cancelText": "לא",
+        "headerText": "האם להפסיק לעקוב?"
+      },
+      "follow_button": "עקוב/י",
+      "unfollow_button": "עוקבים"
+    },
+    "invite_members": {
+      "screen_header": "הזמינו חברים"
+    },
+    "group_category": {
+      "continue_button": "המשך"
+    },
+    "group_members": {
+      "screen_header": "חברים בקבוצה",
+      "sub_tabs": {
+        "sub_tab_1": "כל החברים",
+        "sub_tab_2": "ממתינים לאישור"
+      }
+    },
+    "my_groups": {
+      "empty_state": {
+        "header": "לא הצטרפת עדיין לאף קבוצה.",
+        "text": "גלו והצטרפו לקבוצות מומלצות!"
+      }
+    },
+    "rules": {
+      "header": "חוקי הקבוצה",
+      "accept_button": "אישור",
+      "cancel_button": "ביטול"
+    },
+    "create_button": "קבוצה חדשה"
+  },
+  "communication_center": {
+    "notifications": {
+      "turn_on_notifications_cta": {
+        "header": "אל תישארו מאחור",
+        "text": "אפשרו עדכונים מהחברים ומהקהילה שלכם כדי להישאר בעניינים.",
+        "button": "אפשרו עדכונים"
+      },
+      "aggregated_comments": {
+        "default": " הגיב/ה לפוסט שלך",
+        "post": " הגיב/ה לפוסט שלך",
+        "followed": " הגיב/ה לפוסט שאת/ה עוקב/ת אחריו",
+        "mentioned": " תייג/ה אותך בתגובה",
+        "listitem": " הגיב/ה על פריט ברשימה שלך",
+        "comment": " השיב/ה ל-{{entityType}} שלך",
+        "tipRequest": " השיב/ה לשאלה שלך",
+        "guide": " הגיב/ה למדריך שלך",
+        "deal": " הגיב/ה למבצע שלך",
+        "realEstate": " הגיב/ה למודעת הנדל״ן שלך\n",
+        "job": " הגיב/ה למודעת העבודה שלך"
+      },
+      "header": "עדכונים אחרונים",
+      "aggregated_posts": {
+        "by_friends_tipRequest": {
+          "one": "שאלה חדשה פורסמה בקהילה על ידי <b>{{name}}</b>. יש לך איך לעזור?",
+          "other": "<b>{{name}} ועוד {{actorsCount}}</b> אנשים פרסמו שאלה חדשה בקהילה. יש לך איך לעזור?"
+        },
+        "in_tag_tipRequest": {
+          "one": "פורסמה שאלה בתחום המומחיות שלך. יש לך איך לעזור?",
+          "other": "פורסמו {{activitiesCount}} שאלות בתחום המומחיות שלך. יש לך איך לעזור?"
+        },
+        "unanswered_tipRequest": {
+          "one": "פורסמה שאלה חדשה שעדיין לא קיבלה תשובה בהומיז. יש לך איך לעזור?",
+          "other": "פורסמו {{activitiesCount}} שאלות שעדיין לא קיבלו תשובה בהומיז. יש לך איך לעזור?"
+        },
+        "deal": {
+          "view": "צפה/י במבצע",
+          "extend": "הארכ/י את המבצע"
+        },
+        "your_expiring_deal": "<b>המבצע שפירסמת עומד להסתיים ⌛️ </b>\nזה הזמן להאריך אותו כדי שימשיך לקבל חשיפה!",
+        "expiring_deal": "זוכר/ת את המבצע ששמרת בהומיז?\nאז הוא אוטוטו מסתיים ⌛️<b/>עכשיו זה הזמן לממש אותו</b>",
+        "reached_views": "<b>וואו!</b>\nיותר מ-500 אנשים ראו את המבצע שלך 🙌🏽✨"
+      },
+      "aggregated_users": {
+        "completeProfile": {
+          "header": "<b>שלום {{firstName}}!</b>\nהקהילה תשמח להכיר אותך טוב יותר!",
+          "button": "להשלמת הפרופיל שלך"
+        }
+      }
+    },
+    "conversations": {
+      "empty_state": {
+        "header": "אין הודעות חדשות",
+        "button": "שלחו הודעה"
+      },
+      "image_message": "תמונה",
+      "input_placeholder": "חיפוש",
+      "empty_states": {
+        "inbox": {
+          "header": "אין הודעות",
+          "text": "אין לך הודעות חדשות עדיין! אבל הצעד הראשון יכול להיות שלך :)",
+          "button": "שליחת הודעה"
+        },
+        "requests": {
+          "header": "אין הודעות ממתינות לאישור"
+        },
+        "blocked": {
+          "header": "אין הודעות חסומות"
+        },
+        "pages": {
+          "header": "אין הודעות חדשות",
+          "text": "עדיין לא שלחו הודעה לאחד העמודים שלך"
+        }
+      },
+      "single_tab_header": {
+        "blocked": "חסומות"
+      },
+      "headers": {
+        "private": "פרטי",
+        "pages": "עמודים"
+      }
+    },
+    "title": "הודעות",
+    "sub_tabs": {
+      "sub_tab_1": "עדכונים",
+      "sub_tab_2": "הודעות"
+    }
+  },
+  "select_users": {
+    "search_input_placeholder": "חפשו (רק) חברים בהומיז",
+    "empty_state": "לא נמצאו אנשים..."
+  },
+  "city": {
+    "city_sub_header": {
+      "job": {
+        "sub_header_tab_1": "דרושים",
+        "sub_header_tab_2": "מחפשי עבודה"
+      },
+      "realEstate": {
+        "sub_header_tab_1": "דירות מוצעות",
+        "sub_header_tab_2": "מחפשי דירות"
+      },
+      "giveAndTake": {
+        "sub_header_tab_1": "הצעות",
+        "sub_header_tab_2": "בקשות"
+      }
+    },
+    "city_filtered_results": {
+      "empty_states": {
+        "job": {
+          "header": "אין הצעות עבודה",
+          "text": "אין כרגע הצעות עבודה.\nבדקו שוב מאוחר יותר או הוסיפו פוסט חדש."
+        },
+        "realEstate": {
+          "header": "אין מודעות",
+          "text": "אין כרגע מודעות.\nבדקו שוב מאוחר יותר או הוסיפו פוסט חדש."
+        },
+        "giveAndTake": {
+          "header": "אין מודעות",
+          "text": "אין כרגע מודעות.\nבדקו שוב מאוחר יותר או הוסיפו פוסט חדש."
+        },
+        "tipRequest": {
+          "header": "אין מודעות.",
+          "text": "אין כרגע שאלות.\nבדקו שוב מאוחר יותר או הוסיפו פוסט שאלה חדש."
+        },
+        "activation": {
+          "header": "אין מודעות."
+        },
+        "recommendation": {
+          "header": "אין מודעות.",
+          "text": "אין כרגע המלצות.\nבדקו שוב מאוחר יותר או הוסיפו פוסט המלצה חדש."
+        },
+        "deal": {
+          "header": "לא נמצאו מבצעים",
+          "text": "אנא בדקו מאוחר יותר או הציעו מבצע לקהילה."
+        }
+      }
+    },
+    "saved_posts": {
+      "empty_state": {
+        "header": "לא שמרת אף פוסט בנתיים"
+      }
+    },
+    "page_headers": {
+      "job": "עבודות",
+      "realEstate": "דירות",
+      "giveAndTake": "לוח קח תן",
+      "tipRequest": "שאלות",
+      "recommendation": "המלצות",
+      "promotion": "מבצעים",
+      "package": "חבילות",
+      "groupAnnouncement": "הודעות קבוצתיות",
+      "job_subheader": "משרות שוות בעיר",
+      "realEstate_subheader": "כל הדירות שפורסמו בקהילה",
+      "giveAndTake_subheader": "החלפה ומכירה של מוצרים",
+      "tipRequest_subheader": "כל השאלות מהקהילה",
+      "recommendation_subheader": "כל ההמלצות מהקהילה",
+      "activation": "תגובות מהקהילה",
+      "deal": "מבצעים"
+    },
+    "create_button": {
+      "job": "פרסמו מודעה בחינם",
+      "realEstate": "פרסמו מודעה בחינם",
+      "giveAndTake": "הוספת מוצר",
+      "recommendation": "חדש",
+      "tipRequest": "תשאלו"
+    },
+    "page_sub_headers": {
+      "job": "{{count}} הצעות עבודה",
+      "realEstate": "{{count}} מודעות נדל״ן",
+      "giveAndTake": "{{count}} מודעות\n",
+      "events": "{{count}} אירועים בקהילה",
+      "deal": "לוח המבצעים הקהילתי שלך"
+    },
+    "boards_create_button": {
+      "job": "פרסמו מודעה בחינם",
+      "realEstate": "פרסמו מודעה בחינם",
+      "giveAndTake": "פרסמו מודעה בחינם",
+      "deal": "פרסמ/י מבצע"
+    }
+  },
+  "page": {
+    "main_form": {
+      "basic_details_section": "מידע כללי",
+      "contact_details_section": "פרטים ליצירת קשר",
+      "opening_hours_details_section": "שעות פתיחה",
+      "page_name_input_label": "שם העמוד",
+      "page_description_input_label": "תאור העמוד",
+      "address_line_1_input_label": "כתובת",
+      "address_line_2_input_label": "כתובת (קומה, דירה וכו׳)",
+      "phone_number_input_label": "מספר טלפון",
+      "website_input_label": "אתר אינטרנט",
+      "owner_checkbox": "אני מנהל/ת העמוד",
+      "create_page_button": "עמוד חדש",
+      "edit_opening_hours_cta": "עדכון שעות פתיחה"
+    },
+    "edit": {
+      "header": "עריכת עמוד",
+      "save_button": "שמירה"
+    },
+    "opening_hours_selector": {
+      "header": "שינוי שעות פתיחה",
+      "tuesday": "שלישי",
+      "wednesday": "רביעי",
+      "from": "פתיחה",
+      "to": "סגירה",
+      "done_button": "אישור"
+    },
+    "view": {
+      "sub_tab_1": {
+        "header": "פוסטים",
+        "owner_empty_state": {
+          "header": "עדיין לא פורסמו פוסטים",
+          "text": "פרסמו את הפוסט הראשון כדי להתחיל לצבור עוקבים חדשים!"
+        },
+        "visitor_empty_state": {
+          "header": "הפיצו את הבשורה",
+          "text": "הזמינו חברים מהקהילה לעקוב אחרי העמוד.",
+          "invite_friends_button": "הזמינו חברים"
+        }
+      },
+      "sub_tab_2": {
+        "header": "ביקורות",
+        "empty_state": "לא נכתבו ביקורות על עמוד זה.",
+        "CTA": {
+          "text": "ביקרתם כאן כבר? היה שווה?\nבואו שתפו אותנו בחוויה שלכם, שנדע אם כדאי",
+          "action": "הוסיפו ביקורת"
+        }
+      },
+      "confirm_delete_modal": {
+        "header": "האם למחוק את העמוד?",
+        "body": "כל התוכן בעמוד ימחק לצמיתות, האם להמשיך?"
+      },
+      "description_cta": "+ הוספת תיאור לעמוד שלך",
+      "edit_button": "עריכה",
+      "saved_button": "נשמר",
+      "save_button": "שמירה",
+      "following_button": "עוקבים",
+      "follow_button": "עקוב/י",
+      "action_sheet": {
+        "edit_page_info": "עריכת פרטי העמוד",
+        "owner_invite_followers": "הזמינו חברים לעקוב",
+        "share_page": "שיתוף העמוד",
+        "delete_page": "מחיקת העמוד",
+        "visitor_invite_followers": "הזמינו חברים לעקוב",
+        "claim_page": "בקשה לניהול העמוד",
+        "report_page": {
+          "action_name": "דווחו על העמוד",
+          "header": "מה היא סיבת הדיווח?",
+          "report_option_1": "לא ראוי או מעליב",
+          "report_option_2": "הונאה או זיוף",
+          "report_option_3": "עמוד כפול",
+          "report_option_4": "לא רלוונטי/סגור",
+          "report_option_5": "תוכן לא ראוי"
+        },
+        "unsave": "הסר מהעמודים השמורים שלי",
+        "unfollow": "הפסק לעקוב"
+      },
+      "invite_followers": {
+        "header": "הזמינו עוקבים חדשים",
+        "invite_button": "הזמינו"
+      },
+      "saved_by": {
+        "header": "נשמר על ידי"
+      },
+      "cover_image": {
+        "update_button": "עדכון תמונה",
+        "add_image_cta": "הוסיפו תמונת רקע"
+      },
+      "review_item": {
+        "see_more": "צפה בהכל"
+      },
+      "modals": {
+        "page_created": {
+          "header": "מזל טוב!\nיצרת עמוד חדש!",
+          "body": "עכשיו זה זמן מעולה להוסיף את כל האינפורמציה שתעזור לעמוד החדש שלך להתפוצץ בהומיז",
+          "button": "יאללה קדימה!"
+        }
+      },
+      "location_cta": "+ מיקום",
+      "opening_hours_cta": "+ שעות פתיחה",
+      "phone_cta": "+ טלפון",
+      "link_cta": "+ אתר אינטרנט",
+      "saved_count": "{{count}} שמרו",
+      "followers_count": "{{count}} עוקבים",
+      "reviews": {
+        "comment_button": "הגיבו",
+        "comments": {
+          "one": "תגובה אחת",
+          "other": "{{count}} תגובות"
+        },
+        "comment_input_placeholder": "הוסיפו תגובה..."
+      },
+      "deals": {
+        "title": "מבצעים",
+        "cta": "הוסיפו מבצע חדש"
+      }
+    },
+    "all_pages": {
+      "create_button": "עמוד חדש",
+      "top_header": "העמודים שלי",
+      "bottom_header": "גלו עמודים נוספים"
+    },
+    "create": {
+      "screen_header": "עמוד חדש",
+      "part2": {
+        "go_back": "חזור",
+        "existing_page_disclaimer": "נראה שהעמוד כבר קיים בהומיז. האם העמוד הזה שלך?",
+        "claim_ownership": "בקשה לניהול העמוד",
+        "address_placeholder": "+ כתובת",
+        "website_placeholder": "+ אתר אינטרנט",
+        "phone_number_placeholder": "+ טלפון",
+        "save_button": "שמירה",
+        "submit_button": {
+          "page": "צור עמוד חדש",
+          "recommendation": "פרסמו",
+          "list_item": "הוספה לרשימה",
+          "deal": "המשך"
+        },
+        "description": {
+          "header": "הוסיפו כמה מילים על המקום",
+          "placeholder": "לדוגמא: טעים, זול, ייחודי, מעולה לילדים וכו"
+        }
+      },
+      "part1": {
+        "page": {
+          "header": "מה שם העמוד שלך?",
+          "placeholder": "שם העמוד שלי הוא..."
+        },
+        "recommendation": {
+          "header": "על מה תרצו להמליץ?",
+          "placeholder": "בעלי מקצוע, מקומות..."
+        },
+        "list_item": {
+          "placeholder": "חפשו והוסיפו לרשימה"
+        },
+        "deal": {
+          "header": "מי מציע את המבצע הזה?",
+          "placeholder": "שם העסק / המותג"
+        },
+        "deal_page_creation": {
+          "header": "שם העמוד שלי",
+          "placeholder": "חפש/י שם עסק או שם מותג"
+        }
+      },
+      "screen_header_deal_without_owner": "חיפוש עסק"
+    },
+    "claim_modal": {
+      "header": "בקשה לניהול עמוד",
+      "cancel_button": "ביטול",
+      "input_placeholder": "אנא ספקו הוכחה שהעמוד בניהולכם, למשל אימייל, טלפון כל פרט נוסף. ניצור איתך קשר במהירות האפשרית."
+    }
+  },
+  "neighborhoods": {
+    "empty_state": {
+      "header": "אין פה אף אחד!",
+      "text": "שתפו את הומיז לחברים שלכם מהשכונה."
+    }
+  },
+  "events": {
+    "sub_tabs": {
+      "sub_tab_1": "אירועים מומלצים",
+      "sub_tab_2": "האירועים שלי"
+    },
+    "create": {
+      "name_input_label": "שם האירוע",
+      "starts_on_button": "התחלה",
+      "date_and_time_button": "תאריך ושעה",
+      "ends_on_button": "סיום",
+      "location_button": "מקום האירוע",
+      "type_selector_header": "אירוע פרטי",
+      "type_selector": "גלוי למוזמנים בלבד",
+      "update_image_button": "עדכון תמונה",
+      "add_image": "הוסיפו תמונת רקע",
+      "screen_header": "אירוע חדש",
+      "description": "תיאור האירוע",
+      "description_placeholder": "הוסיפו את פרטי האירוע",
+      "publish_button": "פרסמו",
+      "publish_date": "תאריך פרסום",
+      "website_input_placeholder": "אתר אינטרנט",
+      "online_selector": "אירועי אונליין מפורסמים ללא מיקום",
+      "online_header": "אירוע אונליין"
+    },
+    "view": {
+      "post_button": "כתבו באירוע...",
+      "recent_activity_header": "פוסטים אחרונים",
+      "delete_event_modal_header": "האם למחוק את האירוע?",
+      "cover_image": {
+        "update_button": "עדכון תמונה",
+        "add_cover_image_cta": "הוסיפו תמונת רקע"
+      },
+      "activity": {
+        "empty_state": {
+          "header": "עדיין לא פורסמו פוסטים באירוע",
+          "text": "הוסיפו פוסט או שאלו שאלה"
+        }
+      },
+      "action_buttons": {
+        "invite_guests": "הזמינו חברים",
+        "edit_event": "עריכה",
+        "share": "שתפו"
+      },
+      "action_sheets": {
+        "edit_button": "עריכה",
+        "share_button": "שתפו את האירוע",
+        "delete_button": "מחקו את האירוע",
+        "invite_friends_button": "הזמינו חברים",
+        "report": {
+          "button": "דווחו על האירוע",
+          "header": "מה היא סיבת הדיווח?",
+          "inappropriate": "מעליב ופוגעני",
+          "scam": "הונאה או זיוף",
+          "duplicate": "אירוע כפול",
+          "not_relevant": "לא רלוונטי/סגור",
+          "bad_content": "תוכן לא ראוי"
+        }
+      },
+      "hostTypes": {
+        "online": "אירוע אונליין"
+      }
+    },
+    "edit": {
+      "screen_header": "עריכה",
+      "basic_info": {
+        "header": "פרטים כלליים",
+        "name_input_placeholder": "שם האירוע (עד 50 תווים)",
+        "website_input_placeholder": "אתר אינטרנט"
+      },
+      "starts_on": "התחלה",
+      "ends_on": "סיום",
+      "location": "מקום האירוע",
+      "category": "קטגוריה",
+      "more_details": "פרטים נוספים על האירוע",
+      "private_event_explanation_header": "אירוע פרטי",
+      "private_event_explanation": "גלוי למוזמנים בלבד",
+      "delete_event_modal": {
+        "header": "מחיקת אירוע",
+        "body": "כל תוכן האירוע ימחק. האם להמשיך?"
+      },
+      "online_event_explanation": "אירועי אונליין מפורסמים ללא מיקום",
+      "online_event_header": "אירוע אונליין"
+    },
+    "invite_guests": {
+      "screen_header": "הזמינו לאירוע",
+      "send_invites": "שליחה"
+    },
+    "invitees_list": {
+      "screen_header": "רשימת מוזמנים"
+    },
+    "date_time_editor": {
+      "screen_header": "עדכון שעה ותאריך",
+      "starts_on": "התחלה",
+      "ends_on": "סיום"
+    },
+    "create_button": "צרו אירוע חדש",
+    "header": "אירועים",
+    "subheader": "אירועים שאסור לפספס"
+  },
+  "tab_names": {
+    "home": "בית",
+    "people": "אנשים",
+    "groups": "קבוצות",
+    "activity": "עדכונים",
+    "solutions": "שירותים"
+  },
+  "home": {
+    "post_button": "Post",
+    "boards": {
+      "job": "עבודות",
+      "events": "אירועים",
+      "realEstate": "דירות",
+      "giveAndTake": "קח תן"
+    },
+    "post_button_text": "מה חדש בעיר?",
+    "user_greeting": "{{name}} אהלן",
+    "morning": "בוקר טוב!",
+    "afternoon": "צהריים טובים!",
+    "evening": "ערב טוב!",
+    "search_placeholder": "חיפוש",
+    "shortcuts_expandable": {
+      "view_less": "הצג פחות",
+      "view_all": "הצג עוד"
+    },
+    "groups_carousel": {
+      "view_all": "הצג עוד",
+      "all_groups": "כל הקבוצות"
+    },
+    "groupsHeader": "קבוצות"
+  },
+  "image_picker": {
+    "permission_error": {
+      "header": "לא ניתנה גישה לספריית התמונות.",
+      "body": "על מנת להמשיך יש לאשר גישה לספריית התמונות בהגדרות החשבון שלך.",
+      "button": "אוקיי"
+    },
+    "video_picker": {
+      "button": "צלמו וידאו"
+    },
+    "options": {
+      "gallery": "בחרו מגלריית התמונות",
+      "video_camera": "צלמו וידאו",
+      "image_camera": "צלמ/י תמונה",
+      "unsplash": "בחרו תמונה מ-Unsplash"
+    },
+    "modal": {
+      "close_button": "ביטול",
+      "select_button": "בחירה",
+      "title": "תמונות מ-",
+      "placeholder": "הוסיפו מילות חיפוש לתמונות ב-Unsplash",
+      "no_results": "לא נמצאו תמונות",
+      "no_results_description": "בדקו את איות המילה או השתמשו במילים נפוצות יותר"
+    }
+  },
+  "error_boundaries": {
+    "connection": {
+      "body": "נסו לרענן את העמוד"
+    },
+    "default": {
+      "title": "אופס, משהו השתבש...",
+      "body": "אנחנו ממש מצטערים, נסו שוב בבקשה..."
+    },
+    "feed": {
+      "body": "נסו לרענן את העמוד"
+    },
+    "go_back": {
+      "title": "אופס, משהו השתבש..."
+    },
+    "members_only": {
+      "body": "סורי, רק חברים בקבוצה יכולים לראות את העמוד הזה"
+    },
+    "not_found": {
+      "body": "סורי, לא מצאנו את העמוד"
+    }
+  },
+  "header": {
+    "cancel_button": "ביטול",
+    "update_button": "עדכון",
+    "search": "חיפוש",
+    "online_toast": "הנה חזרנו!",
+    "offline_toast": "אין חיבור אינטרנט.",
+    "search_inactive": "אנשים, מקומות, אירועים..."
+  },
+  "modals": {
+    "after_report": {
+      "title": "תודה רבה על הדיווח",
+      "body": "הדיווח יועבר לצוות שלנו לבדיקה. אם אכן נמצא שהתוכן פוגע בערכים של הקהילה, התוכן יוסר.",
+      "button": "אוקיי"
+    },
+    "delete": {
+      "delete_button": "מחק",
+      "cancel_button": "ביטול"
+    },
+    "error": {
+      "title": "אופס, משהו השתבש...",
+      "body": "אנחנו ממש מצטערים, נסו שוב בבקשה...",
+      "button": "OK"
+    },
+    "settings": {
+      "text": "כדי לאפשר עדכונים יש לאשר זאת במכשיר הטלפון שלך",
+      "with_go_to_setting_button_text": "לעדכון הרשאות לחצו על הגדרות חשבון",
+      "without_go_to_setting_button_text": "על מנת לאשר {{permissionText}} יש להיכנס להגדרות חשבון",
+      "dismiss_button": "סגור",
+      "settings_button": "הגדרות חשבון",
+      "permission_types": {
+        "location": "מיקום"
+      }
+    }
+  },
+  "image_upload": {
+    "cancel_button": "ביטול",
+    "save_button": "שמירה"
+  },
+  "search_address": {
+    "not_found": "אין תוצאות חיפוש ל-{{query}}",
+    "search_neighborhood_placeholder": "חפשו עיר או שכונה",
+    "search_address_placeholder": "חפשו מקום או כתובת"
+  },
+  "search": {
+    "empty_state": "אין חיפושים אחרונים",
+    "result": {
+      "num_of_items": {
+        "one": "תוצאה אחת",
+        "other": "{{count}} תוצאות"
+      },
+      "num_of_members": {
+        "one": "חבר אחד",
+        "other": "{{count}} חברים"
+      }
+    },
+    "suggestions_popular": "חיפושים פופולריים",
+    "suggestions_recent": "חיפושים אחרונים",
+    "results_topics": "קבוצות",
+    "results_searches": "תוצאות חיפוש"
+  },
+  "search_result": {
+    "empty_state": "אין תוצאות חיפוש ל-{{query}}"
+  },
+  "change_password": {
+    "save_button": "שמירה"
+  },
+  "guide_post_editor": {
+    "titlePlaceholder": "שם המדריך",
+    "textPlaceholder": "כתבו כאן..."
+  },
+  "post_editor": {
+    "real_estate": {
+      "type_labels": {
+        "offering": "פרסום דירה",
+        "seeking": "חיפוש דירה"
+      },
+      "tag_labels": {
+        "buy": "לקנייה",
+        "sell": "למכירה",
+        "rent": "להשכרה",
+        "sublet": "סאבלט",
+        "roommates": "שותפים"
+      },
+      "placeholders": {
+        "mandatory_title": "כותרת",
+        "price_and_symbol": "מחיר ($)",
+        "size_and_symbol": "שטח (sqft)",
+        "rooms": "חדרים",
+        "location": "עיר",
+        "mandatory_description": "פרטים נוספים",
+        "start_date": "תאריך התחלה",
+        "end_date": "תאריך סיום"
+      },
+      "values": {
+        "size": "{{size}} sqft",
+        "rooms": {
+          "one": "חדר",
+          "other": " {{count}} חדרים"
+        }
+      },
+      "rooms_picker_title": "כמה חדרים?"
+    },
+    "give_take": {
+      "type_labels": {
+        "offering": "פרסום מוצר",
+        "seeking": "חיפוש מוצר"
+      },
+      "tag_labels": {
+        "free": "בחינם!",
+        "price": "בתשלום"
+      },
+      "placeholders": {
+        "mandatory_title": "כותרת",
+        "price_and_symbol": "מחיר ($)",
+        "mandatory_description": "תיאור"
+      }
+    },
+    "job": {
+      "offering_label": "פרסום עבודה",
+      "looking_label": "חיפוש עבודה",
+      "title_placeholder": "הגדרת התפקיד",
+      "company_placeholder": "חברה (לא חובה)",
+      "location_placeholder": "עיר",
+      "offering_placeholder": "כמה מילים על התפקיד",
+      "looking_placeholder": "ספרו בכמה מלים על עצמכם ועל מה אתם מחפשים",
+      "categories": {
+        "tech": "הייטק",
+        "food": "מזון ומשקאות",
+        "babysitter": "בייביסיטר",
+        "realEstate": "נדל״ן",
+        "finance": "כספים",
+        "sales": "מכירות",
+        "production": "הפקה",
+        "administration": "אדמיניסטרציה",
+        "education": "חינוך",
+        "Services": "בעלי מקצוע",
+        "workFromHome": "עבודה מהבית",
+        "Other": "אחר"
+      }
+    },
+    "titled_post": {
+      "title_label": "כותרת"
+    },
+    "bottom_section": {
+      "save_button": "שמירה",
+      "cancel_button": "ביטול"
+    },
+    "post_placeholders": {
+      "statusUpdate": "היוש... מה חדש?",
+      "package": "Somebody is on the TLV-NYC route?",
+      "homeNostalgic": "Aww, we feel you!",
+      "meeting": "Levad is sad. Together is forever :)",
+      "recommendation": "שתפו עם הקהילה, סומכים עליכם!",
+      "tipRequest": "כולנו ישראלים, אפשר לשאול הכל",
+      "groupAnnouncement": "הקלידו את ההודעה הקבוצתית",
+      "guide": "Share your insights.",
+      "entityShare": "הוסיפו כמה מילים",
+      "promotion": "הוסיפו את פרטי המבצע כאן..."
+    },
+    "category_selector_header": "בחרו קטגוריה",
+    "post_type_definitions": {
+      "statusUpdate": {
+        "text": "עדכון סטטוס"
+      },
+      "tipRequest": {
+        "text": "יש לי שאלה",
+        "disclaimer": "כולם יוכלו לראות את הפוסט הזה"
+      },
+      "recommendation": {
+        "text": "יש לי המלצה"
+      },
+      "meeting": {
+        "text": "בואו ניפגש"
+      },
+      "guide": {
+        "text": "כתבו מדריך"
+      },
+      "homeNostalgic": {
+        "text": "געגועים הביתה"
+      },
+      "package": {
+        "text": "חבילה"
+      },
+      "entityShare": {
+        "text": "עדכון סטטוס"
+      },
+      "promotion": {
+        "text": "פרסמו מבצע"
+      },
+      "job": {
+        "text": "עבודה"
+      },
+      "realEstate": {
+        "text": "דירות"
+      },
+      "giveAndTake": {
+        "text": "קח/תן"
+      },
+      "groupAnnouncement": {
+        "text": "הודעה קבוצתית",
+        "disclaimer": "כל החברים בקבוצה יקבלו את ההודעה והפוסט ינעץ בראש העמוד"
+      },
+      "list": {
+        "text": "צרו רשימה"
+      },
+      "event": {
+        "text": "אירוע"
+      },
+      "children": {
+        "text": "עבודה, דירה, אירוע..."
+      },
+      "news": {
+        "text": "חדשות"
+      },
+      "deal": {
+        "text": "מבצע"
+      }
+    },
+    "preview_section": {
+      "cta_title": "הוסיפו תמונת רקע",
+      "shared": {
+        "public_group": "קבוצה פתוחה",
+        "private_group": "קבוצה פרטית",
+        "group_members": {
+          "one": "חברים",
+          "other": "{{count}} חברים"
+        }
+      }
+    },
+    "discard_modal": {
+      "header": "בטוח שזה מה שרצית?",
+      "delete_button": "אישור",
+      "cancel_button": "ביטול",
+      "delete_explanation": "הפוסט שלך ימחק"
+    },
+    "list": {
+      "placeholders": {
+        "mandatory_title": "שם הרשימה",
+        "mandatory_description": "תיאור"
+      },
+      "update_image_button": "עדכון תמונה",
+      "add_image": "הוסיפו תמונת רקע",
+      "collaboration_switch": "אחרים יכולים להוסיף לרשימה?",
+      "create_action": "פרסמו",
+      "edit_action": "שמירה",
+      "add_items_link": "הוסיפו לרשימה",
+      "delete_modal": {
+        "header": "בטוח שזה מה שרצית?",
+        "body": "ההמלצה תימחק מהרשימה"
+      },
+      "view_type": "הגדרות תצוגה"
+    },
+    "dates_editor": {
+      "save_button": "שמירה",
+      "starts_on": "התחלה",
+      "ends_on": "סיום"
+    },
+    "post_button": "פרסמו",
+    "context_slider": {
+      "change": "שנה"
+    },
+    "publish_now_modal": {
+      "header": "בטוח שזה מה שרצית?",
+      "cancel_button": "ביטול"
+    },
+    "active_switch": {
+      "header": "פעילה",
+      "sub_header": "בחרו אפשרות זו על מנת שהמודעה תוצג בלוח."
+    },
+    "publish_date_header": "תאריך פרסום",
+    "pickers": {
+      "post_to": {
+        "my_friends": "חברים",
+        "my_followers": "עוקבים",
+        "my_entity": "ה{{entityName}} שלי"
+      }
+    },
+    "create_post_title": "פוסט חדש",
+    "work_from_home_switch": {
+      "header": "משרת עבודה מהבית",
+      "sub_header": "רק מה ש-100% עבודה מרחוק"
+    },
+    "deal": {
+      "create_your_business_page": "צור/י עמוד עסקי חדש",
+      "redeem": {
+        "header": "פרסום מבצע",
+        "title": "כיצד ניתן לממש את המבצע?",
+        "store": {
+          "label": "בחנות בלבד",
+          "text": "ניתן לממש את ההטבה רק בחנות או בית העסק"
+        },
+        "online": {
+          "label": "אונליין בלבד",
+          "text": "ניתן לממש את המבצע באופן מקוון בלבד"
+        },
+        "onlineAndStore": {
+          "label": "בחנות ואונליין",
+          "text": "ניתן לממש את המבצע גם בבית העסק וגם באופן מקוון"
+        },
+        "promotion_by": "מי מציע את המבצע הזה?",
+        "redeem_type": "כיצד ניתן לממש את המבצע?",
+        "next": "הבא",
+        "cancel": "ביטול",
+        "select_publisher_cta": "חפש/י שם עסק / מותג"
+      },
+      "customize": {
+        "header": "פרטי המבצע",
+        "deal_type": "סוג ההטבה",
+        "title": "כותרת המבצע",
+        "description": "תיאור",
+        "coupon_code": "קוד קופון",
+        "direct_deal_url": "לינק ישיר למבצע",
+        "address": "כתובת (הכתובת העיקרית של העסק)",
+        "business_phone": "מספר טלפון",
+        "deal_type_modal": {
+          "header": "בחרו הטבה",
+          "ok_button": "שמור/י"
+        },
+        "next": "תצוגה מקדימה",
+        "cancel": "חזור/י",
+        "innerDescriptionPlaceholder": "מה כלול במבצע?",
+        "image_tip": "<boldLightIndigo>טיפ:</boldLightIndigo> השתמש/י בתמונה אסתטית וברורה כמה שיותר כדי שהמבצע יבלוט כמה שיותר!"
+      },
+      "offer": {
+        "inPercentage": {
+          "label": "אחוזי הנחה",
+          "text": "דוגמא: 50% הנחה",
+          "input": {
+            "placeholder": "הקלידו אחוז הנחה",
+            "hint": "% הנחה"
+          }
+        },
+        "inUnits": {
+          "label": "{{unit}} הנחה",
+          "text": "דוגמא: {{unit}}20 הנחה",
+          "input": {
+            "placeholder": "הקלידו את סכום ההנחה",
+            "hint": "{{unit}} הנחה"
+          }
+        },
+        "fixedPrice": {
+          "label": "מחיר מבצע",
+          "text": "דוגמא: היה {{unit}}250, עכשיו {{unit}}100",
+          "old": "ישן",
+          "new": "חדש",
+          "input": {
+            "placeholder": "{{type}} מחיר",
+            "hint": "{{unit}}"
+          }
+        },
+        "free": {
+          "label": "חינם!",
+          "text": "דוגמא: ייעוץ משפטי בחינם"
+        }
+      },
+      "preview": {
+        "header": "תצוגה מקדימה",
+        "duration": "משך זמן המבצע",
+        "duration_modal": {
+          "one_month": "חודש אחד",
+          "two_months": "חודשיים",
+          "custom": "בחר/י תאריכים",
+          "maximum_hint": "<b>מקסימום:</b> {{numberOfMonths}} חודשים"
+        },
+        "is_homeis_exclusive": {
+          "label": "בלעדי לחברי הומיז",
+          "description": "המבצע הזה יוצע רק למשתמשי הומיז, ויקודם אוטומטית בלוח המבצעים"
+        },
+        "next": "פרסם",
+        "media_gallery_error_text": "יש להעלות לפחות תמונה אחת"
+      },
+      "offer_screen": {
+        "inPercentage": {
+          "label": "% הנחה",
+          "text": "דוגמא: 50% הנחה",
+          "input": {
+            "placeholder": "הקלידו אחוז הנחה"
+          }
+        },
+        "inUnits": {
+          "label": "הנחה כספית",
+          "text": "דוגמא: $20 הנחה",
+          "input": {
+            "placeholder": "הקלידו את סכום ההנחה",
+            "hint": "{{unit}} הנחה"
+          }
+        },
+        "fixedPrice": {
+          "label": "מחיר מבצע",
+          "text": "דוגמא: היה $250 ועכשיו $100",
+          "old": "ישן",
+          "new": "חדש",
+          "input": {
+            "placeholder": "{{type}} מחיר"
+          }
+        },
+        "free": {
+          "label": "חינם!",
+          "text": "דוגמא: ייעוץ משפטי בחינם"
+        }
+      }
+    },
+    "create_as": "Post as:"
+  },
+  "post_page": {
+    "input_placeholder": "הוסיפו תגובה..."
+  },
+  "comment": {
+    "title": "עריכה",
+    "action_sheets": {
+      "edit": "עריכה",
+      "report": "דווחו על התגובה",
+      "delete": {
+        "button": "מחיקה",
+        "confirm": "כן"
+      }
+    },
+    "comment_placholder": "הוסיפו תגובה..."
+  },
+  "entity_type_to_name": {
+    "user": "אנשים",
+    "page": "עמוד",
+    "post": "מדריך",
+    "group": "קבוצה",
+    "category": "אזור",
+    "event": "אירוע",
+    "list": "רשימה",
+    "neighborhood": "שכונה",
+    "topic": "קבוצה"
+  },
+  "tags": {
+    "server_tags": {
+      "buy": "קנייה",
+      "buy/sell": "קנייה/מכירה",
+      "City & Gov": "עיר וממשל",
+      "commercial": "מסחרי",
+      "Education": "חינוך",
+      "Entertainment": "בידור ותרבות",
+      "Essentials": "שירותים חיוניים",
+      "Family & Kids": "משפחה וילדים",
+      "Finance": "כספים",
+      "Food": "אוכל",
+      "for sale": "למכירה",
+      "free": "בחינם",
+      "Health": "בריאות",
+      "Insurance": "ביטוח",
+      "Legal": "משפטי",
+      "Real Estate": "דירות",
+      "Religion": "דת",
+      "Relocation": "רילוקיישן",
+      "rent": "להשכרה",
+      "roommates": "שותפים",
+      "sublet": "סאבלט",
+      "Sublets": "סאבלטים",
+      "Travel": "טיולים",
+      "הומיז": "הומיז",
+      "Other": "אחר",
+      "tech": "Tech",
+      "food": "מזון ומשקאות",
+      "babysitter": "בייביסיטר",
+      "realEstate": "דירות",
+      "finance": "כספים",
+      "sales": "מכירות",
+      "production": "הפקה",
+      "administration": "אדמיניסטרציה",
+      "education": "חינוך",
+      "Services": "בעלי מקצוע"
+    },
+    "real_estate": "נדל\"ן",
+    "give_take": "קח/תן",
+    "jobs": "עבודות",
+    "recommendation": "המלצות",
+    "events": "אירועים",
+    "groups": "קבוצות",
+    "pages": "עמוד"
+  },
+  "moment": {
+    "relativeTime": {
+      "future": "בעוד %s",
+      "past": "לפני %s",
+      "s": "כמה שניות",
+      "ss": "%d sec",
+      "m": "דקה",
+      "mm": "%d דקות",
+      "h": "שעה",
+      "hh": "%d שעות",
+      "d": "יום",
+      "dd": "%d ימים",
+      "M": "חודש",
+      "MM": "%d חודשים",
+      "y": "שנה",
+      "yy": "%d שנים"
+    },
+    "years_old": "years old"
+  },
+  "list": {
+    "display_component": {
+      "by": " מאת ",
+      "saved_button": "נשמר",
+      "save_button": "שמירה",
+      "share_button": "שתפו רשימה",
+      "edit": "עריכה",
+      "total_saves": {
+        "empty_state": "שמרו את הרשימה!"
+      },
+      "saves_count": "{{totalSaves}} שמרו",
+      "sort": {
+        "title": "מיינו לפי",
+        "votes": "מספר הצבעות",
+        "distance": "קרוב אליי"
+      }
+    },
+    "list_of_lists": {
+      "create_button": "צרו רשימה",
+      "screen_header": {
+        "one": "   רשימות (1)",
+        "other": "   רשימות ({{count}})"
+      }
+    },
+    "add_item": {
+      "add_header": "הוספה לרשימה",
+      "edit_header": "עריכה"
+    },
+    "view": {
+      "save_button": "שמירה",
+      "add_button": "הוסיפו",
+      "add_item": "הוסיפו",
+      "footer_text": "מרגישים שחסר משהו ברשימה זו? \nשתפו מנסיונכם והוסיפו את ההמלצה לרשימה זו",
+      "action_sheets": {
+        "save": "שמירה",
+        "unsave": "בטל שמירה",
+        "edit": "עריכה",
+        "delete": {
+          "header": "האם למחוק את הרשימה?",
+          "delete_button": "מחק רשימה",
+          "confirm": "כן"
+        },
+        "report": "דווחו על הרשימה",
+        "share": "שיתוף רשימה"
+      },
+      "items_list_footer": "מרגישים שחסר משהו ברשימה זו? \nשתפו מנסיונכם והוסיפו את ההמלצה לרשימה זו",
+      "share_button": "שתפו",
+      "cta": {
+        "title": "רוצים להוסיף משהו?",
+        "text": "הוסיפו המלצה לרשימה"
+      },
+      "transfer_money": {
+        "items_title": "מבצעים ייחודיים להומיז"
+      }
+    },
+    "item": {
+      "view": {
+        "view_page": "צפייה בעמוד",
+        "save_button": "שמירה",
+        "saved_button": "נשמר",
+        "comment": "הגיבו",
+        "recommended_by_you": {
+          "text": "תודה רבה על הביקורת!",
+          "recommendation_button": "צפו בביקורת"
+        }
+      },
+      "action_sheets": {
+        "save": "שמירה",
+        "unsave": "בטל שמירה",
+        "edit": "עריכה",
+        "delete": {
+          "header": "האם למחוק את ההמלצה מהרשימה?",
+          "delete_button": "מחיקה",
+          "confirm": "כן"
+        }
+      }
+    },
+    "savers_list": {
+      "header": "{{totalSaves}} שמרו"
+    },
+    "map_carousel": {
+      "savers": "{{totalSaves}} שמרו\n"
+    }
+  },
+  "action_sheets": {
+    "cancel": "ביטול"
+  },
+  "carousels": {
+    "post_type_names": {
+      "statusUpdate": "עדכון כללי",
+      "tipRequest": "יש לי שאלה",
+      "recommendation": "המלצה",
+      "guide": "מדריך",
+      "promotion": "מבצע",
+      "job": "הצעת עבודה",
+      "realEstate": "מודעת נדל״ן",
+      "giveAndTake": "קח/תן",
+      "groupAnnouncement": "הודעה קבוצתית",
+      "page": "עמוד",
+      "entityShare": "שיתוף"
+    },
+    "entity_type_names": {
+      "list": "רשימה",
+      "group": "קבוצה",
+      "page": "עמוד",
+      "event": "אירוע"
+    }
+  },
+  "entity_lists": {
+    "savers": "כל האנשים ששמרו"
+  },
+  "searchable_form": {
+    "placeholders": {
+      "title": "חפשו משהו או הוסיפו בעצמכם",
+      "url": "כתובת אינטרנט (אופציונלי)",
+      "description": "למה אהבת את זה?"
+    },
+    "preview": {
+      "header": "תצוגה מקדימה",
+      "title": "כותרת",
+      "description": "התיאור יופיע כאן"
+    },
+    "add_button": "הוספה",
+    "edit_button": "שמירה",
+    "add": "הוספה",
+    "suggestions_header": "אלו ההצעות שלנו לבחירתך",
+    "suggestions_empty_title": "אין הצעות",
+    "suggestions_empty_text": "השתמשו בשם שבחרתם או נסו לחפש משהו אחר",
+    "edit": "עריכה",
+    "remove": "הסרה",
+    "no_address": "אין כתובת",
+    "create": "בחר/י"
+  },
+  "user_entity_component": {
+    "add_button": "הוספה",
+    "mutual_friends": {
+      "one": "אחד משותף",
+      "other": "{{count}} משותפים"
+    },
+    "empty_state": "אין חברים משותפים"
+  },
+  "post_lists": {
+    "screen_header": {
+      "guide": "מדריכים בקהילה",
+      "recommendation": "המלצה",
+      "recommendation_in_context": "המלצה"
+    },
+    "top_sub_header": {
+      "guide": "מדריכים שמורים",
+      "recommendation": "המלצות שמורות"
+    },
+    "bottom_sub_header": {
+      "guide": "מדריכים מומלצים",
+      "recommendation": "המלצות נוספות"
+    }
+  },
+  "themes": {
+    "family": "משפחה וילדים",
+    "health": "גוף ונפש",
+    "legal": "משפטי",
+    "travel": "טיולים",
+    "lifestyle": "לייף סטייל",
+    "essentials": "שירותים חיוניים",
+    "eatDrink": "אוכל ושתייה",
+    "other": "אחר",
+    "suggested": "מומלצים",
+    "all": "הכל",
+    "myhood": {
+      "neighbourhood": "השכונה שלי",
+      "city": "העיר שלי"
+    },
+    "finance": "כספים"
+  },
+  "save_modal": {
+    "header": "בחרו קטגוריה אחת לפחות",
+    "subheader": "את האייטם ששמרתם תמצאו בפרופיל",
+    "saved_header": "נשמר!",
+    "saved_subheader": "התוכן שביקשת נשמר בקטגוריות:",
+    "submit_button": "שמירה"
+  },
+  "profile_entities_list": {
+    "create_button": "+ חדש",
+    "groups": {
+      "suggested_title": "קבוצות מומלצות",
+      "admin_title": "קבוצות בניהולך",
+      "membered_title": "קבוצות"
+    },
+    "pages": {
+      "suggested_title": "עמודים מומלצים",
+      "owner_title": "עמודים בניהולך",
+      "following_title": "עמודים שאהבת"
+    }
+  },
+  "theme_view": {
+    "myTheme": {
+      "top_section_sub_header": "הומלץ עבורך",
+      "bottom_section_sub_header": "דברים שמורים"
+    },
+    "othersTheme": {
+      "bottom_section_sub_header": "הצג לפי"
+    },
+    "all_items": {
+      "bottom_section_sub_header": "חיפוש לפי"
+    },
+    "options": {
+      "default": "תוכן",
+      "group": "קבוצות",
+      "event": "אירועים",
+      "all": "מומלצים",
+      "list": "רשימה",
+      "page": "המלצות",
+      "realEstate": "נדל״ן",
+      "giveAndTake": "קח תן"
+    }
+  },
+  "entity_recommended_by": {
+    "recommended_by": "המלצה מאת"
+  },
+  "empty_states": {
+    "event": {
+      "header": "אין אירועים.",
+      "body": "בחרו קטגוריה אחרת או פרסמו אירוע חדש."
+    },
+    "group": {
+      "header": "אין קבוצות.",
+      "body": "בחרו קטגוריה אחרת או צרו קבוצה חדשה."
+    },
+    "guide": {
+      "header": "אין מדריכים",
+      "body": "בחרו קטגוריה אחרת או כתבו מדריך חדש."
+    },
+    "othersTheme": {
+      "header": "אין תוצאות."
+    },
+    "profile": {
+      "header": "קצת שקט פה...",
+      "body": {
+        "owner": "שתפו משהו עם החברים והקהילה כדי שיוכלו להכיר אותך"
+      }
+    },
+    "myTheme": {
+      "saved": {
+        "header": "אין פריטים שמורים.",
+        "body": "שמרו את כל מה שאתם אוהבים או דברים שתרצו לקרוא מאוחר יותר."
+      },
+      "explore": {
+        "header": "אין תוצאות.",
+        "body": "בחרו קטגוריה אחרת או הוסיפו בעצמכם."
+      }
+    },
+    "page": {
+      "header": "אין עמודים",
+      "body": "בחרו קטגוריה אחרת או צרו עמוד חדש"
+    },
+    "users": {
+      "header": "לא נמצאו אנשים.",
+      "body": "נסו לכתוב בצורה אחרת או בטלו את הפילטר"
+    }
+  },
+  "savers_and_followers": {
+    "title": "שומרים & עוקבים",
+    "tabs": {
+      "savers": "שמרו",
+      "followers": "עוקבים"
+    }
+  },
+  "referral_program_status": {
+    "screen_header": "חברים שהצטרפו",
+    "redeemed_users_title": "הקופון מומש",
+    "redeem_button": "ממש {{sum}}",
+    "unverified_mail_modal": {
+      "title": "היי, רק עוד משהו אחד",
+      "text": "עלינו לוודא את האימייל שלכם כדי לוודא שתקבלו את הקופון",
+      "cancel_button": "ביטול",
+      "confirm_button": "אימות אימייל"
+    },
+    "redeem_button_disabled_messages": {
+      "processing": "הקופון שלך ישלח לאחר שנקבל את הבקשה",
+      "min_users": "ניתן לממש את הקופון לאחר הצטרפות של חמישה חברים"
+    },
+    "empty_state": {
+      "title": "אף אחד עדיין לא הצטרף!",
+      "body": "כל החברים שיצטרפו יופיעו כאן."
+    }
+  },
+  "referral_redeemed": {
+    "text": "מזל טוב! כרגע הרווחת ${{redeemSum}} לקניות באמזון. הקופון ישלח לאימייל שלך תוך 48 שעות."
+  },
+  "neighborhood_view": {
+    "neighbourhood": {
+      "users_title": "השכנים שלכם 👇",
+      "users_total": "כל השכנים ({{count}})",
+      "my_hood_subtitle": "גלו מה חדש בשכונה שלכם...",
+      "hood_subtitle": "כל מה שקורה בשכונה שלך",
+      "view_all_card": "צפו בכולם",
+      "tabs": {
+        "explore": "גלו עוד",
+        "saved": "שמורים"
+      }
+    },
+    "city": {
+      "users_title": "הומיז באזור שלך",
+      "tabs": {
+        "explore": "גלו עוד",
+        "saved": "שמורים"
+      }
+    },
+    "feed_error_state": {
+      "title": "אופס, משהו השתבש...",
+      "text": "נסו לבחור קטגוריה אחרת או נסו לרענן את הפיד"
+    },
+    "post_button_text": "מה חדש בשכונה?"
+  },
+  "no_hood_view": {
+    "neighbourhood": {
+      "add_hood_button": "הוספת השכונה שלך",
+      "title": "השכונה שלי",
+      "subtitle": "חיפוש מקומות חדשים והומיז נוספים שגרים בשכונה שלך",
+      "cancel": "ביטול"
+    },
+    "city": {
+      "add_hood_button": "עדכנו את העיר שלכם",
+      "subtitle": "חיפוש מקומות חדשים והומיז נוספים שגרים בעיר שלך",
+      "cancel": "ביטול"
+    }
+  },
+  "filters": {
+    "price": {
+      "header": "מחיר",
+      "placeholder": "גמיש"
+    },
+    "rooms": {
+      "header": "חדרים",
+      "placeholder": "הכל"
+    },
+    "dates": {
+      "search": "בחרו תאריכים",
+      "picker_title": "בחירת תאריכים",
+      "header": "תאריכים",
+      "from": "החל מ-",
+      "to": "עד ל-",
+      "placeholder": "בכל זמן"
+    },
+    "genders": {
+      "header": "מגדר",
+      "0": "זכר",
+      "1": "נקבה",
+      "2": "אחר",
+      "3": "אחר",
+      "placeholder": "בחר/י"
+    },
+    "age": {
+      "header": "גיל",
+      "placeholder": "בחר/י"
+    },
+    "title": "סנן לפי",
+    "more": "נוספים",
+    "neighborhoodsIds": {
+      "header": "שכונות",
+      "search": "חפשו שכונות באזור שבחרתם",
+      "placeholder": "כל השכונות"
+    },
+    "friendshipStatuses": {
+      "header": "חברים בהומיז",
+      "0": "לא חברים",
+      "1": "חברים שלי",
+      "placeholder": "בחר/י"
+    },
+    "relationshipStatuses": {
+      "header": "סטטוס זוגי",
+      "0": "רווק/ה",
+      "1": "בזוגיות",
+      "2": "מאורס/ת",
+      "3": "נשוי/אה",
+      "4": "גרוש/ה",
+      "5": "אלמן/ה",
+      "6": "זה מסובך",
+      "7": "אחר",
+      "placeholder": "בחר/י"
+    },
+    "tags": {
+      "header": "קטגוריה",
+      "placeholder": "כל הסוגים"
+    },
+    "recentlyJoined": {
+      "header": "מצטרפים חדשים"
+    },
+    "toggleBtn": {
+      "show": "פילטרים נוספים",
+      "hide": "סגור פילטרים"
+    },
+    "peopleSearch": {
+      "header": "חיפוש",
+      "placeholder": "בחר/י",
+      "recentlyJoined": "הצטרפו לאחרונה"
+    },
+    "postSubType": {
+      "header": "מחפשים / מציעים",
+      "seeking": "מחפשים",
+      "offering": "מציעים"
+    },
+    "community": {
+      "header": "אזור",
+      "search": "חיפוש",
+      "placeholder": "קרוב אליי",
+      "chip": "האזור שלי"
+    },
+    "ok_button": {
+      "default": "אישור"
+    },
+    "less": "הצג פחות",
+    "friendRequests": {
+      "header": "בקשות חברות"
+    },
+    "myEvents": {
+      "header": "האירועים שלי"
+    },
+    "savedByUser": {
+      "header": "שמורים"
+    }
+  },
+  "context_picker": {
+    "entity_types": {
+      "topic": "קבוצה",
+      "group": "קבוצה",
+      "group_admin": "קבוצה (אדמין)"
+    }
+  },
+  "category_picker": {
+    "placeholder": "קטגוריה"
+  },
+  "category_selector_header": "קטגוריה",
+  "add_list_item": {
+    "added_modal": {
+      "title": "בחירה מצוינת {{name}}!",
+      "text": "רוצים לראות מה אחרים הוסיפו לרשימה? פרגנו ודרגו את מה שאהבתם!",
+      "view_list_button": "כניסה לתוצאות",
+      "dismiss_button": "אולי אחר כך"
+    }
+  },
+  "abusive_reports": {
+    "header": "דיווח על {{entityType}}",
+    "sub_header": "בבקשה פרט/י יותר על סיבת הדיווח",
+    "desc_placeholder": "הוסיפו את הדיווח כאן (אופציונלי)",
+    "button": "שלח/י דיווח"
+  },
+  "friend_request_limit": {
+    "title": "נעשה את זה לאט יותר?",
+    "description": "הגעת למקסימום בקשות חברות לעכשיו... יש לנסות מאוחר יותר.",
+    "approve": "אוקיי, אנסה מאוחר יותר"
+  },
+  "annotations": {
+    "dismissBtn": "אחלה!",
+    "home_shortcuts": {
+      "title": "המרקטפלייס של הומיז",
+      "text": "מצאו עבודות, דירות להשכרה, סאבלטים, שותפים, ואוצרות יד שנייה. מישראלים לישראלים"
+    },
+    "home_groups_carousel": {
+      "title": "הצטרפו לקבוצות בהומיז",
+      "text": "בין אם אתם מתעניינים בהגירה, נדל״ן, אוכל טבעוני או הורות ברילוקיישן - גלו עשרות אלפי ישראלים לדבר איתם על זה."
+    },
+    "home_solutions_tab": {
+      "title": "homeis Services",
+      "text": "העבירו כסף לארץ, חפשו עורך דין, מצאו עבודה - כל מה שישראלי צריך במקום אחד, ובהמלצת הקהילה",
+      "cta": "קחו אותי לשם!"
+    }
+  },
+  "badges": {
+    "regional_manager": {
+      "title": "{{prefix}} Insider",
+      "default_title": "הומיז אינסיידר"
+    },
+    "national_manager": {
+      "title": "מנהלת הקהילה"
+    },
+    "expert": {
+      "title": "מומחה {{tag}}"
+    }
+  },
+  "solutions": {
+    "lobby": {
+      "title": "איך אנחנו\nיכולים לעזור לך היום?",
+      "saved_items_header_title": "פריטים שמורים",
+      "search_placeholders": [
+        "בייביסיטר",
+        "עורכי דין",
+        "העברת כספים",
+        "רופא ילדים",
+        "מורה לפסנתר"
+      ]
+    },
+    "results": {
+      "carousels": {
+        "lists": "רשימות",
+        "groups": "קבוצות",
+        "guides": "מדריכים",
+        "posts": "עדכונים מהקהילה",
+        "pages": "מומחים"
+      },
+      "carousels_empty": {
+        "header": "\"עוד מעט אנחנו חוגגים את המומולדת שלך, אביה.\"\n",
+        "text": "הוסיפו המלצה"
+      }
+    }
+  },
+  "community_roles": {
+    "expert": {
+      "name": "מומחים",
+      "modal": {
+        "title": "המומחים של הומיז",
+        "description": "מומחי הומיז הם קבוצה אקסקלוסיבית של אנשי מקצוע שקיבלו את חותמת האיכות של הקהילה במגוון רחב של תחומים נמצאים כאן בשביל לייעץ, לתמוך ולסייע.",
+        "go_to_lobby": "הכירו את המומחים",
+        "question": "חושב/ת שיש לך את הידע הנדרש כדי להצטרף למומחים?",
+        "request": "שתפו אותו עם הקהילה!",
+        "apply": "הצטרפו למומחים של הומיז!"
+      },
+      "banner": {
+        "question": "יש לך מומחיות שיכולה לעזור?",
+        "request": "שתפו אותו עם הקהילה!",
+        "apply": "הצטרפו למומחים של הומיז!"
+      }
+    },
+    "insiders": {
+      "name": "Insiders",
+      "modal": {
+        "title": "homeis Insiders",
+        "description": "האינסיידרים הם חברי הומיז בולטים ומובילים בקהילה באזור מגוריהם שרוצים להפוך את הקהילה הישראלית לחזקה יותר.",
+        "go_to_lobby": "למידע נוסף",
+        "question": "חושב/ת שיש לך מה שצריך כדי להיות אינסיידר?",
+        "request": "צרו קשרים חדשים, תמכו בקהילה שלכם",
+        "apply": "הצטרפו לאינסיידרים!"
+      },
+      "banner": {
+        "question": "יש לך מה שצריך\nכדי להיות אינסיידר?",
+        "apply": "הצטרפו עכשיו!"
+      }
+    }
+  },
+  "friend_requests": {
+    "title": "בקשות חברות"
+  },
+  "deals": {
+    "exclusive_title": "בלעדי לחברי הומיז",
+    "featured_title": "כל המבצעים",
+    "deal_created_modal": {
+      "title": "מעולה! המבצע שלך באוויר!",
+      "text": "תודה רבה שפרסמת בהומיז!",
+      "scheduled_title": "מעולה! המבצע שלך יפורסם בתאריך\n{{scheduledDate}}"
+    },
+    "expiry_date": {
+      "expired": "<pinkishRed>תוקף המבצע פג</pinkishRed>",
+      "one_day": "<pinkishRed>יום אחרון למימוש</pinkishRed>",
+      "days": "<pinkishRed>{{days}} ימים נותרו למימוש</pinkishRed>",
+      "date": "מסתיים ב {{date}}"
+    },
+    "deal_page_cta": {
+      "get_coupon_code": "קבל/י קוד קופון",
+      "to_the_deal": "כנסו למבצע",
+      "view_deal": "הצג מבצע",
+      "to_page": "לעמוד העסק",
+      "to_website": "לאתר",
+      "contact": "צרו קשר"
+    },
+    "ribbon_text": {
+      "fixedPriceTextOnly": "היה {{oldValue}}, עכשיו {{newValue}}"
+    },
+    "get_coupon_modal": {
+      "description": "יש להעתיק את הקוד ולהציגו לבעל העסק או להוסיף אותו בשלב התשלום באתר",
+      "copy": "העתק",
+      "copied": "הועתק"
+    },
+    "deal_page": {
+      "offered_by": "Offered By",
+      "post_by": "פורסם ע״י"
+    },
+    "intro_modal": {
+      "title": "לוח המבצעים של הומיז",
+      "description": "הכירו את לוח המבצעים החדש של הקהילה. תהנו או פרסמו דילים והטבות בלעדיות לקהילת הישראלים של הומיז!",
+      "got_it": "אחלה!"
+    }
+  },
+  "appMenu": {
+    "profile": "הצג פרופיל",
+    "saved": "פריטים שמורים",
+    "groups": "קבוצות",
+    "pages": "עמודים",
+    "jobs": "לוח עבודות",
+    "realEstate": "לוח דירות",
+    "giveTake": "לוח קח ותן",
+    "events": "לוח אירועים",
+    "settings": "הגדרות"
+  }
+}

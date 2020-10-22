@@ -11,6 +11,7 @@ import MessagesScreen from '../screens/MessagesScreen';
 import TopPicksScreen from '../screens/TopPicksScreen';
 import EditProfile from '../screens/EditProfile';
 import EditAvatar from '../screens/EditAvatar';
+import AddPost from '../screens/AddPost';
 
 import AddRoomScreen from '../screens/AddRoomScreen';
 import RoomScreen from '../screens/RoomScreen';
@@ -28,7 +29,7 @@ const ProfileStack = () => {
     <Stack.Navigator headerMode="none">
       <Stack.Screen name="Profile" component={ProfileScreen} />
       <Stack.Screen name="EditProfile" component={EditProfile} />
-      <Stack.Screen name="EditAvatar" component={EditAvatar} />
+      <Stack.Screen name="Avatar" component={EditAvatar} />
     </Stack.Navigator>
   );
 };
@@ -41,7 +42,7 @@ function ChatApp() {
 
   return (
     <ChatAppStack.Navigator
-      headerMode="none"
+      // headerMode="none"
       screenOptions={{
         headerStyle: {
           backgroundColor: '#6646ee',
@@ -53,7 +54,7 @@ function ChatApp() {
       }}>
       <ChatAppStack.Screen
         name="Home"
-        component={ProfileStack}
+        component={HomeScreen}
         options={({navigation}) => ({
           headerRight: () => (
             <IconButton
@@ -114,6 +115,8 @@ export default function TabNavigator() {
             iconName = focused ? 'mail-open-outline' : 'mail-open';
           } else if (route.name === 'Top') {
             iconName = focused ? 'ios-star-outline' : 'ios-star';
+          } else if (route.name === 'Add') {
+            iconName = focused ? 'md-add-outline' : 'md-add';
           }
 
           // You can return any component that you like here!
@@ -128,6 +131,7 @@ export default function TabNavigator() {
       <Tab.Screen name="Profile" component={ProfileStack} />
       <Tab.Screen name="Messages" component={MessagesScreen} />
       <Tab.Screen name="Top" component={TopPicksScreen} />
+      <Tab.Screen name="Add" component={AddPost} />
     </Tab.Navigator>
   );
 }

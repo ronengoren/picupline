@@ -59,7 +59,7 @@ export default function EditProfile({navigation}) {
   };
 
   const fields = [
-    // {name: 'image', label: 'Profile Image', required: true, type: TYPES.Image},
+    {name: 'image', label: 'Profile Image', required: true, type: TYPES.Image},
     {name: 'email', label: 'Email Address', required: true, type: TYPES.Email},
     {
       name: 'username',

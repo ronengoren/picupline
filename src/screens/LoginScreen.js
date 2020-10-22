@@ -13,7 +13,7 @@ export default function LoginScreen({navigation}) {
 
   return (
     <View style={styles.container}>
-      <Title style={styles.titleText}>PICUPLINE</Title>
+      <Title style={styles.titleText}>SIYU</Title>
       <FormInput
         labelName="Email"
         value={email}
@@ -37,7 +37,7 @@ export default function LoginScreen({navigation}) {
         modeValue="text"
         uppercase={false}
         labelStyle={styles.navButtonText}
-        onPress={() => navigation.navigate('Signup')}
+        onPress={() => navigation.navigate('SignUpWizard')}
       />
     </View>
   );
