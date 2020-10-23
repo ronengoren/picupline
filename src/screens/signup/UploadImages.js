@@ -33,7 +33,7 @@ export default function UploadImages({navigation, route}) {
   const getData = async () => {
     try {
       const value = await AsyncStorage.multiGet(['Gender', 'Preferred Gender']);
-      console.log(value);
+      // console.log(value);
       if (value !== null) {
         // value previously stored
       }
