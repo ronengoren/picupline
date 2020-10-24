@@ -48,6 +48,14 @@ export const AuthProvider = ({children}) => {
             preferredGender = 'Both';
           }
           console.log(preferredGender);
+          var dob = '';
+          const getDob = await AsyncStorage.getItem('DOB');
+          dob = getDob;
+          console.log(dob);
+          var profileImage = '';
+          const getProfileImage = await AsyncStorage.getItem('Profile_Image');
+          profileImage = getProfileImage;
+          console.log(profileImage);
 
           // const pref = value.find(myFunction);
           // function myFunction(value, index, array) {
@@ -63,7 +71,14 @@ export const AuthProvider = ({children}) => {
             const isNewUser = response.additionalUserInfo;
             const {uid} = response.user;
 
-            const userData = {email, uid, gender, preferredGender};
+            const userData = {
+              email,
+              uid,
+              gender,
+              preferredGender,
+              dob,
+              profileImage,
+            };
 
             // console.log(uid);
             firestore()

@@ -6,12 +6,15 @@ import SetUserGender from '../screens/signup/SetUserGender';
 import SetUserPerf from '../screens/signup/SetUserPerf';
 import UploadImages from '../screens/signup/UploadImages';
 import ProfileScreen from '../screens/ProfileScreen';
+import SetUserAge from '../screens/signup/SetUserAge';
 
 const Stack = createStackNavigator();
 
 export default function SignUpWizard() {
   return (
-    <Stack.Navigator initialRouteName="SetUserGender" headerMode="none">
+    <Stack.Navigator initialRouteName="SetUserAge" headerMode="none">
+      <Stack.Screen name="SetUserAge" component={SetUserAge} />
+
       <Stack.Screen name="SetUserGender" component={SetUserGender} />
       <Stack.Screen name="SetUserPerf" component={SetUserPerf} />
       <Stack.Screen name="UploadImages" component={UploadImages} />

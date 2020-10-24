@@ -167,11 +167,7 @@ export default function SetUserPerf({navigation}) {
           Select Your Preferred Gender
         </Text>
       </Animated.View>
-      <Animated.View
-        style={[
-          styles.mainContent,
-          {opacity: fieldsOpacity, transform: [{translateY}]},
-        ]}>
+      <Animated.View style={[styles.mainContent]}>
         <RenderGenderField></RenderGenderField>
       </Animated.View>
       <View style={[styles.mainPadding]}>{RenderNextButton()}</View>

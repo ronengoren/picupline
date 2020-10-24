@@ -2,7 +2,7 @@ import I18n from 'i18n-js';
 import * as RNLocalize from 'react-native-localize';
 import {plural} from 'pluralize';
 import indefinite from 'indefinite';
-import {en, he, fr, esmx} from '../../localization/';
+import {en, he, fr, esmx} from '../../localization';
 import {
   sharedEn,
   sharedHe,

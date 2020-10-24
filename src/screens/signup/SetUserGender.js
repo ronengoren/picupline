@@ -11,6 +11,9 @@ import {
   Animated,
   TextInput,
   TouchableOpacity,
+  TouchableHighlight,
+  Pressable,
+  TouchableNativeFeedback,
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
@@ -95,8 +98,8 @@ export default function SetUserGender({navigation}) {
     try {
       // this.updateProfile(newUserData);
       await AsyncStorage.setItem('Gender', selectedGender.toString());
-      const value = await AsyncStorage.getItem('Gender');
-      // console.log('Gender: ' + value);
+      const dobvalue = await AsyncStorage.getItem('DOB');
+      console.log(dobvalue);
       this.isSubmitting = false;
       navigation.navigate('SetUserPerf');
     } catch (err) {
@@ -116,10 +119,10 @@ export default function SetUserGender({navigation}) {
           {supportedGenders.map((value) => {
             const isActive = selectedGender === value;
             return (
-              <TouchableOpacity
+              <Pressable
                 style={[styles.genderCol, isActive && styles.selectedGenderCol]}
                 activeOpacity={0.5}
-                key={`gender${value}`}
+                key={value}
                 onPress={() => onChooseGender(value)}>
                 <Icon
                   name={
@@ -134,7 +137,7 @@ export default function SetUserGender({navigation}) {
                 <Text size={18} color={isActive ? Colors.white : Colors.b30}>
                   {value === genderType.MALE ? 'MALE' : 'FEMALE'}
                 </Text>
-              </TouchableOpacity>
+              </Pressable>
             );
           })}
         </View>
@@ -155,11 +158,7 @@ export default function SetUserGender({navigation}) {
           Select Your Gender
         </Text>
       </Animated.View>
-      <Animated.View
-        style={[
-          styles.mainContent,
-          {opacity: fieldsOpacity, transform: [{translateY}]},
-        ]}>
+      <Animated.View style={[styles.mainContent]}>
         <RenderGenderField></RenderGenderField>
       </Animated.View>
       <View style={[styles.mainPadding]}>{RenderNextButton()}</View>
@@ -193,7 +192,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
   },
   genderSelectors: {
-    flex: 1,
+    // flex: 1,
     justifyContent: 'space-evenly',
     flexDirection: 'row',
     paddingTop: 11,

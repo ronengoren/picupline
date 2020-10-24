@@ -1,4 +1,4 @@
-import sanitizeHTMLWithoutDOM from 'sanitize-html';
+import sanitizeHtml from 'sanitize-html';
 import {capitalize, camelCase, isString, startCase} from 'lodash';
 import AutoLinker from 'autolinker';
 import {plural} from 'pluralize';
@@ -235,7 +235,7 @@ export function sanitizeText({
   allowedTags: any[],
   allowedAttributes: any,
 }) {
-  return sanitizeHTMLWithoutDOM(text, {allowedTags, allowedAttributes});
+  return sanitizeHtml(text, {allowedTags, allowedAttributes});
 }
 
 export const quillMentionsConvertor = (
