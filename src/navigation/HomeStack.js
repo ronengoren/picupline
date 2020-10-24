@@ -29,7 +29,7 @@ const ProfileStack = () => {
     <Stack.Navigator headerMode="none">
       <Stack.Screen name="Profile" component={ProfileScreen} />
       <Stack.Screen name="EditProfile" component={EditProfile} />
-      <Stack.Screen name="Avatar" component={EditAvatar} />
+      <Stack.Screen name="EditAvatar" component={EditAvatar} />
     </Stack.Navigator>
   );
 };

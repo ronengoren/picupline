@@ -59,7 +59,6 @@ export default function UploadImages({navigation}) {
   const [androidImage, setAndroidImage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  isSubmitting;
   const [images, setImages] = useState(null);
   const hideModalAndAllowKeyboardAnimation = () => {
     setShouldAvoidAnimateKeyboardShown(false);

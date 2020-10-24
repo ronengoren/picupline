@@ -104,10 +104,9 @@ export default function EditProfile({navigation}) {
 
   async function onSubmit(data) {
     // const updateRef = firebase.firestore().collection('Users').doc(this.state.key);
-
     // navigation.goBack();
     // setLoading(true);
-    console.log(data);
+    // console.log(data);
   }
   // async function showImagePicker() {
   //   try {

@@ -18,6 +18,7 @@ import {useAuth} from '../navigation/AuthProvider';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import Gallery from '../components/Gallery';
+import ImagePicker from 'react-native-image-crop-picker';
 
 const {pic, title} = HomeScreenPics[randomNo(1, HomeScreenPics.length)];
 
@@ -29,12 +30,16 @@ const Social = ({name}) => (
     size={32}
   />
 );
+
+export function getFilePathFromLocalUri(localUri) {
+  return localUri.replace('file://', '');
+}
 export default function ProfileScreen({navigation, route}) {
   // const {navigate} = props.navigation;
-  console.log(route);
   const [userDetails, setUserDetails] = useState([]);
   const [images, setImages] = useState([]);
   const [avatar, setAvatar] = useState([]);
+  const [image, setImage] = useState(null);
 
   React.useEffect(() => {
     if (route.params?.avatar) {
@@ -73,43 +78,87 @@ export default function ProfileScreen({navigation, route}) {
       .onSnapshot((querySnapshot) => {
         let info = [];
         let newUserDetails = querySnapshot.data();
-        let avatarFile = querySnapshot.data().avatar;
-        // setAvatar(avatarFile);
+        let avatarFile = querySnapshot.data().profileImage;
+        setAvatar(avatarFile);
         setUserDetails(newUserDetails);
-        // console.log(querySnapshot.data().avatar);
       });
   }, []);
-  // useEffect(() => {
-  //   const user = auth().currentUser;
-  //   return firestore()
-  //     .collection('Users')
-  //     .doc(user.uid)
-  //     .onSnapshot((querySnapshot) => {
-  //       let info = [];
-  //       let newUserDetails = querySnapshot.data();
 
-  //       setUserDetails(newUserDetails);
-  //       console.log(userDetails);
-  //     });
-  // }, []);
+  const pickSingle = (cropit, circular = false, mediaType) => {
+    ImagePicker.openPicker({
+      width: 500,
+      height: 500,
+      cropping: cropit,
+      cropperCircleOverlay: circular,
+      sortOrder: 'none',
+      compressImageMaxWidth: 1000,
+      compressImageMaxHeight: 1000,
+      compressImageQuality: 1,
+      compressVideoPreset: 'MediumQuality',
+      includeExif: true,
+      cropperStatusBarColor: 'white',
+      cropperToolbarColor: 'white',
+      cropperActiveWidgetColor: 'white',
+      cropperToolbarWidgetColor: '#3498DB',
+    })
+      .then((image) => {
+        // setIosImage(image.sourceURL);
+        // setAndroidImage(image.path);
+        console.log('received image', image);
+        setImage({
+          image: {
+            uri: image.path,
+            width: image.width,
+            height: image.height,
+            mime: image.mime,
+          },
+          images: null,
+        });
+        const localuri = getFilePathFromLocalUri(image.path);
+        console.log('image');
+
+        console.log(localuri);
+        setAvatar(localuri);
+        console.log('image');
+        onSubmit();
+        // console.log(androidImage);
+        // console.log('image');
+      })
+      .catch((e) => {
+        console.log(e);
+        console.log(e.message ? e.message : e);
+      });
+  };
+  const onSubmit = async () => {
+    let user = auth().currentUser;
+    console.log(avatar);
+    try {
+      firestore().collection('Users').doc(user.uid).update({
+        profileImage: avatar,
+      });
+      navigation.navigate('Profile', {profileImage: avatar});
+    } catch (e) {
+      console.error(e);
+    }
+  };
   return (
     <SafeAreaView style={styles.container}>
       <View style={[styles.header, styles.bordered]}>
         <View>
           <Avatar
             rounded
-            source={avatar}
+            source={{uri: 'file://' + avatar}}
             size="xlarge"
             style={{width: 100, height: 100}}
           />
           <View style={styles.add}>
-            <TouchableOpacity onPress={() => navigation.navigate('Avatar')}>
+            <TouchableOpacity onPress={() => pickSingle(false)}>
               <Icon name="pencil" width={20} height={20} fill="#111" />
             </TouchableOpacity>
           </View>
         </View>
         <Text category="h6" style={styles.name}>
-          {userDetails.email}
+          {userDetails.gender}
         </Text>
       </View>
       <View style={[styles.userInfo, styles.bordered]}>

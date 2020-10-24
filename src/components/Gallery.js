@@ -23,7 +23,7 @@ export default function Gallery({navigation, route, items}) {
 
   React.useEffect(() => {
     setData(items);
-    console.log(data);
+    // console.log(data);
   });
   const renderItem = ({item, index}) => (
     <React.Fragment>
