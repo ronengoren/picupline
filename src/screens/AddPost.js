@@ -1,14 +1,32 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, Text, Button, Image, TextInput} from 'react-native';
-import ImagePicker from 'react-native-image-picker';
+import {
+  View,
+  StyleSheet,
+  Text,
+  Button,
+  Image,
+  TextInput,
+  TouchableOpacity,
+  Alert,
+} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import storage from '@react-native-firebase/storage';
+
 import uuid from 'uuid';
+import ImagePicker from 'react-native-image-crop-picker';
+import {getFilePathFromLocalUri} from '../infra/utils';
 
 export default function AddPost({navigation, route}) {
   const [image, setImage] = useState(null);
+  const [storageImage, setStorageImage] = useState(null);
+  const [postImageUrl, setPostImageUrl] = useState(null);
+
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [localuri, setLocaluri] = useState(null);
+  const [uploading, setUploading] = useState(false);
+  const [transferred, setTransferred] = useState(0);
 
   const onChangeTitle = (title) => {
     setTitle(title);
@@ -17,12 +35,29 @@ export default function AddPost({navigation, route}) {
     setDescription(description);
   };
   const onSubmit = async () => {
-    // console.log(title);
+    const filename = localuri.substring(localuri.lastIndexOf('/') + 1);
+    const uploadUri =
+      Platform.OS === 'ios'
+        ? storageImage.replace('file://', '')
+        : storageImage;
+    const reference = storage().ref(filename);
+    setUploading(true);
+    setTransferred(0);
+    const task = storage()
+      .ref('postImages/' + filename)
+      .putFile(uploadUri);
+    task.on('state_changed', (snapshot) => {
+      setTransferred(
+        Math.round(snapshot.bytesTransferred / snapshot.totalBytes) * 10000,
+      );
+    });
+    console.log(postImageUrl);
     // console.log(description);
 
     try {
+      await task;
       const post = {
-        photo: image,
+        photo: localuri,
         title: title,
         description: description,
       };
@@ -40,39 +75,64 @@ export default function AddPost({navigation, route}) {
       setImage(null);
       setTitle('');
       setDescription('');
+      setUploading(false);
+
       navigation.navigate('Home');
     } catch (e) {
       console.error(e);
     }
   };
 
-  const selectImage = () => {
-    const options = {
-      noData: true,
-    };
-    ImagePicker.launchImageLibrary(options, (response) => {
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-      } else {
-        const source = {uri: response.uri};
-        setImage(source);
-      }
-    });
+  const pickSingle = (cropit, circular = false, mediaType) => {
+    ImagePicker.openPicker({
+      width: 500,
+      height: 500,
+      cropping: cropit,
+      cropperCircleOverlay: circular,
+      sortOrder: 'none',
+      compressImageMaxWidth: 1000,
+      compressImageMaxHeight: 1000,
+      compressImageQuality: 1,
+      compressVideoPreset: 'MediumQuality',
+      includeExif: true,
+      cropperStatusBarColor: 'white',
+      cropperToolbarColor: 'white',
+      cropperActiveWidgetColor: 'white',
+      cropperToolbarWidgetColor: '#3498DB',
+    })
+      .then((image) => {
+        setStorageImage(image.path);
+        // setAndroidImage(image.path);
+        setImage({
+          image: {
+            uri: image.path,
+            width: image.width,
+            height: image.height,
+            mime: image.mime,
+          },
+          images: null,
+        });
+        const localuri = getFilePathFromLocalUri(image.path);
+        setLocaluri(localuri);
+      })
+      .catch((e) => {
+        console.log(e);
+        console.log(e.message ? e.message : e);
+      });
   };
 
   return (
     <View style={{flex: 1, marginTop: 60}}>
       <View>
         {image ? (
-          <Image source={image} style={{width: '100%', height: 300}} />
+          <Image
+            source={{uri: 'file://' + localuri}}
+            style={{width: '100%', height: 300}}
+          />
         ) : (
           <Button
             title="Add an image"
-            onPress={() => selectImage()}
+            onPress={() => pickSingle(false)}
             style={{
               alignItems: 'center',
               padding: 10,
@@ -100,6 +160,51 @@ export default function AddPost({navigation, route}) {
           onPress={() => onSubmit()}
           disabled={image && title && description ? false : true}></Button>
       </View>
+      {/* <TouchableOpacity style={styles.uploadButton} onPress={uploadImage}>
+        <Text style={styles.buttonText}>Upload image</Text>
+      </TouchableOpacity> */}
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    backgroundColor: '#bbded6',
+  },
+  selectButton: {
+    borderRadius: 5,
+    width: 150,
+    height: 50,
+    backgroundColor: '#8ac6d1',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  uploadButton: {
+    borderRadius: 5,
+    width: 150,
+    height: 50,
+    backgroundColor: '#ffb6b9',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 20,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  imageContainer: {
+    marginTop: 30,
+    marginBottom: 50,
+    alignItems: 'center',
+  },
+  progressBarContainer: {
+    marginTop: 20,
+  },
+  imageBox: {
+    width: 300,
+    height: 300,
+  },
+});

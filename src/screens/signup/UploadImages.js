@@ -33,6 +33,7 @@ import {
   isIOS,
 } from '../../infra/utils/deviceUtils';
 import {isNil} from '../../infra/utils';
+import storage from '@react-native-firebase/storage';
 
 const MAX_BUTTON_SIZE = 125;
 const BUTTONS_MARGIN = 35;
@@ -55,8 +56,7 @@ export default function UploadImages({navigation}) {
   // const source = {uri: this.currentProfileImage};
 
   const [image, setImage] = useState(null);
-  const [iosImage, setIosImage] = useState('');
-  const [androidImage, setAndroidImage] = useState('');
+
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [images, setImages] = useState(null);
@@ -116,8 +116,8 @@ export default function UploadImages({navigation}) {
       cropperToolbarWidgetColor: '#3498DB',
     })
       .then((image) => {
-        setIosImage(image.sourceURL);
-        setAndroidImage(image.path);
+        // setIosImage(image.sourceURL);
+        // setAndroidImage(image.path);
         // console.log('received image', image);
         setImage({
           image: {
@@ -128,30 +128,19 @@ export default function UploadImages({navigation}) {
           },
           images: null,
         });
-        // console.log('image');
+        console.log('image');
 
-        // console.log(androidImage);
-        // console.log('image');
+        const localuri = getFilePathFromLocalUri(image.path);
+        setImage(localuri);
+
+        console.log(localuri);
+        console.log('image');
       })
       .catch((e) => {
         console.log(e);
         console.log(e.message ? e.message : e);
       });
   };
-
-  // const setObjectValue = async (value) => {
-  //   try {
-  //     const jsonValue = JSON.stringify(value);
-  //     // console.log(jsonValue);
-  //     await AsyncStorage.setItem('Profile Image Url', jsonValue);
-  //     setImage(jsonValue);
-  //     // console.log(image);
-  //   } catch (e) {
-  //     // save error
-  //   }
-
-  //   // console.log(image);
-  // };
 
   const renderAsset = (image) => {
     if (image.mime && image.mime.toLowerCase().indexOf('video/') !== -1) {
@@ -162,18 +151,11 @@ export default function UploadImages({navigation}) {
   };
 
   const renderImage = (image) => {
-    if (iosImage) {
+    if (image) {
       return (
         <Image
-          style={{width: 400, height: 300, resizeMode: 'contain'}}
-          source={{uri: iosImage}}
-        />
-      );
-    } else {
-      return (
-        <Image
-          style={{width: 400, height: 300, resizeMode: 'contain'}}
-          source={{uri: androidImage}}
+          style={{width: 300, height: 300, resizeMode: 'contain'}}
+          source={{uri: 'file://' + image}}
         />
       );
     }
@@ -186,7 +168,7 @@ export default function UploadImages({navigation}) {
   }
 
   next = async () => {
-    if (androidImage || iosImage) {
+    if (image) {
       console.log('User upload a profile image');
     } else console.log('User didnt upload a profile image');
 
@@ -199,7 +181,7 @@ export default function UploadImages({navigation}) {
     setIsSubmitting(true);
     try {
       // this.updateProfile(newUserData);
-      await AsyncStorage.setItem('Profile_Image', androidImage || iosImage);
+      await AsyncStorage.setItem('Profile_Image', image);
       const dsfdf = await AsyncStorage.getItem('Profile_Image');
       console.log(dsfdf);
       setIsSubmitting(false);

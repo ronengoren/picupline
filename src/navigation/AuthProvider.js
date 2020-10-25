@@ -2,6 +2,8 @@ import React, {createContext, useState, useContext} from 'react';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import AsyncStorage from '@react-native-community/async-storage';
+import storage from '@react-native-firebase/storage';
+import {utils} from '@react-native-firebase/app';
 
 /**
  * This provider is created
@@ -12,7 +14,9 @@ export const AuthContext = createContext({});
 
 export const AuthProvider = ({children}) => {
   const [user, setUser] = useState(null);
-
+  const [storageProfileImage, setStorageProfileImage] = useState(null);
+  const [uploading, setUploading] = useState(false);
+  const [transferred, setTransferred] = useState(0);
   return (
     <AuthContext.Provider
       value={{
@@ -55,7 +59,15 @@ export const AuthProvider = ({children}) => {
           var profileImage = '';
           const getProfileImage = await AsyncStorage.getItem('Profile_Image');
           profileImage = getProfileImage;
-          console.log(profileImage);
+          const filename = profileImage.substring(
+            profileImage.lastIndexOf('/') + 1,
+          );
+          const uploadUri =
+            Platform.OS === 'ios'
+              ? profileImage.replace('file://', '')
+              : profileImage;
+          setUploading(true);
+          setTransferred(0);
 
           // const pref = value.find(myFunction);
           // function myFunction(value, index, array) {
@@ -79,6 +91,18 @@ export const AuthProvider = ({children}) => {
               dob,
               profileImage,
             };
+            const task = storage()
+              .ref('profileImages/' + filename)
+              .putFile(uploadUri);
+
+            // set progress state
+            task.on('state_changed', (snapshot) => {
+              setTransferred(
+                Math.round(snapshot.bytesTransferred / snapshot.totalBytes) *
+                  10000,
+              );
+            });
+            await task;
 
             // console.log(uid);
             firestore()
@@ -91,6 +115,7 @@ export const AuthProvider = ({children}) => {
           } catch (e) {
             console.log(e);
           }
+          setUploading(false);
         },
         logout: async () => {
           try {

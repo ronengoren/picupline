@@ -43,7 +43,7 @@ export default function HomeScreen({navigation}) {
         setPosts(posts);
         // setIsRefreshing(false);
         setLoading(false);
-        // console.log(posts[0]);
+        // console.log(posts);
       })
       .catch(function (error) {
         console.log('Error getting documents: ', error);
@@ -53,9 +53,10 @@ export default function HomeScreen({navigation}) {
   if (loading) {
     return <Loading />;
   }
+
   const renderItem = ({item}) => (
     <View style={styles.card}>
-      {/* <PinchableBox imageUri={item.postPhoto.uri} /> */}
+      <PinchableBox imageUri={item.postPhoto} />
       <View style={styles.cardHeader}>
         <Text category="s1" style={styles.cardTitle}>
           {item.postTitle}
@@ -78,10 +79,6 @@ export default function HomeScreen({navigation}) {
     </View>
   );
 
-  // console.log(posts);
-  // onRefresh = () => {
-  //   setIsRefreshing(true);
-  // };
   return (
     <View style={styles.container}>
       {posts ? (

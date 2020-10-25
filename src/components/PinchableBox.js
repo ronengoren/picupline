@@ -1,13 +1,41 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Animated, Dimensions, View, Text, StyleSheet} from 'react-native';
 import {PinchGestureHandler, State} from 'react-native-gesture-handler';
 import {Image} from 'react-native-elements';
+import storage from '@react-native-firebase/storage';
 
 const {width, height} = Dimensions.get('screen');
 
-const PinchableBox = ({imageUri}) => {
-  let scale = new Animated.Value(1);
+const PinchableBox = ({imageUri, route}) => {
+  const [images, setImages] = useState(null);
 
+  React.useEffect(() => {
+    const filename = imageUri.substring(imageUri.lastIndexOf('/') + 1);
+    const reference = storage().ref('postImages' + '/' + filename);
+    // console.log(reference);
+    reference
+      .getDownloadURL()
+      .then((url) => {
+        console.log('images');
+
+        console.log(url);
+        console.log('images');
+        //from url you can fetched the uploaded image easily
+        setImages({uri: url});
+      })
+      .catch((e) => console.log('getting downloadURL of image error => ', e));
+
+    // if (route.params?.avatar) {
+    //   // console.log(route.params);
+    //   setAvatar(route.params.avatar);
+    //   // console.log(avatar);
+    //   // Post updated, do something with `route.params.post`
+    //   // For example, send the post to the server
+    // }
+  }, []);
+
+  let scale = new Animated.Value(1);
+  // console.log(imageUri);
   const onPinchEvent = Animated.event(
     [
       {
@@ -41,10 +69,10 @@ const PinchableBox = ({imageUri}) => {
         style={{
           width: width,
           height: 300,
-          transform: [{scale: scale}],
+          // transform: [{scale: scale}],
         }}
-        source={{uri: imageUri}}
-        resizeMode="contain"
+        source={images}
+        resizeMode="cover"
       />
     </PinchGestureHandler>
   );

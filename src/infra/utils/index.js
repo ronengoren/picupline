@@ -91,7 +91,7 @@ const entityTypes = {
   REVIEW: 'review',
 };
 export function getFilePathFromLocalUri(localUri) {
-  return localUri.replace('file:///', '');
+  return localUri.replace('file://', '');
 }
 
 export const intersectList = (originalDataList, newDataList) => {

@@ -19,6 +19,8 @@ import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import Gallery from '../components/Gallery';
 import ImagePicker from 'react-native-image-crop-picker';
+import {getFilePathFromLocalUri} from '../infra/utils';
+import storage from '@react-native-firebase/storage';
 
 const {pic, title} = HomeScreenPics[randomNo(1, HomeScreenPics.length)];
 
@@ -31,28 +33,56 @@ const Social = ({name}) => (
   />
 );
 
-export function getFilePathFromLocalUri(localUri) {
-  return localUri.replace('file://', '');
-}
 export default function ProfileScreen({navigation, route}) {
   // const {navigate} = props.navigation;
   const [userDetails, setUserDetails] = useState([]);
   const [images, setImages] = useState([]);
-  const [avatar, setAvatar] = useState([]);
+  const [avatar, setAvatar] = useState(null);
   const [image, setImage] = useState(null);
+  const [profileImageUrl, setProfileImageUrl] = useState(null);
 
-  React.useEffect(() => {
-    if (route.params?.avatar) {
-      // console.log(route.params);
-      setAvatar(route.params.avatar);
-      // console.log(avatar);
-      // Post updated, do something with `route.params.post`
-      // For example, send the post to the server
-    }
-  }, [route.params?.avatar]);
+  const [user, setUser] = useState(auth().currentUser);
+  // React.useEffect(() => {
+  //   if (route.params?.avatar) {
+  //     // console.log(route.params);
+  //     setAvatar(route.params.avatar);
+  //     // console.log(avatar);
+  //     // Post updated, do something with `route.params.post`
+  //     // For example, send the post to the server
+  //   }
+  // }, [route.params?.avatar]);
 
   useEffect(() => {
-    const user = auth().currentUser;
+    firestore()
+      .collection('Users')
+      .doc(user.uid)
+      .onSnapshot((querySnapshot) => {
+        let info = [];
+        let newUserDetails = querySnapshot.data();
+        let avatarFile = querySnapshot.data().profileImage;
+        const filename = avatarFile.substring(avatarFile.lastIndexOf('/') + 1);
+        const reference = storage().ref('profileImages' + '/' + filename);
+
+        // setAvatar(avatarFile);
+        setUserDetails(newUserDetails);
+
+        reference
+          .getDownloadURL()
+          .then((url) => {
+            //from url you can fetched the uploaded image easily
+            setProfileImageUrl({uri: url});
+          })
+          .catch((e) =>
+            console.log('getting downloadURL of image error => ', e),
+          );
+        // console.log('avatarFile');
+        // console.log(profileImageUrl);
+        // console.log('avatarFile');
+      });
+  }, []);
+
+  useEffect(() => {
+    // const user = auth().currentUser;
 
     firestore()
       .collection('posts')
@@ -71,16 +101,6 @@ export default function ProfileScreen({navigation, route}) {
       })
       .catch(function (error) {
         console.log('Error getting documents: ', error);
-      });
-    return firestore()
-      .collection('Users')
-      .doc(user.uid)
-      .onSnapshot((querySnapshot) => {
-        let info = [];
-        let newUserDetails = querySnapshot.data();
-        let avatarFile = querySnapshot.data().profileImage;
-        setAvatar(avatarFile);
-        setUserDetails(newUserDetails);
       });
   }, []);
 
@@ -104,7 +124,7 @@ export default function ProfileScreen({navigation, route}) {
       .then((image) => {
         // setIosImage(image.sourceURL);
         // setAndroidImage(image.path);
-        console.log('received image', image);
+        // console.log('received image', image);
         setImage({
           image: {
             uri: image.path,
@@ -115,12 +135,14 @@ export default function ProfileScreen({navigation, route}) {
           images: null,
         });
         const localuri = getFilePathFromLocalUri(image.path);
-        console.log('image');
-
-        console.log(localuri);
         setAvatar(localuri);
-        console.log('image');
-        onSubmit();
+
+        // console.log('image');
+
+        // console.log(localuri);
+
+        // console.log('image');
+        onSubmit(localuri);
         // console.log(androidImage);
         // console.log('image');
       })
@@ -129,14 +151,15 @@ export default function ProfileScreen({navigation, route}) {
         console.log(e.message ? e.message : e);
       });
   };
-  const onSubmit = async () => {
+  const onSubmit = async (localuri) => {
     let user = auth().currentUser;
-    console.log(avatar);
+    console.log(localuri);
     try {
       firestore().collection('Users').doc(user.uid).update({
-        profileImage: avatar,
+        profileImage: localuri,
       });
-      navigation.navigate('Profile', {profileImage: avatar});
+      setAvatar(localuri);
+      // navigation.navigate('Profile', {profileImage: avatar});
     } catch (e) {
       console.error(e);
     }
@@ -147,7 +170,7 @@ export default function ProfileScreen({navigation, route}) {
         <View>
           <Avatar
             rounded
-            source={{uri: 'file://' + avatar}}
+            source={profileImageUrl}
             size="xlarge"
             style={{width: 100, height: 100}}
           />
@@ -201,7 +224,7 @@ export default function ProfileScreen({navigation, route}) {
           status="danger"
           title="MESSAGE"></Button> */}
       </View>
-      <Gallery items={images} />
+      {/* <Gallery items={images} /> */}
     </SafeAreaView>
   );
 }
