@@ -11,15 +11,14 @@ const PinchableBox = ({imageUri, route}) => {
 
   React.useEffect(() => {
     const filename = imageUri.substring(imageUri.lastIndexOf('/') + 1);
-    const reference = storage().ref('postImages' + '/' + filename);
-    // console.log(reference);
+    const reference = storage().ref('userImages' + '/' + filename);
     reference
       .getDownloadURL()
       .then((url) => {
-        console.log('images');
+        // console.log('images');
 
-        console.log(url);
-        console.log('images');
+        // console.log(url);
+        // console.log('images');
         //from url you can fetched the uploaded image easily
         setImages({uri: url});
       })

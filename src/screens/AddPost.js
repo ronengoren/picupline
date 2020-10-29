@@ -27,6 +27,7 @@ export default function AddPost({navigation, route}) {
   const [localuri, setLocaluri] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [transferred, setTransferred] = useState(0);
+  const [imageURI, setImageURI] = useState(null);
 
   const onChangeTitle = (title) => {
     setTitle(title);
@@ -36,6 +37,7 @@ export default function AddPost({navigation, route}) {
   };
   const onSubmit = async () => {
     const filename = localuri.substring(localuri.lastIndexOf('/') + 1);
+
     const uploadUri =
       Platform.OS === 'ios'
         ? storageImage.replace('file://', '')
@@ -44,14 +46,30 @@ export default function AddPost({navigation, route}) {
     setUploading(true);
     setTransferred(0);
     const task = storage()
-      .ref('postImages/' + filename)
+      .ref('userImages/' + filename)
       .putFile(uploadUri);
+
     task.on('state_changed', (snapshot) => {
       setTransferred(
         Math.round(snapshot.bytesTransferred / snapshot.totalBytes) * 10000,
       );
+      switch (snapshot.state) {
+        case 'running':
+          setImageURI(null);
+          // setUpload({ loading: true, progress });
+          break;
+        case 'success':
+          snapshot.ref.getDownloadURL().then((downloadURL) => {
+            // console.log(downloadURL);
+            setImageURI({uri: downloadURL});
+            // setUpload({ loading: false });
+          });
+          break;
+        default:
+          break;
+      }
     });
-    console.log(postImageUrl);
+    // console.log(postImageUrl);
     // console.log(description);
 
     try {

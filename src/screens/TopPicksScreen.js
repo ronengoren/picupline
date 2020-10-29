@@ -11,6 +11,7 @@ import {TopPicksScreenPics} from '../constants/Pics';
 import {useAuth} from '../navigation/AuthProvider';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import storage from '@react-native-firebase/storage';
 
 function onResult(QuerySnapshot) {
   console.log('Got Users collection result.');
@@ -27,6 +28,7 @@ export default function TopPicksScreen({props}) {
 
   const [loading, setLoading] = useState(true);
   const [avatars, setAvatars] = useState();
+  const [imageURI, setImageURI] = useState(null);
 
   const currentUser = auth().currentUser;
   const ref = firestore().collection('Users');
@@ -42,7 +44,7 @@ export default function TopPicksScreen({props}) {
   const Users = () => {
     const usersList = users.map((number) => number);
 
-    // console.log(usersList);
+    console.log(usersList);
 
     return (
       <View style={styles.grid}>
@@ -53,39 +55,65 @@ export default function TopPicksScreen({props}) {
           Featured profiles of the day, picked just for you
         </Text>
 
-        {usersList.map(({id, email, displayName, pic}, i) => (
-          <Tile
-            imageSrc={{url: pic}}
-            activeOpacity={0.9}
-            title={displayName}
-            titleStyle={styles.title}
-            caption={email}
-            captionStyle={styles.caption}
-            featured
-            key={id}
-          />
-        ))}
+        {usersList.map(
+          ({id, email, profileImage, dob, gender, preferredGender, uri}, i) => (
+            <Tile
+              imageSrc={{uri: uri}}
+              activeOpacity={0.9}
+              title={gender}
+              titleStyle={styles.title}
+              caption={email}
+              captionStyle={styles.caption}
+              featured
+              key={id}
+            />
+          ),
+        )}
       </View>
     );
   };
+
+  function Filename(params) {
+    const urlparams = params.substring(params.lastIndexOf('/') + 1);
+    return urlparams;
+  }
+
+  function RefURL(params) {
+    return storage().ref('profileImages' + '/' + params);
+  }
 
   useEffect(() => {
     return ref.onSnapshot((querySnapshot) => {
       const list = [];
       querySnapshot.forEach((doc) => {
-        const {email, displayName, name, avatar} = doc.data();
-        // console.log(doc.data().avatar.uri);
-        // console.log('users');
-
-        list.push({
-          id: doc.id,
-          displayName,
+        const {
           email,
-          avatar,
+          profileImage,
+          gender,
+          dob,
+          preferredGender,
+          uri,
+        } = doc.data();
+        const filename = profileImage.substring(
+          profileImage.lastIndexOf('/') + 1,
+        );
+        const ref = storage().ref('profileImages/' + filename);
+        return ref.getDownloadURL().then((uri) => {
+          list.push({
+            id: doc.id,
+            profileImage,
+            email,
+            dob,
+            gender,
+            preferredGender,
+            uri,
+          });
+
+          // setImageURI({uri: uri});
         });
       });
-      setUsers(list);
     });
+    setUsers(list);
   }, []);
 
   return (

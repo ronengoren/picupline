@@ -5,6 +5,7 @@ import {
   FlatList,
   TouchableOpacity,
   SafeAreaView,
+  RefreshControl,
 } from 'react-native';
 import {List} from 'react-native-paper';
 import firestore from '@react-native-firebase/firestore';
@@ -22,6 +23,7 @@ import {
   Image,
   ListItem,
 } from 'react-native-elements';
+import storage from '@react-native-firebase/storage';
 
 export default function HomeScreen({navigation}) {
   useStatsBar('light-content');
@@ -30,28 +32,77 @@ export default function HomeScreen({navigation}) {
   const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState([null]);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [avatarStorage, setAvatarStorage] = useState([null]);
 
   /**
    * Fetch threads from Firestore
    */
-  useEffect(() => {
-    firestore()
+  const onRefresh = React.useCallback(async () => {
+    setIsRefreshing(true);
+    if (posts.length < 10) {
+      try {
+        fetchPosts();
+        setIsRefreshing(false);
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      ToastAndroid.show('No more new data available', ToastAndroid.SHORT);
+      setRefreshing(false);
+    }
+  }, [isRefreshing]);
+
+  fetchPosts = async () => {
+    await firestore()
       .collection('posts')
       .get()
       .then((querySnapshot) => {
         let posts = querySnapshot.docs.map((doc) => doc.data());
-        setPosts(posts);
-        // setIsRefreshing(false);
-        setLoading(false);
         // console.log(posts);
+
+        setPosts(posts);
+        setLoading(false);
+        // avatarImage(postsId);
       })
       .catch(function (error) {
         console.log('Error getting documents: ', error);
       });
+  };
+  useEffect(() => {
+    fetchPosts();
   }, []);
 
   if (loading) {
     return <Loading />;
+  }
+
+  function avatarImage(params) {
+    for (let i = 0; i < params.length; i++) {
+      const userDocument = firestore()
+        .collection('Users')
+        .doc(params[i])
+        .onSnapshot((documentSnapshot) => {
+          const profileImage = documentSnapshot.data().profileImage;
+          const filename = profileImage.substring(
+            profileImage.lastIndexOf('/') + 1,
+          );
+          const reference = storage().ref('profileImages' + '/' + filename);
+          // console.log(filename);
+          reference
+            .getDownloadURL()
+            .then((url) => {
+              // console.log('images');
+              // console.log(url);
+              // console.log('images');
+              //from url you can fetched the uploaded image easily
+              setAvatarStorage({uri: url});
+              // console.log(avatarStorage);
+            })
+            .catch((e) =>
+              console.log('getting downloadURL of image error => ', e),
+            );
+        });
+    }
   }
 
   const renderItem = ({item}) => (
@@ -59,9 +110,10 @@ export default function HomeScreen({navigation}) {
       <PinchableBox imageUri={item.postPhoto} />
       <View style={styles.cardHeader}>
         <Text category="s1" style={styles.cardTitle}>
-          {item.postTitle}
+          {item.uid}
         </Text>
-        <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Profile', {itemId: item.uid})}>
           <Avatar
             rounded
             source={{
@@ -87,6 +139,9 @@ export default function HomeScreen({navigation}) {
           data={posts}
           renderItem={renderItem}
           keyExtractor={posts.id}
+          refreshControl={
+            <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
+          }
         />
       ) : (
         <Text>I</Text>

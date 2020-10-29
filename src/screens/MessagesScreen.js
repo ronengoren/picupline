@@ -1,41 +1,87 @@
-import React from 'react';
-import {SafeAreaView, ScrollView, StyleSheet} from 'react-native';
-import {ListItem, Avatar} from 'react-native-elements';
-import {Messages} from '../constants/Messages';
+import React, {useState, useEffect} from 'react';
+import {View, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
+import {List, Divider} from 'react-native-paper';
+import firestore from '@react-native-firebase/firestore';
+import Loading from '../components/Loading';
+import useStatsBar from '../utils/useStatusBar';
 
-class MessagesScreen extends React.Component {
-  render() {
-    return (
-      <SafeAreaView>
-        <ScrollView>
-          {Messages.map((user, i) => (
-            <ListItem key={i}>
-              <Avatar rounded size="large" source={user.pic} />
-              <ListItem.Content>
-                <ListItem.Title style={styles.title}>
-                  {user.title}
-                </ListItem.Title>
-                <ListItem.Subtitle style={styles.subtitle}>
-                  {user.message}
-                </ListItem.Subtitle>
-              </ListItem.Content>
-              <ListItem.Chevron />
-            </ListItem>
-          ))}
-        </ScrollView>
-      </SafeAreaView>
-    );
+export default function MessagesScreen({navigation}) {
+  useStatsBar('light-content');
+
+  const [threads, setThreads] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  /**
+   * Fetch threads from Firestore
+   */
+  useEffect(() => {
+    const unsubscribe = firestore()
+      .collection('THREADS')
+      .orderBy('latestMessage.createdAt', 'desc')
+      .onSnapshot((querySnapshot) => {
+        const threads = querySnapshot.docs.map((documentSnapshot) => {
+          return {
+            _id: documentSnapshot.id,
+            // give defaults
+            name: '',
+
+            latestMessage: {
+              text: '',
+            },
+            ...documentSnapshot.data(),
+          };
+        });
+
+        setThreads(threads);
+
+        if (loading) {
+          setLoading(false);
+        }
+      });
+
+    /**
+     * unsubscribe listener
+     */
+    return () => unsubscribe();
+  }, []);
+
+  if (loading) {
+    return <Loading />;
   }
+
+  return (
+    <View style={styles.container}>
+      <FlatList
+        data={threads}
+        keyExtractor={(item) => item._id}
+        ItemSeparatorComponent={() => <Divider />}
+        renderItem={({item}) => (
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Room', {thread: item})}>
+            <List.Item
+              title={item.name}
+              description={item.latestMessage.text}
+              titleNumberOfLines={1}
+              titleStyle={styles.listTitle}
+              descriptionStyle={styles.listDescription}
+              descriptionNumberOfLines={1}
+            />
+          </TouchableOpacity>
+        )}
+      />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-  title: {
-    fontSize: 24,
-    color: '#3F3F3F',
+  container: {
+    backgroundColor: '#f5f5f5',
+    flex: 1,
   },
-  subtitle: {
-    color: '#A5A5A5',
+  listTitle: {
+    fontSize: 22,
+  },
+  listDescription: {
+    fontSize: 16,
   },
 });
-
-export default MessagesScreen;

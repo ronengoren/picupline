@@ -89,6 +89,8 @@ function HomeStack() {
   return (
     <ModalStack.Navigator mode="modal" headerMode="none">
       <ModalStack.Screen name="ChatApp" component={ChatApp} />
+      <ModalStack.Screen name="Profile" component={ProfileScreen} />
+
       <ModalStack.Screen name="AddRoom" component={AddRoomScreen} />
     </ModalStack.Navigator>
   );

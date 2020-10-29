@@ -40,22 +40,25 @@ export default function ProfileScreen({navigation, route}) {
   const [avatar, setAvatar] = useState(null);
   const [image, setImage] = useState(null);
   const [profileImageUrl, setProfileImageUrl] = useState(null);
-
   const [user, setUser] = useState(auth().currentUser);
-  // React.useEffect(() => {
-  //   if (route.params?.avatar) {
-  //     // console.log(route.params);
-  //     setAvatar(route.params.avatar);
-  //     // console.log(avatar);
-  //     // Post updated, do something with `route.params.post`
-  //     // For example, send the post to the server
-  //   }
-  // }, [route.params?.avatar]);
+  const [imageURI, setImageURI] = useState(null);
+
+  var userid = user.uid;
+  React.useEffect(() => {
+    if (route.params?.itemId) {
+      userid = route.params.itemId;
+      // console.log(userid);
+      // console.log(route.params.itemId);
+
+      // Post updated, do something with `route.params.post`
+      // For example, send the post to the server
+    }
+  }, [route.params?.itemId]);
 
   useEffect(() => {
     firestore()
       .collection('Users')
-      .doc(user.uid)
+      .doc(userid)
       .onSnapshot((querySnapshot) => {
         let info = [];
         let newUserDetails = querySnapshot.data();
@@ -76,7 +79,7 @@ export default function ProfileScreen({navigation, route}) {
             console.log('getting downloadURL of image error => ', e),
           );
         // console.log('avatarFile');
-        // console.log(profileImageUrl);
+        // console.log(newUserDetails);
         // console.log('avatarFile');
       });
   }, []);
@@ -95,6 +98,7 @@ export default function ProfileScreen({navigation, route}) {
           return item.postPhoto;
         });
         setImages(images);
+        // console.log(urlImages(images));
 
         // setIsRefreshing(false);
         // setLoading(false);
@@ -181,7 +185,7 @@ export default function ProfileScreen({navigation, route}) {
           </View>
         </View>
         <Text category="h6" style={styles.name}>
-          {userDetails.gender}
+          {userDetails.uid}
         </Text>
       </View>
       <View style={[styles.userInfo, styles.bordered]}>
@@ -224,7 +228,7 @@ export default function ProfileScreen({navigation, route}) {
           status="danger"
           title="MESSAGE"></Button> */}
       </View>
-      {/* <Gallery items={images} /> */}
+      <Gallery items={images} />
     </SafeAreaView>
   );
 }
