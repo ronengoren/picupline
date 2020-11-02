@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
   Button,
   Dimensions,
+  ImageBackground,
+  ScrollView,
 } from 'react-native';
 import {Divider, Text, Avatar, Accessory} from 'react-native-elements';
 import Layout from '../constants/Layout';
@@ -21,6 +23,14 @@ import Gallery from '../components/Gallery';
 import ImagePicker from 'react-native-image-crop-picker';
 import {getFilePathFromLocalUri} from '../infra/utils';
 import storage from '@react-native-firebase/storage';
+import Demo from '../constants/demo';
+import ProfileItem from '../components/ProfileItem';
+import Colors from '../constants/Colors';
+import {
+  translateDate,
+  getBirthdateMinMax,
+  getAge,
+} from '../infra/utils/dateTimeUtils';
 
 const {pic, title} = HomeScreenPics[randomNo(1, HomeScreenPics.length)];
 
@@ -32,6 +42,7 @@ const Social = ({name}) => (
     size={32}
   />
 );
+const DIMENSION_WIDTH = Dimensions.get('window').width;
 
 export default function ProfileScreen({navigation, route}) {
   // const {navigate} = props.navigation;
@@ -42,13 +53,28 @@ export default function ProfileScreen({navigation, route}) {
   const [profileImageUrl, setProfileImageUrl] = useState(null);
   const [user, setUser] = useState(auth().currentUser);
   const [imageURI, setImageURI] = useState(null);
-
+  const {
+    age,
+    pic,
+    info1,
+    info2,
+    info3,
+    info4,
+    info5,
+    info6,
+    info7,
+    info8,
+    info9,
+    info10,
+    inf11,
+    location,
+    match,
+    name,
+  } = Demo[7];
   var userid = user.uid;
   React.useEffect(() => {
     if (route.params?.itemId) {
       userid = route.params.itemId;
-      // console.log(userid);
-      // console.log(route.params.itemId);
 
       // Post updated, do something with `route.params.post`
       // For example, send the post to the server
@@ -65,10 +91,10 @@ export default function ProfileScreen({navigation, route}) {
         let avatarFile = querySnapshot.data().profileImage;
         const filename = avatarFile.substring(avatarFile.lastIndexOf('/') + 1);
         const reference = storage().ref('profileImages' + '/' + filename);
-
         // setAvatar(avatarFile);
         setUserDetails(newUserDetails);
-
+        // console.log(getAge(userDetails.dob));
+        console.log(userDetails.profileImage);
         reference
           .getDownloadURL()
           .then((url) => {
@@ -169,67 +195,64 @@ export default function ProfileScreen({navigation, route}) {
     }
   };
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={[styles.header, styles.bordered]}>
-        <View>
-          <Avatar
-            rounded
-            source={profileImageUrl}
-            size="xlarge"
-            style={{width: 100, height: 100}}
-          />
-          <View style={styles.add}>
-            <TouchableOpacity onPress={() => pickSingle(false)}>
-              <Icon name="pencil" width={20} height={20} fill="#111" />
-            </TouchableOpacity>
-          </View>
-        </View>
-        <Text category="h6" style={styles.name}>
-          {userDetails.uid}
-        </Text>
+    <ImageBackground
+      source={require('../assets/images/homeTab/homeTabGradient.png')}
+      style={styles.container}>
+      <ImageBackground
+        source={profileImageUrl}
+        style={styles.photo}></ImageBackground>
+      <ScrollView>
+        <ProfileItem
+          matches={match}
+          name={userDetails.displayname}
+          age={getAge(userDetails.dob)}
+          location={userDetails.location}
+          info1={userDetails.aboutMe}
+          info2={userDetails.alcohol}
+          info3={userDetails.bodyType}
+          info4={userDetails.diet}
+          info5={userDetails.education}
+          info6={userDetails.height}
+          info7={userDetails.weight}
+          info8={userDetails.hivStatus}
+          info9={userDetails.kids}
+          info10={userDetails.language}
+          info11={userDetails.lookingFor}
+          info12={userDetails.music}
+          info13={userDetails.pets}
+          info14={userDetails.relationshipStatus}
+          info15={userDetails.role}
+          info16={userDetails.smoke}
+          info17={userDetails.sport}
+          info18={userDetails.tattoos}
+          info19={userDetails.tribes}
+        />
+      </ScrollView>
+
+      <View style={styles.actionsProfile}>
+        {user.uid == userDetails.uid ? (
+          <TouchableOpacity
+            style={styles.circledButton}
+            onPress={() =>
+              navigation.navigate('EditProfile', {
+                userDetails: user.uid,
+                profileImage: profileImageUrl,
+              })
+            }>
+            <Text style={styles.iconButton}>
+              <Icon name="md-options" size={18} />
+            </Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity style={styles.roundedButton}>
+            <Text style={styles.iconButton}>
+              <Icon name="md-chatbubbles" size={15} />
+            </Text>
+            <Text style={styles.textButton}>Start Chatting</Text>
+          </TouchableOpacity>
+        )}
       </View>
-      <View style={[styles.userInfo, styles.bordered]}>
-        <View style={styles.section}>
-          <Text category="s1" style={styles.space}>
-            {images.length}
-          </Text>
-          <Text appearance="hint" category="s2">
-            Posts
-          </Text>
-        </View>
-        <View style={styles.section}>
-          <Text category="s1" style={styles.space}>
-            0
-          </Text>
-          <Text appearance="hint" category="s2">
-            Followers
-          </Text>
-        </View>
-        <View style={styles.section}>
-          <Text category="s1" style={styles.space}>
-            0
-          </Text>
-          <Text appearance="hint" category="s2">
-            Following
-          </Text>
-        </View>
-      </View>
-      <View style={styles.buttons}>
-        {/* <Button
-          title="LOGOUT"
-          style={styles.button}
-          appearance="ghost"
-          status="danger"
-          onPress={this.handleSignout}></Button> */}
-        <View style={styles.separator} />
-        {/* <Button
-          style={styles.button}
-          appearance="ghost"
-          status="danger"
-          title="MESSAGE"></Button> */}
-      </View>
-      <Gallery items={images} />
-    </SafeAreaView>
+    </ImageBackground>
   );
 }
 
@@ -341,39 +364,57 @@ const styles = StyleSheet.create({
     fontSize: 24,
     marginRight: 5,
   },
+  containerProfileItem: {
+    backgroundColor: '#FFFFFF',
+    paddingHorizontal: 10,
+    paddingBottom: 25,
+    margin: 20,
+    borderRadius: 8,
+    marginTop: -65,
+    shadowOpacity: 0.05,
+    shadowRadius: 10,
+    shadowColor: '#000000',
+    shadowOffset: {height: 0, width: 0},
+  },
+  photo: {
+    width: DIMENSION_WIDTH,
+    height: 250,
+  },
+  actionsProfile: {
+    justifyContent: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  circledButton: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: '#7444C0',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 10,
+    marginBottom: 10,
+  },
+  iconButton: {
+    fontFamily: Colors.medium,
+    fontSize: 40,
+    color: '#FFFFFF',
+  },
+  roundedButton: {
+    justifyContent: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginLeft: 10,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: '#5636B8',
+    paddingHorizontal: 20,
+    marginBottom: 10,
+  },
+  textButton: {
+    fontFamily: Colors.medium,
+    fontSize: 15,
+    color: '#FFFFFF',
+    paddingLeft: 5,
+  },
 });
-
-// export default function (props) {
-//   const navigation = useNavigation();
-
-//   return <ProfileScreen {...props} navigation={navigation} />;
-// }
-
-{
-  /* <View style={styles.imageContainer}>
-        <Image source={pic} style={styles.image} />
-      </View>
-      <Text h4 style={styles.name}>
-        {user.email}
-      </Text>
-      <Text style={styles.desc}> {user.uid}</Text>
-      <Divider style={styles.divider} />
-      <Text style={styles.desc}>
-        I love to travel. I have a cat named pickles. If he likes you, I
-        probably will too.
-      </Text>
-      <Divider style={styles.divider} />
-      <Text style={styles.desc}>Find me on Social here</Text>
-      <View style={styles.socialLinks}>
-        <Social name="logo-snapchat" />
-        <Social name="logo-instagram" />
-        <Social name="logo-facebook" />
-        <TouchableOpacity style={styles.button}>
-          <Text
-            style={styles.buttonText}
-            onPress={() => navigation.navigate('EditProfile')}>
-            Edit Profile
-          </Text>
-        </TouchableOpacity>
-      </View> */
-}

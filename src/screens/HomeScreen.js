@@ -69,7 +69,7 @@ export default function HomeScreen({navigation}) {
       });
   };
   useEffect(() => {
-    fetchPosts();
+    const unsubscribe = fetchPosts();
   }, []);
 
   if (loading) {

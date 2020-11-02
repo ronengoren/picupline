@@ -5,6 +5,7 @@ import {
   View,
   SafeAreaView,
   FlatList,
+  ImageBackground,
 } from 'react-native';
 import {Text, Tile} from 'react-native-elements';
 import {TopPicksScreenPics} from '../constants/Pics';
@@ -12,6 +13,13 @@ import {useAuth} from '../navigation/AuthProvider';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
+import CardStack, {Card} from 'react-native-card-stack-swiper';
+import Demo from '../constants/demo';
+import City from '../components/City';
+import Filters from '../components/Filters';
+import CardItem from '../components/CardItem';
+import Colors from '../constants/Colors';
+import Swiper from 'react-native-deck-swiper';
 
 function onResult(QuerySnapshot) {
   console.log('Got Users collection result.');
@@ -23,7 +31,7 @@ function onError(error) {
 
 export default function TopPicksScreen({props}) {
   const [users, setUsers] = useState([]);
-  const [user, setUser] = useState('');
+  const [user, setUser] = useState([]);
   const [total, setTotals] = useState('');
 
   const [loading, setLoading] = useState(true);
@@ -42,51 +50,44 @@ export default function TopPicksScreen({props}) {
     });
 
   const Users = () => {
-    const usersList = users.map((number) => number);
-
-    console.log(usersList);
+    const usersList = users.map((item, index) => item);
 
     return (
-      <View style={styles.grid}>
-        <Text h2 h2Style={styles.h2Style}>
-          {total} Top Picks
-        </Text>
-        <Text h4 h4Style={styles.h4Style}>
-          Featured profiles of the day, picked just for you
-        </Text>
-
-        {usersList.map(
-          ({id, email, profileImage, dob, gender, preferredGender, uri}, i) => (
-            <Tile
-              imageSrc={{uri: uri}}
-              activeOpacity={0.9}
-              title={gender}
+      <CardStack
+        loop={true}
+        verticalSwipe={false}
+        renderNoMoreCards={() => null}
+        ref={(swiper) => (this.swiper = swiper)}
+        onSwiped={() => console.log('onSwiped')}
+        onSwipedLeft={() => console.log('onSwipedLeft')}
+        onSwipedRight={() => console.log('onRightLeft')}>
+        {usersList.map((profile, i) => (
+          <Card key={i}>
+            <CardItem
+              image={{uri: profile.uri}}
+              name={profile.gender}
+              matches={'44'}
               titleStyle={styles.title}
-              caption={email}
+              description={profile.email}
               captionStyle={styles.caption}
-              featured
-              key={id}
+              actions
+              onPressLeft={() => this.swiper.swipeLeft(console.log('left'))}
+              onPressRight={() => this.swiper.swipeRight(console.log('right'))}
             />
-          ),
-        )}
-      </View>
+          </Card>
+        ))}
+      </CardStack>
     );
   };
 
-  function Filename(params) {
-    const urlparams = params.substring(params.lastIndexOf('/') + 1);
-    return urlparams;
-  }
-
-  function RefURL(params) {
-    return storage().ref('profileImages' + '/' + params);
-  }
-
   useEffect(() => {
-    return ref.onSnapshot((querySnapshot) => {
-      const list = [];
-      querySnapshot.forEach((doc) => {
+    let list = [];
+
+    const unsubscribe = ref.onSnapshot((querySnapshot) => {
+      let usersLists = querySnapshot.forEach((doc) => {
+        // console.log(doc.data());
         const {
+          uid,
           email,
           profileImage,
           gender,
@@ -94,38 +95,80 @@ export default function TopPicksScreen({props}) {
           preferredGender,
           uri,
         } = doc.data();
+
         const filename = profileImage.substring(
           profileImage.lastIndexOf('/') + 1,
         );
         const ref = storage().ref('profileImages/' + filename);
-        return ref.getDownloadURL().then((uri) => {
+        ref.getDownloadURL().then((uri) => {
           list.push({
-            id: doc.id,
-            profileImage,
+            uid,
             email,
-            dob,
             gender,
+            dob,
             preferredGender,
             uri,
           });
+          setUsers(list);
 
-          // setImageURI({uri: uri});
+          // setUsers(list);
         });
       });
+
+      if (loading) {
+        setLoading(false);
+      }
     });
-    setUsers(list);
+
+    /**
+     * unsubscribe listener
+     */
+    // return () => unsubscribe();
   }, []);
 
   return (
-    <SafeAreaView>
-      <ScrollView>
+    <ImageBackground
+      source={require('../assets/images/gradients/gradient_blue.png')}
+      style={styles.bg}>
+      <View style={styles.containerHome}>
+        <View style={styles.top}>
+          <City />
+          <Filters />
+        </View>
         <Users />
-      </ScrollView>
-    </SafeAreaView>
+        <Text>{total}</Text>
+      </View>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
+  bg: {
+    flex: 1,
+  },
+  containerHome: {
+    marginHorizontal: 10,
+    paddingBottom: 10,
+  },
+  top: {
+    paddingTop: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  title: {
+    fontSize: 22,
+    color: '#363636',
+    fontWeight: 'bold',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  iconMatches: {
+    color: '#363636',
+    alignItems: 'flex-end',
+    flexDirection: 'row',
+  },
+
   h2Style: {
     fontWeight: 'bold',
     textAlign: 'center',

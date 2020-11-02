@@ -90,6 +90,28 @@ export const AuthProvider = ({children}) => {
               preferredGender,
               dob,
               profileImage,
+              displayname: '',
+              aboutMe: '',
+
+              height: '',
+              weight: '',
+              role: '',
+              bodyType: '',
+              relationshipStatus: '',
+              location: '',
+              tribes: '',
+              lookingFor: '',
+              hivStatus: '',
+              alcohol: '',
+              diet: '',
+              education: '',
+              kids: '',
+              language: '',
+              music: '',
+              pets: '',
+              smoke: '',
+              sport: '',
+              tattoos: '',
             };
             const task = storage()
               .ref('profileImages/' + filename)
