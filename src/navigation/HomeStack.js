@@ -5,7 +5,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import {IconButton} from 'react-native-paper';
-import HomeScreen from '../screens/HomeScreen';
+import HomeScreen from '../screens/home/HomeScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import MessagesScreen from '../screens/MessagesScreen';
 import TopPicksScreen from '../screens/TopPicksScreen';
@@ -30,6 +30,7 @@ const ProfileStack = () => {
       <Stack.Screen name="Profile" component={ProfileScreen} />
       <Stack.Screen name="EditProfile" component={EditProfile} />
       <Stack.Screen name="EditAvatar" component={EditAvatar} />
+      <Stack.Screen name="Messages" component={MessagesScreen} />
     </Stack.Navigator>
   );
 };
@@ -90,6 +91,7 @@ function HomeStack() {
     <ModalStack.Navigator mode="modal" headerMode="none">
       <ModalStack.Screen name="ChatApp" component={ChatApp} />
       <ModalStack.Screen name="Profile" component={ProfileScreen} />
+      <ModalStack.Screen name="EditProfile" component={EditProfile} />
 
       <ModalStack.Screen name="AddRoom" component={AddRoomScreen} />
     </ModalStack.Navigator>

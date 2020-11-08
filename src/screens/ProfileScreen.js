@@ -53,6 +53,8 @@ export default function ProfileScreen({navigation, route}) {
   const [profileImageUrl, setProfileImageUrl] = useState(null);
   const [user, setUser] = useState(auth().currentUser);
   const [imageURI, setImageURI] = useState(null);
+  const [chatRoom, setChatRoom] = useState([]);
+
   const {
     age,
     pic,
@@ -75,7 +77,7 @@ export default function ProfileScreen({navigation, route}) {
   React.useEffect(() => {
     if (route.params?.itemId) {
       userid = route.params.itemId;
-
+      // console.log(route.params.userInfo.displayname);
       // Post updated, do something with `route.params.post`
       // For example, send the post to the server
     }
@@ -94,7 +96,7 @@ export default function ProfileScreen({navigation, route}) {
         // setAvatar(avatarFile);
         setUserDetails(newUserDetails);
         // console.log(getAge(userDetails.dob));
-        console.log(userDetails.profileImage);
+        // console.log(userDetails.profileImage);
         reference
           .getDownloadURL()
           .then((url) => {
@@ -194,14 +196,64 @@ export default function ProfileScreen({navigation, route}) {
       console.error(e);
     }
   };
+  async function onMessage(params) {
+    const threadref = firestore().collection('THREADS');
+    // console.log('current user');
+    // console.log(user.uid);
+    // console.log(params.userDetails.uid);
+    const snapshot = await threadref
+      .where('chatId', '==', params.senderId + params.userDetails.uid)
+      .get();
+    if (snapshot.empty) {
+      console.log('No matching documents.');
+      return;
+    } else {
+      const threads = await snapshot.docs.map((doc) => {
+        console.log(doc.data());
+        // return {
+        //   _id: doc.id,
+        //   ...doc.data(),
+        // };
+      });
+      // const threadRoom = await threads.forEach((doc) => {
+      //   setChatRoom(doc);
+      // });
+    }
+
+    // navigation.navigate('Room', {thread: chatRoom});
+    // firestore()
+    //   .collection('THREADS')
+    //   .add({
+    //     name: params.userDetails.displayname,
+    //     sender: params.senderId,
+    //     recipient: params.userDetails.uid,
+    //     chatId: params.senderId + params.userDetails.uid,
+    //     match: [params.senderId, params.userDetails.uid],
+    //     latestMessage: {
+    //       text: `You have joined the room ${params.userDetails.displayname}.`,
+    //       createdAt: new Date().getTime(),
+    //     },
+    //   })
+    //   .then((docRef) => {
+    //     // console.log(docRef);
+
+    //     docRef.collection('MESSAGES').add({
+    //       text: `You have joined the room ${params.userDetails.displayname}.`,
+    //       createdAt: new Date().getTime(),
+    //       system: true,
+    //     });
+    //     navigation.navigate('Messages');
+    //   });
+  }
+
   return (
-    <ImageBackground
-      source={require('../assets/images/homeTab/homeTabGradient.png')}
-      style={styles.container}>
+    <ScrollView>
       <ImageBackground
-        source={profileImageUrl}
-        style={styles.photo}></ImageBackground>
-      <ScrollView>
+        source={require('../assets/images/homeTab/homeTabGradient.png')}
+        style={styles.container}>
+        <ImageBackground
+          source={profileImageUrl}
+          style={styles.photo}></ImageBackground>
         <ProfileItem
           matches={match}
           name={userDetails.displayname}
@@ -227,32 +279,36 @@ export default function ProfileScreen({navigation, route}) {
           info18={userDetails.tattoos}
           info19={userDetails.tribes}
         />
-      </ScrollView>
 
-      <View style={styles.actionsProfile}>
-        {user.uid == userDetails.uid ? (
-          <TouchableOpacity
-            style={styles.circledButton}
-            onPress={() =>
-              navigation.navigate('EditProfile', {
-                userDetails: user.uid,
-                profileImage: profileImageUrl,
-              })
-            }>
-            <Text style={styles.iconButton}>
-              <Icon name="md-options" size={18} />
-            </Text>
-          </TouchableOpacity>
-        ) : (
-          <TouchableOpacity style={styles.roundedButton}>
-            <Text style={styles.iconButton}>
-              <Icon name="md-chatbubbles" size={15} />
-            </Text>
-            <Text style={styles.textButton}>Start Chatting</Text>
-          </TouchableOpacity>
-        )}
-      </View>
-    </ImageBackground>
+        <View style={styles.actionsProfile}>
+          {user.uid == userDetails.uid ? (
+            <TouchableOpacity
+              style={styles.circledButton}
+              onPress={() =>
+                navigation.navigate('EditProfile', {
+                  userDetails: user.uid,
+                  profileImage: profileImageUrl,
+                })
+              }>
+              <Text style={styles.iconButton}>
+                <Icon name="md-options" size={18} />
+              </Text>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              style={styles.roundedButton}
+              onPress={() => {
+                onMessage({userDetails: userDetails, senderId: user.uid});
+              }}>
+              <Text style={styles.iconButton}>
+                <Icon name="md-chatbubbles" size={15} />
+              </Text>
+              <Text style={styles.textButton}>Start Chatting</Text>
+            </TouchableOpacity>
+          )}
+        </View>
+      </ImageBackground>
+    </ScrollView>
   );
 }
 

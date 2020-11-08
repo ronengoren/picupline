@@ -51,7 +51,7 @@ export default function TopPicksScreen({props}) {
 
   const Users = () => {
     const usersList = users.map((item, index) => item);
-
+    console.log(users);
     return (
       <CardStack
         loop={true}
@@ -123,22 +123,13 @@ export default function TopPicksScreen({props}) {
     /**
      * unsubscribe listener
      */
-    // return () => unsubscribe();
+    return () => unsubscribe();
   }, []);
 
   return (
     <ImageBackground
       source={require('../assets/images/gradients/gradient_blue.png')}
-      style={styles.bg}>
-      <View style={styles.containerHome}>
-        <View style={styles.top}>
-          <City />
-          <Filters />
-        </View>
-        <Users />
-        <Text>{total}</Text>
-      </View>
-    </ImageBackground>
+      style={styles.bg}></ImageBackground>
   );
 }
 

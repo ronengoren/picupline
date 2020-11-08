@@ -11,7 +11,9 @@ const PinchableBox = ({imageUri, route}) => {
 
   React.useEffect(() => {
     const filename = imageUri.substring(imageUri.lastIndexOf('/') + 1);
-    const reference = storage().ref('userImages' + '/' + filename);
+    // console.log(filename);
+
+    const reference = storage().ref('profileImages' + '/' + filename);
     reference
       .getDownloadURL()
       .then((url) => {
@@ -68,7 +70,7 @@ const PinchableBox = ({imageUri, route}) => {
         style={{
           width: width,
           height: 300,
-          // transform: [{scale: scale}],
+          transform: [{scale: scale}],
         }}
         source={images}
         resizeMode="cover"

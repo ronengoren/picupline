@@ -4,15 +4,14 @@ import {Tile} from 'react-native-elements';
 import Layout from '../constants/Layout';
 
 const BOTTOM_BAR_HEIGHT = !Platform.isPad ? 29 : 49; // found from https://stackoverflow.com/a/50318831/6141587
-
-export const Card = ({postPhoto, postTitle}) => (
+export const Card = ({uid, email, uri}) => (
   <Tile
-    imageSrc={postPhoto}
+    imageSrc={{uri: uri}}
     imageContainerStyle={styles.imageContainer}
     activeOpacity={0.9}
-    title={postTitle}
+    title={email}
     titleStyle={styles.title}
-    caption={postTitle}
+    caption={uid}
     captionStyle={styles.caption}
     containerStyle={styles.container}
     featured

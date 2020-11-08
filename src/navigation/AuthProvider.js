@@ -112,6 +112,7 @@ export const AuthProvider = ({children}) => {
               smoke: '',
               sport: '',
               tattoos: '',
+              likes: [],
             };
             const task = storage()
               .ref('profileImages/' + filename)

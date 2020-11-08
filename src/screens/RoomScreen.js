@@ -18,7 +18,7 @@ export default function RoomScreen({route}) {
   const {thread} = route.params;
   const {user} = useContext(AuthContext);
   const currentUser = user.toJSON();
-
+  console.log(route.params.thread._id);
   async function handleSend(messages) {
     const text = messages[0].text;
 

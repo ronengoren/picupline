@@ -6,10 +6,14 @@ import FormInput from '../components/FormInput';
 import FormButton from '../components/FormButton';
 import useStatsBar from '../utils/useStatusBar';
 
-export default function AddRoomScreen({navigation}) {
+export default function AddRoomScreen({navigation, route}) {
   useStatsBar('dark-content');
   const [roomName, setRoomName] = useState('');
+  const [recipientName, setRecipientName] = useState(
+    route.params.userDetails.displayname,
+  );
 
+  console.log(route.params.userDetails.uid);
   /**
    * Create a new Firestore collection to save threads
    */
@@ -19,6 +23,9 @@ export default function AddRoomScreen({navigation}) {
         .collection('THREADS')
         .add({
           name: roomName,
+          sender: route.params.senderId,
+          recipient: route.params.userDetails.uid,
+          match: [route.params.senderId, route.params.userDetails.uid],
           latestMessage: {
             text: `You have joined the room ${roomName}.`,
             createdAt: new Date().getTime(),
@@ -30,7 +37,7 @@ export default function AddRoomScreen({navigation}) {
             createdAt: new Date().getTime(),
             system: true,
           });
-          navigation.navigate('Home');
+          navigation.navigate('Messages');
         });
     }
   }
@@ -45,7 +52,9 @@ export default function AddRoomScreen({navigation}) {
         />
       </View>
       <View style={styles.innerContainer}>
-        <Title style={styles.title}>Create a new chat room</Title>
+        <Title style={styles.title}>
+          Create a new chat room with {recipientName}
+        </Title>
         <FormInput
           labelName="Room Name"
           value={roomName}

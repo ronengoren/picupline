@@ -56,10 +56,10 @@ export default function UploadImages({navigation}) {
   // const source = {uri: this.currentProfileImage};
 
   const [image, setImage] = useState(null);
+  const [images, setImages] = useState(null);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const [images, setImages] = useState(null);
   const hideModalAndAllowKeyboardAnimation = () => {
     setShouldAvoidAnimateKeyboardShown(false);
     setHideModal(true);
@@ -142,12 +142,30 @@ export default function UploadImages({navigation}) {
       });
   };
 
-  const renderAsset = (image) => {
-    if (image.mime && image.mime.toLowerCase().indexOf('video/') !== -1) {
-      return renderVideo(image);
-    }
-
-    return renderImage(image);
+  const pickMultiple = (cropit, circular = false, mediaType) => {
+    ImagePicker.openPicker({
+      width: 500,
+      multiple: true,
+      waitAnimationEnd: false,
+      sortOrder: 'desc',
+      includeExif: true,
+      forceJpg: true,
+    })
+      .then((images) => {
+        this.setState({
+          image: null,
+          images: images.map((i) => {
+            console.log('received image', i);
+            return {
+              uri: i.path,
+              width: i.width,
+              height: i.height,
+              mime: i.mime,
+            };
+          }),
+        });
+      })
+      .catch((e) => alert(e));
   };
 
   const renderImage = (image) => {
@@ -245,6 +263,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+    alignItems: 'center',
   },
   innerContainer: {
     flex: 1,
@@ -280,5 +299,15 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     paddingLeft: 10,
     paddingRight: 5,
+  },
+
+  button: {
+    backgroundColor: 'blue',
+    marginBottom: 10,
+  },
+  text: {
+    color: 'white',
+    fontSize: 20,
+    textAlign: 'center',
   },
 });
