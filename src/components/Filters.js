@@ -4,7 +4,8 @@ import {Text, TouchableOpacity, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Colors from '../constants/Colors';
 
-const Filters = () => {
+const Filters = (props) => {
+  console.log(props);
   return (
     <TouchableOpacity style={styles.filters}>
       <Text style={styles.filtersText}>

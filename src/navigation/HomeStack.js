@@ -43,7 +43,7 @@ function ChatApp() {
 
   return (
     <ChatAppStack.Navigator
-      // headerMode="none"
+      headerMode="none"
       screenOptions={{
         headerStyle: {
           backgroundColor: '#6646ee',

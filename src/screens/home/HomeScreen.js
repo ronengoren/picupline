@@ -40,11 +40,15 @@ import CardItem from '../../components/CardItem';
 import TinderCard from 'react-tinder-card';
 import Draggable from 'react-native-draggable';
 import SwipeCardContainer from '../../components/SwipeCardComponent/SwipeCardContainer';
+import auth from '@react-native-firebase/auth';
+import {Overlay, Button} from 'react-native-elements';
+import UserFilter from './UserFilter';
 
 const BOTTOM_BAR_HEIGHT = !Platform.isPad ? 29 : 49; // found from https://stackoverflow.com/a/50318831/6141587
 
 export default function HomeScreen({navigation}) {
   useStatsBar('light-content');
+  const [visible, setVisible] = useState(false);
 
   const [threads, setThreads] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -54,35 +58,37 @@ export default function HomeScreen({navigation}) {
   const [usersThreads, setUsersThreads] = useState([]);
   const [count, setCount] = useState(0);
   const ref = firestore().collection('Users');
+  const currentUser = auth().currentUser;
 
   /**
    * Fetch threads from Firestore
    */
   useEffect(() => {
     let list = [];
-
     const unsubscribe = ref.onSnapshot((querySnapshot) => {
-      let usersLists = querySnapshot.docs.map((doc) => {
-        // console.log(doc.data());
-        const {
-          uid,
-          email,
-          profileImage,
-          dob,
-          preferredGender,
-          uri,
-        } = doc.data();
-        // console.log(profileImage);
-        const filename = profileImage.substring(
-          profileImage.lastIndexOf('/') + 1,
-        );
-        const ref = storage().ref('profileImages/' + filename);
-        ref.getDownloadURL().then((uri) => {
-          list.push({uid, email, dob, preferredGender, uri});
-          setUsersThreads(list);
-          // console.log(usersThreads);
-          // setUsers(list);
-        });
+      const usersLists = querySnapshot.docs.map((doc) => {
+        if (doc.id !== currentUser.uid) {
+          const {
+            uid,
+            email,
+            profileImage,
+            dob,
+            preferredGender,
+            gender,
+            uri,
+          } = doc.data();
+          const filename = profileImage.substring(
+            profileImage.lastIndexOf('/') + 1,
+          );
+          const ref = storage().ref('profileImages/' + filename);
+          ref.getDownloadURL().then((uri) => {
+            list.push({uid, email, dob, preferredGender, uri, gender});
+            setUsersThreads(list);
+            // console.log(usersThreads);
+            // setUsers(list);
+          });
+        }
+        // console.log(doc.id);
       });
 
       if (loading) {
@@ -113,7 +119,9 @@ export default function HomeScreen({navigation}) {
   if (loading) {
     return <Loading />;
   }
-
+  const toggleOverlay = () => {
+    setVisible(!visible);
+  };
   const renderItem = ({item}) => (
     <View style={styles.card}>
       {/* <PinchableBox imageUri={item.profileImage} /> */}
@@ -162,7 +170,10 @@ export default function HomeScreen({navigation}) {
         <SwipeCardContainer usersThreads={usersThreads} />
       </View>
       <View style={styles.buttons}>
-        <Pressable onPress={putNope}>
+        <City />
+        <Button title="Filter" onPress={toggleOverlay} />
+
+        {/* <Pressable onPress={putNope}>
           <Image
             source={require('../../assets/images/cross.png')}
             style={styles.button}
@@ -179,8 +190,14 @@ export default function HomeScreen({navigation}) {
             source={require('../../assets/images/heart.png')}
             style={styles.button}
           />
-        </Pressable>
+        </Pressable> */}
       </View>
+      <Overlay
+        isVisible={visible}
+        onBackdropPress={toggleOverlay}
+        overlayStyle={styles.imageContainer}>
+        <UserFilter />
+      </Overlay>
     </View>
   );
 }

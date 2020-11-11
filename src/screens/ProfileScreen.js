@@ -256,7 +256,7 @@ export default function ProfileScreen({navigation, route}) {
           style={styles.photo}></ImageBackground>
         <ProfileItem
           matches={match}
-          name={userDetails.displayname}
+          name={userDetails.uid}
           age={getAge(userDetails.dob)}
           location={userDetails.location}
           info1={userDetails.aboutMe}

@@ -48,7 +48,7 @@ const SwipeCardContainer = (props) => {
   });
 
   function Match(params) {
-    console.log(params);
+    // console.log(params);
   }
   //interpolates the dislikePhoto value before updating the property
   const dislikeOpacity = pan.x.interpolate({
@@ -91,12 +91,30 @@ const SwipeCardContainer = (props) => {
             setNumberOfImage(0);
             pan.setValue({x: 0, y: 0});
           });
-          const object = Object.values(evt._targetInst.memoizedProps.children);
+          // const likeObject = Object.entries(
+          //   evt._targetInst.memoizedProps.children.props,
+          // );
+          const likeObjects = evt._targetInst.memoizedProps.children.props;
+
+          for (const [usr, uid] of Object.entries(likeObjects)) {
+            if (usr == 'user') {
+              onLike(uid);
+            }
+          }
+          // console.log(like);
           // const likeArray = [];
           // likeArray.push(object[4].user);
           // setLike(object[4].user);
-          onLike(object[4].user);
+          // onLike(likeObject[4].user);
         } else if (gestureState.dx < -120) {
+          const unLikeObject = evt._targetInst.memoizedProps.children.props;
+
+          for (const [usr, uid] of Object.entries(unLikeObject)) {
+            if (usr == 'user') {
+              onUnLike(uid);
+            }
+          }
+
           Animated.spring(pan, {
             toValue: {x: -SCREEN_WIDTH - 100, y: gestureState.dy},
             useNativeDriver: false,
@@ -116,13 +134,49 @@ const SwipeCardContainer = (props) => {
   ).current;
 
   async function onLike(data) {
-    console.log(data);
-    console.log(currentUser.uid);
+    // console.log(data);
+    // console.log(currentUser.uid);
     const updateRef = firestore()
       .collection('Users')
       .doc(currentUser.uid)
       .update({
         likes: firestore.FieldValue.arrayUnion(data),
+      })
+      .then(() => {
+        const updatedfdRef = firestore()
+          .collection('Users')
+          .doc(data)
+          .onSnapshot((documentSnapshot) => {
+            const likesArray = documentSnapshot.data().likes;
+            for (let i = 0; i < likesArray.length; i++) {
+              if ((likesArray[i] = currentUser.uid)) return alert('match');
+            }
+          });
+      })
+      .catch((err) => {});
+    // navigation.goBack();
+    // setLoading(true);
+  }
+  async function onUnLike(data) {
+    // console.log(data);
+    // console.log(currentUser.uid);
+    const updateRef = firestore()
+      .collection('Users')
+      .doc(currentUser.uid)
+      .update({
+        notLike: firestore.FieldValue.arrayUnion(data),
+      });
+    // navigation.goBack();
+    // setLoading(true);
+  }
+  async function superLike(data) {
+    // console.log(data);
+    // console.log(currentUser.uid);
+    const updateRef = firestore()
+      .collection('Users')
+      .doc(currentUser.uid)
+      .update({
+        superLike: firestore.FieldValue.arrayUnion(data),
       });
     // navigation.goBack();
     // setLoading(true);
