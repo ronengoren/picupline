@@ -13,7 +13,7 @@ import {
 import I18n from '../../infra/localization';
 
 import Colors from '../../constants/Colors';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Picker} from '@react-native-community/picker';
 import {
   translateDate,

@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import Colors from '../../constants/Colors';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Picker} from '@react-native-community/picker';
 import {get, uniqueId, getFilePathFromLocalUri} from '../../infra/utils';
 import {Header} from 'react-native-elements';

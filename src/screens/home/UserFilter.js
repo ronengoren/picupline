@@ -11,6 +11,8 @@ import {
 } from 'react-native';
 import Colors from '../../constants/Colors';
 import TopNavigatorView from '../../components/homeComponents/TopNavigatorView';
+import LoadingOverlay from '../../components/homeComponents/LoadingOverlay';
+
 import NumberRangePickerListItem from '../../components/homeComponents/NumberRangePickerListItem';
 import ItemPickerListItem from '../../components/homeComponents/ItemPickerListItem';
 import ListItem from '../../components/homeComponents/ListItem';
@@ -21,8 +23,9 @@ import ListItemSwitch from '../../components/homeComponents/ListItemSwitch';
 const {height: deviceHeight, width: deviceWidth} = calculatePortraitDimension();
 
 const UserFilter = (props) => {
-  // console.log(props);
-  getResetButton = () => {
+  console.log(props.route.params.loading);
+
+  const getResetButton = () => {
     return (
       <TouchableOpacity
       //   onPress={()=>{
@@ -43,12 +46,12 @@ const UserFilter = (props) => {
       </TouchableOpacity>
     );
   };
-  getTopNavigator = () => {
+  const getTopNavigator = () => {
     return (
       <TopNavigatorView
         title={'Filter'}
         onBackPressed={() => {
-          this.props.dispatch(refreshUsers(true));
+          // this.props.dispatch(refreshUsers(true));
           this.props.navigation.goBack();
         }}
         rightComponent={getResetButton()}
@@ -58,6 +61,8 @@ const UserFilter = (props) => {
 
   return (
     <View style={styles.background}>
+      <LoadingOverlay visible={props.route.params.loading} />
+
       <View style={styles.container}>
         {getTopNavigator()}
         <ScrollView>
@@ -66,7 +71,7 @@ const UserFilter = (props) => {
               title={'FILTER'}
               rightIconImageOn={require('../../assets/images/boneoncb.png')}
               rightIconImageOff={require('../../assets/images/boneoffcb.png')}
-              //   value={filteron}
+              value={props.route.params.filteron}
               itemContainerStyle={{
                 paddingLeft: 16,
                 paddingRight: 16,
@@ -104,7 +109,7 @@ const UserFilter = (props) => {
                   minAge: min,
                   maxAge: max,
                 };
-                this.props.dispatch(updateFilter(filter));
+                // this.props.dispatch(updateFilter(filter));
               }}
             />
             <NumberRangePickerListItem
@@ -118,7 +123,7 @@ const UserFilter = (props) => {
                   minHeight: min,
                   maxHeight: max,
                 };
-                this.props.dispatch(updateFilter(filter));
+                // this.props.dispatch(updateFilter(filter));
               }}
             />
             <ItemPickerListItem
@@ -130,7 +135,7 @@ const UserFilter = (props) => {
                   role: item,
                   roleId: item.id,
                 };
-                this.props.dispatch(updateFilter(filter));
+                // this.props.dispatch(updateFilter(filter));
               }}
             />
             <ItemPickerListItem
@@ -142,7 +147,7 @@ const UserFilter = (props) => {
                   bodyType: item,
                   bodyTypeId: item.id,
                 };
-                this.props.dispatch(updateFilter(filter));
+                // this.props.dispatch(updateFilter(filter));
               }}
             />
             <ItemPickerListItem
@@ -154,7 +159,7 @@ const UserFilter = (props) => {
                   sexualStatus: item,
                   statusId: item.id,
                 };
-                this.props.dispatch(updateFilter(filter));
+                // this.props.dispatch(updateFilter(filter));
               }}
             />
 
@@ -167,7 +172,7 @@ const UserFilter = (props) => {
                   hivStatus: item,
                   hivStatusId: item.id,
                 };
-                this.props.dispatch(updateFilter(filter));
+                // this.props.dispatch(updateFilter(filter));
               }}
             />
             <ListItem

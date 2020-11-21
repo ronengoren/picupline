@@ -16,7 +16,7 @@ const NumberRangePickerListItem = (props) => {
   const [min, setMin] = useState(props.min);
   const [max, setMax] = useState(props.min);
 
-  console.log(text);
+  // console.log(text);
 
   openPicker = () => {
     let fromData = [];

@@ -12,6 +12,7 @@ import TopPicksScreen from '../screens/TopPicksScreen';
 import EditProfile from '../screens/EditProfile';
 import EditAvatar from '../screens/EditAvatar';
 import AddPost from '../screens/AddPost';
+import UserFilter from '../screens/home/UserFilter';
 
 import AddRoomScreen from '../screens/AddRoomScreen';
 import RoomScreen from '../screens/RoomScreen';
@@ -31,6 +32,15 @@ const ProfileStack = () => {
       <Stack.Screen name="EditProfile" component={EditProfile} />
       <Stack.Screen name="EditAvatar" component={EditAvatar} />
       <Stack.Screen name="Messages" component={MessagesScreen} />
+    </Stack.Navigator>
+  );
+};
+const MainAppStack = () => {
+  return (
+    <Stack.Navigator headerMode="none">
+      <Stack.Screen name="Top" component={TopPicksScreen} />
+      <Stack.Screen name="Filters" component={UserFilter} />
+      <Stack.Screen name="Profile" component={ProfileScreen} />
     </Stack.Navigator>
   );
 };
@@ -131,10 +141,11 @@ export default function TabNavigator() {
         activeTintColor: 'tomato',
         inactiveTintColor: 'gray',
       }}>
+      <Tab.Screen name="Top" component={MainAppStack} />
+
       <Tab.Screen name="Home" component={HomeStack} />
       <Tab.Screen name="Profile" component={ProfileStack} />
       <Tab.Screen name="Messages" component={MessagesScreen} />
-      <Tab.Screen name="Top" component={TopPicksScreen} />
       <Tab.Screen name="Add" component={AddPost} />
     </Tab.Navigator>
   );

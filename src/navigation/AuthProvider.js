@@ -1,7 +1,7 @@
 import React, {createContext, useState, useContext} from 'react';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import storage from '@react-native-firebase/storage';
 import {utils} from '@react-native-firebase/app';
 

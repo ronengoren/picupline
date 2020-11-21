@@ -25,7 +25,7 @@ import {
   user as userLocalStorage,
 } from '../../infra/localStorage';
 import {isNil} from '../../infra/utils';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const MAX_BUTTON_SIZE = 125;
 const BUTTONS_MARGIN = 35;

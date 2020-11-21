@@ -11,22 +11,20 @@ import {
 import Colors from '../constants/Colors';
 
 export default function HorizontalUserList(props) {
-  const [type, setType] = useState();
+  const [type, setType] = useState(props.type ? props.type : 'home');
   const [showType, setShowType] = useState();
-  const [isLoading, setIsLoading] = useState();
-  const [isRefreshing, setIsRefreshing] = useState();
+  const [isLoading, setIsLoading] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const [users, setUsers] = useState([]);
-  const [onRefresh, setOnRefresh] = useState();
-  // console.log(users);
+  // console.log(type);
 
-  isRefreshing;
-  onUserPressed = (item) => {
+  const onUserPressed = (item) => {
     console.log('user pressed', item);
-    // this.props.navigation.navigate("PublicProfile", {userId: item.id});
+    props.navigation.navigate('Profile', {itemId: item.uid});
   };
 
-  getUserItem = (item) => {
-    const {smallImageUrl} = item;
+  const getUserItem = (item) => {
+    // console.log('item');
     if (type == 'search') {
       return (
         <TouchableOpacity
@@ -37,7 +35,7 @@ export default function HorizontalUserList(props) {
             <Image
               style={{margin: 8, width: 40, height: 40, borderRadius: 20}}
               defaultImage={require('../assets/images/boneprofile.png')}
-              source={smallImageUrl}
+              source={{uri: item.uri}}
             />
           </View>
         </TouchableOpacity>
@@ -62,14 +60,14 @@ export default function HorizontalUserList(props) {
             <Image
               style={styles.profileImage}
               defaultImage={require('../assets/images/boneprofile.png')}
-              source={smallImageUrl}
+              source={{uri: item.uri}}
             />
           </View>
         </TouchableOpacity>
       );
     }
   };
-  renderFooterComponent = () => {
+  const renderFooterComponent = () => {
     if (isLoading && !isRefreshing) {
       return (
         <View style={styles.footer}>
@@ -79,20 +77,22 @@ export default function HorizontalUserList(props) {
     }
   };
 
-  renderHorizonalUsers = () => {
-    // let members =
-    //   props.userType == 'topUsers' ? users.topUsers : users.newUsers;
-    renderItem = ({item}) => {
-      return getUserItem(item);
-    };
-    // onRefresh = () => {
-    //   if (this.props.onRefresh) {
-    //     this.props.onRefresh();
-    //   }
-    // };
-    return showType == 'horizontal' ? (
+  const renderItem = ({item}) => {
+    // console.log(item);
+    return getUserItem(item);
+  };
+  const onRefresh = () => {
+    if (props.onRefresh) {
+      props.onRefresh();
+    }
+  };
+  const renderHorizonalUsers = () => {
+    let members = props.userType == 'topUsers' ? props.users : props.users;
+    // console.log(members);
+
+    return props.showType == 'horizontal' ? (
       <FlatList
-        data={props.users}
+        data={members}
         renderItem={renderItem}
         ListFooterComponent={renderFooterComponent()}
         refreshing={false}
@@ -103,7 +103,7 @@ export default function HorizontalUserList(props) {
       />
     ) : (
       <FlatList
-        data={props.users}
+        data={members}
         renderItem={renderItem}
         ListFooterComponent={renderFooterComponent()}
         refreshing={false}

@@ -44,7 +44,8 @@ const Social = ({name}) => (
 );
 const DIMENSION_WIDTH = Dimensions.get('window').width;
 
-export default function ProfileScreen({navigation, route}) {
+export default function ProfileScreen({props, navigation, route}) {
+  console.log(props);
   // const {navigate} = props.navigation;
   const [userDetails, setUserDetails] = useState([]);
   const [images, setImages] = useState([]);
@@ -185,7 +186,7 @@ export default function ProfileScreen({navigation, route}) {
   };
   const onSubmit = async (localuri) => {
     let user = auth().currentUser;
-    console.log(localuri);
+    // console.log(localuri);
     try {
       firestore().collection('Users').doc(user.uid).update({
         profileImage: localuri,
@@ -209,7 +210,7 @@ export default function ProfileScreen({navigation, route}) {
       return;
     } else {
       const threads = await snapshot.docs.map((doc) => {
-        console.log(doc.data());
+        // console.log(doc.data());
         // return {
         //   _id: doc.id,
         //   ...doc.data(),

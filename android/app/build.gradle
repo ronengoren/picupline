@@ -140,6 +140,12 @@ android {
         ndk {
         abiFilters 'armeabi-v7a', 'x86'
     }
+     def secureProps = new Properties()
+    if (file("../secure.properties").exists()) {
+            file("../secure.properties")?.withInputStream { secureProps.load(it) }
+    }
+    resValue "string", "maps_api_key", (secureProps.getProperty("MAPS_API_KEY") ?: "")
+  
     }
     splits {
         abi {

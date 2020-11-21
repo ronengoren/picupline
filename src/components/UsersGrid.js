@@ -12,7 +12,17 @@ import Colors from '../constants/Colors';
 import calculatePortraitDimension from '../constants/calculatePortraitDimension';
 
 const {width: deviceWidth, height: deviceHeight} = calculatePortraitDimension();
+const LATITUDE_DELTA = 25;
+const LONGITUDE_DELTA = LATITUDE_DELTA * (deviceWidth / deviceHeight);
+delta = {
+  latitudeDelta: LATITUDE_DELTA,
+  longitudeDelta: LONGITUDE_DELTA,
+};
 
+DEFAULT_LOCATION = {
+  latitude: 40.712776,
+  longitude: -74.005974,
+};
 export default function UsersGrid(props) {
   //   console.log(props.users);
   const [users, setUsers] = useState(props.users);
@@ -21,9 +31,17 @@ export default function UsersGrid(props) {
   const [distance, setDistance] = useState(props.gender);
   onUserPressed = (item) => {
     console.log('user pressed', item);
-    // this.props.navigation.navigate("PublicProfile", {userId: item.id});
+    props.navigation.navigate('Profile', {itemId: item.uid});
   };
-
+  const renderFooterComponent = () => {
+    if (props.isLoading && !props.isRefreshing) {
+      return (
+        <View style={styles.footer}>
+          <ActivityIndicator size="small" color="white" />
+        </View>
+      );
+    }
+  };
   renderEmptyView = () => {
     if (isLoading) {
       return null;

@@ -2,17 +2,18 @@ import React from 'react';
 import {Provider as PaperProvider} from 'react-native-paper';
 import {AuthProvider} from './AuthProvider';
 import Routes from './Routes';
+import {withAuthenticator} from 'aws-amplify-react-native';
 
 /**
  * Wrap all providers here
  */
 
-export default function Providers() {
+function Providers() {
   return (
     <PaperProvider>
-      <AuthProvider>
-        <Routes />
-      </AuthProvider>
+      <Routes />
     </PaperProvider>
   );
 }
+
+export default withAuthenticator(Providers);

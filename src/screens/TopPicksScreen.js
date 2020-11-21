@@ -8,6 +8,7 @@ import {
   ImageBackground,
   TouchableOpacity,
   Image,
+  Button,
 } from 'react-native';
 import {Text, Tile} from 'react-native-elements';
 import {TopPicksScreenPics} from '../constants/Pics';
@@ -25,6 +26,9 @@ import Swiper from 'react-native-deck-swiper';
 import HorizontalUserList from '../components/HorizontalUserList';
 import UsersGrid from '../components/UsersGrid';
 import UserSearchView from '../components/UserSearchView';
+import RelocateView from '../components/RelocateView';
+import Geolocation from '@react-native-community/geolocation';
+import {Auth} from 'aws-amplify';
 
 function onResult(QuerySnapshot) {
   console.log('Got Users collection result.');
@@ -43,13 +47,19 @@ export default function TopPicksScreen({props, navigation}) {
   const [eyeon, setEyeon] = useState(false);
   const [filteron, setFilteron] = useState(false);
   const [online, setOnline] = useState(false);
-
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [avatars, setAvatars] = useState();
   const [imageURI, setImageURI] = useState(null);
   const [onlineBit, setOnlineBit] = useState(0);
+  const [latitude, setLatitude] = useState();
   const [gridType, setGridType] = useState('nearby');
-  const [isVisibleMap, setIsVisibleMap] = useState();
+  const [isVisibleMap, setIsVisibleMap] = useState(false);
+  const [altitude, setAltitude] = useState('');
+  const [longitude, setLongitude] = useState('');
+  const [refreshUsers, setRefreshUsers] = useState(false);
+  const [error, setError] = useState(null);
+  const [location, setLocation] = useState();
+  const [Flag, setFlag] = useState(false);
   const currentUser = auth().currentUser;
   const ref = firestore().collection('Users');
   const totalUsers = firestore()
@@ -91,43 +101,60 @@ export default function TopPicksScreen({props, navigation}) {
     );
   };
 
+  async function signOut() {
+    try {
+      await Auth.signOut();
+    } catch (error) {
+      console.log('Error signing out: ', error);
+    }
+  }
   useEffect(() => {
-    loadUsers();
+    // loadUsers();
+    // findCoordinates();
+    // onRefreshUsers();
   }, []);
 
-  loadUsers = () => {
+  findCoordinates = () => {
+    Geolocation.getCurrentPosition((info) => setLocation(info.coords));
+    // setAltitude(location.altitude);
+    // setLongitude(location.longitude);
+  };
+
+  const loadUsers = () => {
     let list = [];
 
     const unsubscribe = ref.onSnapshot((querySnapshot) => {
       let usersLists = querySnapshot.forEach((doc) => {
-        // console.log(doc.data());
-        const {
-          uid,
-          email,
-          profileImage,
-          gender,
-          dob,
-          preferredGender,
-          uri,
-        } = doc.data();
-
-        const filename = profileImage.substring(
-          profileImage.lastIndexOf('/') + 1,
-        );
-        const ref = storage().ref('profileImages/' + filename);
-        ref.getDownloadURL().then((uri) => {
-          list.push({
+        if (doc.id !== currentUser.uid) {
+          // console.log(doc.data());
+          const {
             uid,
             email,
+            profileImage,
             gender,
             dob,
             preferredGender,
             uri,
+          } = doc.data();
+
+          const filename = profileImage.substring(
+            profileImage.lastIndexOf('/') + 1,
+          );
+          const ref = storage().ref('profileImages/' + filename);
+          ref.getDownloadURL().then((uri) => {
+            list.push({
+              uid,
+              email,
+              gender,
+              dob,
+              preferredGender,
+              uri,
+            });
+            setUsers(list);
+            // console.log(users);
+            // setUsers(list);
           });
-          setUsers(list);
-          // console.log(users);
-          // setUsers(list);
-        });
+        }
       });
 
       if (loading) {
@@ -142,18 +169,19 @@ export default function TopPicksScreen({props, navigation}) {
   };
   const onLocation = (locationon) => {
     if (!locationon) {
-      setIsVisibleMap({isVisibleMap: !isVisibleMap});
-      this.props.dispatch(enableLocation(!locationon));
+      setIsVisibleMap(!isVisibleMap);
+      setOnline(!locationon);
     }
 
     if (locationon && isVisibleMap) {
-      setIsVisibleMap({isVisibleMap: false});
+      setIsVisibleMap(false);
+      setOnline(false);
 
-      this.props.dispatch(enableLocation(false));
       changeWithCurrentLocation();
     }
     if (locationon && !isVisibleMap) {
-      this.props.dispatch(enableLocation(false));
+      setOnline(false);
+
       changeWithCurrentLocation();
     }
   };
@@ -162,32 +190,45 @@ export default function TopPicksScreen({props, navigation}) {
     if (!eyeon && locationon) {
       changeWithCurrentLocation();
     }
-    if (!eyeon && isVisibleMap) setIsVisibleMap({isVisibleMap: false});
-
-    this.props.dispatch(enableEye(!eyeon));
+    if (!eyeon && isVisibleMap) {
+      setIsVisibleMap(false);
+      setEyeon(!eyeon);
+    }
   };
 
   const changeWithCurrentLocation = () => {
+    console.log(location.altitude);
     const body = {
       id: user.uid,
-      // latitude: auth.currentLocation.latitude,
-      // longitude: auth.currentLocation.longitude,
+      latitude: location.latitude,
+      longitude: location.longitude,
     };
-
-    this.props.dispatch(changeLocation(body));
+    setLocation(body);
   };
 
   const onFilterPress = (filteron, locationon) => {
     if (!filteron && locationon) {
       changeWithCurrentLocation();
     }
-    if (!filteron && this.state.isVisibleMap)
-      setIsVisibleMap({isVisibleMap: false});
-
-    this.props.dispatch(enableFilter(!filteron));
-    if (!filteron) {
-      this.props.navigation.navigate('UserFilter');
+    if (!filteron && isVisibleMap) {
+      setIsVisibleMap(false);
+      setFilteron(!filteron);
     }
+
+    if (!filteron) {
+      navigation.navigate('Filters', {loading, filteron});
+    }
+  };
+
+  const onSearchPress = () => {
+    if (searchon == false && online == false) {
+      setSearchon(true);
+    } else {
+      setOnline(false);
+      setSearchon(false);
+    }
+    // setSearchon(true);
+    // else setOnline(false);
   };
 
   const getTopToolBar = (searchon, locationon, eyeon, filteron, online) => {
@@ -196,7 +237,7 @@ export default function TopPicksScreen({props, navigation}) {
         <View style={{width: 40, height: 40, marginLeft: 8}}>
           <TouchableOpacity
             style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}
-            onPress={this.onSearchPress}>
+            onPress={onSearchPress}>
             <Image
               style={styles.icon}
               source={
@@ -277,6 +318,42 @@ export default function TopPicksScreen({props, navigation}) {
       </View>
     );
   };
+  const onRefreshUsers = () => {
+    // const {filteron, eyeon, locationon, filters, online} = users;
+    if (filteron) {
+      let data = {
+        id: currentUser.uid,
+        limit: 40,
+        offset: 0,
+        online: online,
+      };
+    } else if (eyeon) {
+      let data = {
+        id: user.uid,
+        limit: 40,
+        offset: 0,
+        online: online,
+      };
+    } else if (locationon) {
+      fetchNearByUsers(online);
+    } else {
+      fetchNearByUsers(online);
+    }
+  };
+  const fetchNearByUsers = (online) => {
+    if (!currentUser) {
+      return;
+      // console.log('currentUser', currentUser);
+    }
+    let data = {
+      id: currentUser.uid,
+      limit: 60,
+      offset: 0,
+      online: online ? 1 : 0,
+    };
+    // console.log('fetchNearByUsers', data);
+  };
+
   return (
     <View style={styles.background}>
       <View style={styles.container}>
@@ -287,28 +364,29 @@ export default function TopPicksScreen({props, navigation}) {
             showType={'horizontal'}
             navigation={navigation}
             users={users}
-            // onRefresh={() => {
-            //   loadUsers();
-            // }}
+            onRefresh={() => {
+              loadUsers();
+            }}
           />
           <UsersGrid
-            // onRefresh={() => {
-            //   loadUsers();
-            // }}
+            onRefresh={() => {
+              loadUsers();
+            }}
             users={users}
             navigation={navigation}
           />
-          {searchon && <UserSearchView navigation={navigation} />}
+          {searchon && <UserSearchView users={users} navigation={navigation} />}
           {isVisibleMap && (
             <RelocateView
               onRelocate={() => {
-                setState({isVisibleMap: false});
+                setIsVisibleMap(false);
               }}
-              location={this.props.auth.currentLocation}
+              location={location}
               navigation={navigation}
             />
           )}
         </View>
+        <Button title="Sign Out" color="tomato" onPress={signOut} />
       </View>
     </View>
   );

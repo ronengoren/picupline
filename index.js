@@ -10,5 +10,9 @@ import 'react-native-gesture-handler';
 
 I18n.init();
 
-LogBox.ignoreLogs(['Task orphaned']);
+LogBox.ignoreLogs([
+  'Task orphaned',
+  'No credentials, applicationId or region',
+  'Require cycle',
+]);
 AppRegistry.registerComponent(appName, () => App);
