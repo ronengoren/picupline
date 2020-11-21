@@ -73,3 +73,6 @@ amplifyconfiguration.json
 amplify-build-config.json
 amplify-gradle-config.json
 amplifytools.xcconfig
+
+# react-native-config codegen
+ios/tmp.xcconfig

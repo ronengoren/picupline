@@ -73,6 +73,7 @@
 		94584EDB252599C300F1FEDF /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		94584EDD25267D6300F1FEDF /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		946B97462543F0200013127B /* QBImagePicker.storyboardc */ = {isa = PBXFileReference; lastKnownFileType = wrapper.storyboardc; name = QBImagePicker.storyboardc; path = "../node_modules/react-native-image-crop-picker/ios/ImageCropPickerSDK/QBImagePicker.framework/QBImagePicker.storyboardc"; sourceTree = "<group>"; };
+		94935AB52569BFF8007810A6 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		94D53410254933C40045490C /* picupline.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = picupline.entitlements; path = picupline/picupline.entitlements; sourceTree = "<group>"; };
 		94EF8B362536906F00D27A57 /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		A14602617B49C37E6DF9BB91 /* Pods-picupline.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-picupline.release.xcconfig"; path = "Target Support Files/Pods-picupline/Pods-picupline.release.xcconfig"; sourceTree = "<group>"; };
@@ -188,6 +189,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				94935AB52569BFF8007810A6 /* Config.xcconfig */,
 				946B97462543F0200013127B /* QBImagePicker.storyboardc */,
 				94EF8B362536906F00D27A57 /* Ionicons.ttf */,
 				94584EDD25267D6300F1FEDF /* MaterialCommunityIcons.ttf */,
@@ -930,6 +932,7 @@
 		};
 		83CBBA201A601CBA00E9B192 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 94935AB52569BFF8007810A6 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -991,6 +994,7 @@
 		};
 		83CBBA211A601CBA00E9B192 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 94935AB52569BFF8007810A6 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
