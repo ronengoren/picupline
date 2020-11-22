@@ -29,6 +29,7 @@ import UserSearchView from '../components/UserSearchView';
 import RelocateView from '../components/RelocateView';
 import Geolocation from '@react-native-community/geolocation';
 import {Auth} from 'aws-amplify';
+import Amplify, {API} from 'aws-amplify';
 
 function onResult(QuerySnapshot) {
   console.log('Got Users collection result.');
@@ -109,6 +110,7 @@ export default function TopPicksScreen({props, navigation}) {
     }
   }
   useEffect(() => {
+    console.log(Auth.currentauthenticateduser);
     // loadUsers();
     // findCoordinates();
     // onRefreshUsers();

@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "auth": {
+      "siyu470e9cfb": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    }
+  },
+  "lambdaLayers": []
+}
