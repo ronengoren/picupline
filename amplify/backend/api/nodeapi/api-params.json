@@ -1,0 +1,35 @@
+{
+    "paths": [
+        {
+            "name": "/v1",
+            "lambdaFunction": "welcomefunction",
+            "privacy": {
+                "open": true
+            },
+            "policyResourceName": "/v1"
+        }
+    ],
+    "resourceName": "nodeapi",
+    "apiName": "nodeapi",
+    "functionArns": [
+        {
+            "lambdaFunction": "welcomefunction"
+        }
+    ],
+    "privacy": {
+        "auth": 0,
+        "unauth": 0,
+        "authRoleName": "amplify-siyu-devsiyu-215658-authRole",
+        "unAuthRoleName": "amplify-siyu-devsiyu-215658-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "welcomefunction",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}
