@@ -7,42 +7,7 @@
       "customAuth": false
     }
   },
-  "api": {
-    "siyuapi": {
-      "service": "API Gateway",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [
-        {
-          "category": "function",
-          "resourceName": "siyufunction",
-          "attributes": [
-            "Name",
-            "Arn"
-          ]
-        }
-      ]
-    }
-  },
-  "function": {
-    "siyufunction": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda",
-      "dependsOn": [
-        {
-          "category": "auth",
-          "resourceName": "siyu470e9cfb",
-          "attributes": [
-            "UserPoolId"
-          ]
-        }
-      ]
-    }
-  },
-  "storage": {
-    "s3siyu": {
-      "service": "S3",
-      "providerPlugin": "awscloudformation"
-    }
-  }
+  "api": {},
+  "function": {},
+  "storage": {}
 }
