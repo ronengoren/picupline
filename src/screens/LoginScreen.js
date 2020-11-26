@@ -4,10 +4,13 @@ import {Title} from 'react-native-paper';
 import FormInput from '../components/FormInput';
 import FormButton from '../components/FormButton';
 import {AuthContext} from '../navigation/AuthProvider';
+import {Auth} from 'aws-amplify';
+import * as Keychain from 'react-native-keychain';
 
-export default function LoginScreen({navigation}) {
+export default function LoginScreen({navigation, updateAuthState}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
 
   const {login} = useContext(AuthContext);
 
@@ -16,9 +19,9 @@ export default function LoginScreen({navigation}) {
       <Title style={styles.titleText}>SIYU</Title>
       <FormInput
         labelName="Email"
-        value={email}
+        value={username}
         autoCapitalize="none"
-        onChangeText={(userEmail) => setEmail(userEmail)}
+        onChangeText={(text) => setUsername(text)}
       />
       <FormInput
         labelName="Password"
@@ -30,7 +33,7 @@ export default function LoginScreen({navigation}) {
         title="Login"
         modeValue="contained"
         labelStyle={styles.loginButtonLabel}
-        onPress={() => login(email, password)}
+        onPress={() => login(username, password, updateAuthState, navigation)}
       />
       <FormButton
         title="New user? Join here"

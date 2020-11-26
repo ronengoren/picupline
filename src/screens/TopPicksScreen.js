@@ -11,8 +11,6 @@ import {
   Button,
 } from 'react-native';
 import {Text, Tile} from 'react-native-elements';
-import {TopPicksScreenPics} from '../constants/Pics';
-import {useAuth} from '../navigation/AuthProvider';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
@@ -30,6 +28,12 @@ import RelocateView from '../components/RelocateView';
 import Geolocation from '@react-native-community/geolocation';
 import {Auth} from 'aws-amplify';
 import Amplify, {API} from 'aws-amplify';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Keychain from 'react-native-keychain';
+import {goHome, onScreen} from '../constants';
+import {StackActions} from '@react-navigation/native';
+import AuthStack from '../navigation/AuthStack';
+import Routes from '../navigation';
 
 function onResult(QuerySnapshot) {
   console.log('Got Users collection result.');
@@ -39,7 +43,7 @@ function onError(error) {
   console.error(error);
 }
 
-export default function TopPicksScreen({props, navigation}) {
+export default function TopPicksScreen({props, navigation, updateAuthState}) {
   const [users, setUsers] = useState([]);
   const [user, setUser] = useState([]);
   const [total, setTotals] = useState('');
@@ -58,8 +62,9 @@ export default function TopPicksScreen({props, navigation}) {
   const [altitude, setAltitude] = useState('');
   const [longitude, setLongitude] = useState('');
   const [refreshUsers, setRefreshUsers] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState('');
   const [location, setLocation] = useState();
+  const [userInfo, setUserInfo] = useState([]);
   const [Flag, setFlag] = useState(false);
   const currentUser = auth().currentUser;
   const ref = firestore().collection('Users');
@@ -105,12 +110,23 @@ export default function TopPicksScreen({props, navigation}) {
   async function signOut() {
     try {
       await Auth.signOut();
+      await Keychain.resetInternetCredentials('auth');
+      updateAuthState('loggedOut');
     } catch (error) {
       console.log('Error signing out: ', error);
     }
   }
+  async function getUserInfo() {
+    const userInfo = await Auth.currentAuthenticatedUser();
+    const userData = await AsyncStorage.getItem('userInfo');
+    // console.log(userData);
+    // console.log('current user info in TopPicksScreen', userInfo);
+    setUserInfo(userInfo);
+  }
   useEffect(() => {
-    console.log(Auth.currentauthenticateduser);
+    getUserInfo();
+
+    // console.log(response);
     // loadUsers();
     // findCoordinates();
     // onRefreshUsers();

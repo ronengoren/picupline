@@ -4,11 +4,17 @@ import firestore from '@react-native-firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import storage from '@react-native-firebase/storage';
 import {utils} from '@react-native-firebase/app';
+import {Auth} from 'aws-amplify';
+import * as Keychain from 'react-native-keychain';
+import {onScreen, goBack} from '../constants';
 
 /**
  * This provider is created
  * to access user in whole app
  */
+
+const MEMORY_KEY_PREFIX = '@MyStorage:';
+let dataMemory = {};
 
 export const AuthContext = createContext({});
 
@@ -17,16 +23,36 @@ export const AuthProvider = ({children}) => {
   const [storageProfileImage, setStorageProfileImage] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [transferred, setTransferred] = useState(0);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+
   return (
     <AuthContext.Provider
       value={{
         user,
         setUser,
-        login: async (email, password) => {
+
+        login: async (username, password, updateAuthState, navigation) => {
+          setError('');
+
           try {
-            await auth().signInWithEmailAndPassword(email, password);
-          } catch (e) {
-            console.log(e);
+            const user = await Auth.signIn(username, password);
+            await Keychain.setInternetCredentials('auth', username, password);
+            setLoading(false);
+
+            console.log(' Success');
+            updateAuthState('loggedIn');
+            if (user) {
+              console.log('userInfo');
+              const session = await Auth.currentSession();
+              const userInfo = session?.getIdToken().payload;
+
+              console.log(userInfo);
+              console.log('userInfo');
+            }
+            const userInfo = await Auth.currentAuthenticatedUser();
+          } catch (error) {
+            console.log(' Error signing in...', error);
           }
         },
         register: async (email, password) => {

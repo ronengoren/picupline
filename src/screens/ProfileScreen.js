@@ -31,7 +31,8 @@ import {
   getBirthdateMinMax,
   getAge,
 } from '../infra/utils/dateTimeUtils';
-
+import {Auth} from 'aws-amplify';
+import Amplify, {API} from 'aws-amplify';
 const {pic, title} = HomeScreenPics[randomNo(1, HomeScreenPics.length)];
 
 const Social = ({name}) => (
@@ -45,7 +46,7 @@ const Social = ({name}) => (
 const DIMENSION_WIDTH = Dimensions.get('window').width;
 
 export default function ProfileScreen({props, navigation, route}) {
-  console.log(props);
+  // console.log(props);
   // const {navigate} = props.navigation;
   const [userDetails, setUserDetails] = useState([]);
   const [images, setImages] = useState([]);
@@ -55,6 +56,7 @@ export default function ProfileScreen({props, navigation, route}) {
   const [user, setUser] = useState(auth().currentUser);
   const [imageURI, setImageURI] = useState(null);
   const [chatRoom, setChatRoom] = useState([]);
+  const [userInfo, setUserInfo] = useState([]);
 
   const {
     age,
@@ -74,68 +76,82 @@ export default function ProfileScreen({props, navigation, route}) {
     match,
     name,
   } = Demo[7];
-  var userid = user.uid;
-  React.useEffect(() => {
-    if (route.params?.itemId) {
-      userid = route.params.itemId;
-      // console.log(route.params.userInfo.displayname);
-      // Post updated, do something with `route.params.post`
-      // For example, send the post to the server
-    }
-  }, [route.params?.itemId]);
+  // var userid = user.uid;
+  // React.useEffect(() => {
+  //   if (route.params?.itemId) {
+  //     userid = route.params.itemId;
+  //     // console.log(route.params.userInfo.displayname);
+  //     // Post updated, do something with `route.params.post`
+  //     // For example, send the post to the server
+  //   }
+  // }, [route.params?.itemId]);
+
+  async function getUserInfo() {
+    const userInfo = await Auth.currentUserInfo();
+    console.log('userInfo in ProfileScreen', userInfo);
+    setUserInfo(userInfo);
+    setUserDetails(userInfo);
+  }
 
   useEffect(() => {
-    firestore()
-      .collection('Users')
-      .doc(userid)
-      .onSnapshot((querySnapshot) => {
-        let info = [];
-        let newUserDetails = querySnapshot.data();
-        let avatarFile = querySnapshot.data().profileImage;
-        const filename = avatarFile.substring(avatarFile.lastIndexOf('/') + 1);
-        const reference = storage().ref('profileImages' + '/' + filename);
-        // setAvatar(avatarFile);
-        setUserDetails(newUserDetails);
-        // console.log(getAge(userDetails.dob));
-        // console.log(userDetails.profileImage);
-        reference
-          .getDownloadURL()
-          .then((url) => {
-            //from url you can fetched the uploaded image easily
-            setProfileImageUrl({uri: url});
-          })
-          .catch((e) =>
-            console.log('getting downloadURL of image error => ', e),
-          );
-        // console.log('avatarFile');
-        // console.log(newUserDetails);
-        // console.log('avatarFile');
-      });
+    getUserInfo();
+    // console.log(response);
+    // loadUsers();
+    // findCoordinates();
+    // onRefreshUsers();
   }, []);
+  // useEffect(() => {
+  //   firestore()
+  //     .collection('Users')
+  //     .doc(userid)
+  //     .onSnapshot((querySnapshot) => {
+  //       let info = [];
+  //       let newUserDetails = querySnapshot.data();
+  //       let avatarFile = querySnapshot.data().profileImage;
+  //       const filename = avatarFile.substring(avatarFile.lastIndexOf('/') + 1);
+  //       const reference = storage().ref('profileImages' + '/' + filename);
+  //       // setAvatar(avatarFile);
+  //       setUserDetails(newUserDetails);
+  //       // console.log(getAge(userDetails.dob));
+  //       // console.log(userDetails.profileImage);
+  //       reference
+  //         .getDownloadURL()
+  //         .then((url) => {
+  //           //from url you can fetched the uploaded image easily
+  //           setProfileImageUrl({uri: url});
+  //         })
+  //         .catch((e) =>
+  //           console.log('getting downloadURL of image error => ', e),
+  //         );
+  //       // console.log('avatarFile');
+  //       // console.log(newUserDetails);
+  //       // console.log('avatarFile');
+  //     });
+  // }, []);
 
-  useEffect(() => {
-    // const user = auth().currentUser;
+  // useEffect(() => {
+  //   // const user = auth().currentUser;
 
-    firestore()
-      .collection('posts')
-      .where('uid', '==', user.uid)
-      .get()
-      .then((querySnapshot) => {
-        // let posts = querySnapshot.docs.map((doc) => doc.data());
-        let posts = querySnapshot.docs.map((doc) => doc.data());
-        let images = posts.map((item) => {
-          return item.postPhoto;
-        });
-        setImages(images);
-        // console.log(urlImages(images));
+  //   firestore()
+  //     .collection('posts')
+  //     .where('uid', '==', user.uid)
+  //     .get()
+  //     .then((querySnapshot) => {
+  //       // let posts = querySnapshot.docs.map((doc) => doc.data());
+  //       let posts = querySnapshot.docs.map((doc) => doc.data());
+  //       let images = posts.map((item) => {
+  //         return item.postPhoto;
+  //       });
+  //       setImages(images);
+  //       // console.log(urlImages(images));
 
-        // setIsRefreshing(false);
-        // setLoading(false);
-      })
-      .catch(function (error) {
-        console.log('Error getting documents: ', error);
-      });
-  }, []);
+  //       // setIsRefreshing(false);
+  //       // setLoading(false);
+  //     })
+  //     .catch(function (error) {
+  //       console.log('Error getting documents: ', error);
+  //     });
+  // }, []);
 
   const pickSingle = (cropit, circular = false, mediaType) => {
     ImagePicker.openPicker({
@@ -256,32 +272,32 @@ export default function ProfileScreen({props, navigation, route}) {
           source={profileImageUrl}
           style={styles.photo}></ImageBackground>
         <ProfileItem
-          matches={match}
-          name={userDetails.uid}
-          age={getAge(userDetails.dob)}
-          location={userDetails.location}
-          info1={userDetails.aboutMe}
-          info2={userDetails.alcohol}
-          info3={userDetails.bodyType}
-          info4={userDetails.diet}
-          info5={userDetails.education}
-          info6={userDetails.height}
-          info7={userDetails.weight}
-          info8={userDetails.hivStatus}
-          info9={userDetails.kids}
-          info10={userDetails.language}
-          info11={userDetails.lookingFor}
-          info12={userDetails.music}
-          info13={userDetails.pets}
-          info14={userDetails.relationshipStatus}
-          info15={userDetails.role}
-          info16={userDetails.smoke}
-          info17={userDetails.sport}
-          info18={userDetails.tattoos}
-          info19={userDetails.tribes}
+          // matches={match}
+          name={JSON.stringify(userInfo.id)}
+          // age={getAge(userDetails.dob)}
+          // location={userDetails.location}
+          // info1={userDetails.aboutMe}
+          // info2={userDetails.alcohol}
+          // info3={userDetails.bodyType}
+          // info4={userDetails.diet}
+          // info5={userDetails.education}
+          // info6={userDetails.height}
+          // info7={userDetails.weight}
+          // info8={userDetails.hivStatus}
+          // info9={userDetails.kids}
+          // info10={userDetails.language}
+          // info11={userDetails.lookingFor}
+          // info12={userDetails.music}
+          // info13={userDetails.pets}
+          // info14={userDetails.relationshipStatus}
+          // info15={userDetails.role}
+          // info16={userDetails.smoke}
+          // info17={userDetails.sport}
+          // info18={userDetails.tattoos}
+          // info19={userDetails.tribes}
         />
 
-        <View style={styles.actionsProfile}>
+        {/* <View style={styles.actionsProfile}>
           {user.uid == userDetails.uid ? (
             <TouchableOpacity
               style={styles.circledButton}
@@ -307,7 +323,7 @@ export default function ProfileScreen({props, navigation, route}) {
               <Text style={styles.textButton}>Start Chatting</Text>
             </TouchableOpacity>
           )}
-        </View>
+        </View> */}
       </ImageBackground>
     </ScrollView>
   );
