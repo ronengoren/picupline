@@ -4,16 +4,36 @@ import {Title, IconButton} from 'react-native-paper';
 import FormInput from '../components/FormInput';
 import FormButton from '../components/FormButton';
 import {AuthContext} from '../navigation/AuthProvider';
+import {Auth} from 'aws-amplify';
 
 export default function SignupScreen({navigation}) {
+  const [username, setUsername] = useState('');
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const {register} = useContext(AuthContext);
 
+  async function signUp() {
+    try {
+      await Auth.signUp({username, password, attributes: {email}});
+
+      console.log(' Sign-up Confirmed');
+
+      navigation.navigate('ConfirmSignUp');
+    } catch (error) {
+      console.log(' Error signing up...', error);
+    }
+  }
   return (
     <View style={styles.container}>
       <Title style={styles.titleText}>SIYU</Title>
+      <FormInput
+        labelName="Enter username"
+        value={username}
+        autoCapitalize="none"
+        onChangeText={(text) => setUsername(text)}
+      />
       <FormInput
         labelName="Email"
         value={email}
@@ -30,7 +50,7 @@ export default function SignupScreen({navigation}) {
         title="Signup"
         modeValue="contained"
         labelStyle={styles.loginButtonLabel}
-        onPress={() => register(email, password)}
+        onPress={signUp}
       />
       <IconButton
         icon="keyboard-backspace"

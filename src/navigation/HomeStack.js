@@ -13,13 +13,13 @@ import EditProfile from '../screens/EditProfile';
 import EditAvatar from '../screens/EditAvatar';
 import AddPost from '../screens/AddPost';
 import UserFilter from '../screens/home/UserFilter';
+import LoginScreen from '../screens/LoginScreen';
+import AuthStack from './AuthStack';
 
 import AddRoomScreen from '../screens/AddRoomScreen';
 import RoomScreen from '../screens/RoomScreen';
 import {AuthContext} from '../navigation/AuthProvider';
 
-const ChatAppStack = createStackNavigator();
-const ModalStack = createStackNavigator();
 const RootStack = createStackNavigator();
 const MainStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -35,12 +35,24 @@ const ProfileStack = () => {
     </Stack.Navigator>
   );
 };
-const MainAppStack = () => {
+const MainAppStack = (props) => {
   return (
     <Stack.Navigator headerMode="none">
-      <Stack.Screen name="Top" component={TopPicksScreen} />
+      <Stack.Screen name="Top">
+        {(screenProps) => (
+          <TopPicksScreen
+            {...screenProps}
+            updateAuthState={props.updateAuthState}
+          />
+        )}
+      </Stack.Screen>
       <Stack.Screen name="Filters" component={UserFilter} />
       <Stack.Screen name="Profile" component={ProfileScreen} />
+      <Stack.Screen name="AuthStack">
+        {(screenProps) => (
+          <AuthStack {...screenProps} updateAuthState={props.updateAuthState} />
+        )}
+      </Stack.Screen>
     </Stack.Navigator>
   );
 };
@@ -48,67 +60,67 @@ const MainAppStack = () => {
  * All chat app related screens
  */
 
-function ChatApp() {
-  const {logout} = useContext(AuthContext);
+// function ChatApp() {
+//   const {logout} = useContext(AuthContext);
 
-  return (
-    <ChatAppStack.Navigator
-      headerMode="none"
-      screenOptions={{
-        headerStyle: {
-          backgroundColor: '#6646ee',
-        },
-        headerTintColor: '#ffffff',
-        headerTitleStyle: {
-          fontSize: 22,
-        },
-      }}>
-      <ChatAppStack.Screen
-        name="Home"
-        component={HomeScreen}
-        options={({navigation}) => ({
-          headerRight: () => (
-            <IconButton
-              icon="message-plus"
-              size={28}
-              color="#ffffff"
-              onPress={() => navigation.navigate('AddRoom')}
-            />
-          ),
-          headerLeft: () => (
-            <IconButton
-              icon="logout-variant"
-              size={28}
-              color="#ffffff"
-              onPress={() => logout()}
-            />
-          ),
-        })}
-      />
-      <ChatAppStack.Screen
-        name="Room"
-        component={RoomScreen}
-        options={({route}) => ({
-          title: route.params.thread.name,
-        })}
-      />
-    </ChatAppStack.Navigator>
-  );
-}
+//   return (
+//     <ChatAppStack.Navigator
+//       headerMode="none"
+//       screenOptions={{
+//         headerStyle: {
+//           backgroundColor: '#6646ee',
+//         },
+//         headerTintColor: '#ffffff',
+//         headerTitleStyle: {
+//           fontSize: 22,
+//         },
+//       }}>
+//       <ChatAppStack.Screen
+//         name="Home"
+//         component={HomeScreen}
+//         options={({navigation}) => ({
+//           headerRight: () => (
+//             <IconButton
+//               icon="message-plus"
+//               size={28}
+//               color="#ffffff"
+//               onPress={() => navigation.navigate('AddRoom')}
+//             />
+//           ),
+//           headerLeft: () => (
+//             <IconButton
+//               icon="logout-variant"
+//               size={28}
+//               color="#ffffff"
+//               onPress={() => logout()}
+//             />
+//           ),
+//         })}
+//       />
+//       <ChatAppStack.Screen
+//         name="Room"
+//         component={RoomScreen}
+//         options={({route}) => ({
+//           title: route.params.thread.name,
+//         })}
+//       />
+//     </ChatAppStack.Navigator>
+//   );
+// }
 
-function HomeStack() {
-  return (
-    <ModalStack.Navigator mode="modal" headerMode="none">
-      <ModalStack.Screen name="ChatApp" component={ChatApp} />
-      <ModalStack.Screen name="Profile" component={ProfileScreen} />
-      <ModalStack.Screen name="EditProfile" component={EditProfile} />
+// function HomeStack() {
+//   return (
+//     <ModalStack.Navigator mode="modal" headerMode="none">
+//       <ModalStack.Screen name="ChatApp" component={ChatApp} />
+//       <ModalStack.Screen name="Profile" component={ProfileScreen} />
+//       <ModalStack.Screen name="EditProfile" component={EditProfile} />
 
-      <ModalStack.Screen name="AddRoom" component={AddRoomScreen} />
-    </ModalStack.Navigator>
-  );
-}
+//       <ModalStack.Screen name="AddRoom" component={AddRoomScreen} />
+//     </ModalStack.Navigator>
+//   );
+// }
 
-export default function TabNavigator() {
+export default function TabNavigator(updateAuthState) {
   return (
     <Tab.Navigator
       screenOptions={({route}) => ({
@@ -141,12 +153,14 @@ export default function TabNavigator() {
         activeTintColor: 'tomato',
         inactiveTintColor: 'gray',
       }}>
-      <Tab.Screen name="Top" component={MainAppStack} />
+      <Tab.Screen name="Top">
+        {(screenProps) => (
+          <MainAppStack {...screenProps} updateAuthState={updateAuthState} />
+        )}
+      </Tab.Screen>
 
-      <Tab.Screen name="Home" component={HomeStack} />
       <Tab.Screen name="Profile" component={ProfileStack} />
       <Tab.Screen name="Messages" component={MessagesScreen} />
-      <Tab.Screen name="Add" component={AddPost} />
     </Tab.Navigator>
   );
 }
