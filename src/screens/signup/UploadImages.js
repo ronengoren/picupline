@@ -203,7 +203,7 @@ export default function UploadImages({navigation}) {
       const dsfdf = await AsyncStorage.getItem('Profile_Image');
       console.log(dsfdf);
       setIsSubmitting(false);
-      navigation.navigate('Signup');
+      navigation.navigate('SignUp');
     } catch (err) {
       console.error({
         // message: 'failed to submit user gender form',

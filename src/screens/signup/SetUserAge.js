@@ -12,9 +12,7 @@ import I18n from '../../infra/localization';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 import auth from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
 import Colors from '../../constants/Colors';
-import {StackActions} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Picker} from '@react-native-community/picker';
 import {

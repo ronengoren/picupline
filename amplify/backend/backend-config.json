@@ -8,19 +8,20 @@
     }
   },
   "api": {
-    "nodeapi": {
-      "service": "API Gateway",
+    "siyudatastore": {
+      "service": "AppSync",
       "providerPlugin": "awscloudformation",
-      "dependsOn": [
-        {
-          "category": "function",
-          "resourceName": "welcomefunction",
-          "attributes": [
-            "Name",
-            "Arn"
-          ]
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authsiyu470e9cfb"
+            }
+          },
+          "additionalAuthenticationProviders": []
         }
-      ]
+      }
     }
   },
   "function": {

@@ -16,7 +16,6 @@ import {
   TouchableNativeFeedback,
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
 import Colors from '../../constants/Colors';
 import Icon from 'react-native-vector-icons/Ionicons';
 import I18n from '../../infra/localization';

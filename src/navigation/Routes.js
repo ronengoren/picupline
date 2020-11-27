@@ -21,6 +21,7 @@ import LoginScreen from '../screens/LoginScreen';
 import Welcome from '../screens/welcome/Welcome';
 import ConfirmSignUp from '../screens/ConfirmSignUp';
 import TopPicksScreen from '../screens/TopPicksScreen';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 enableScreens();
 
@@ -62,11 +63,14 @@ const AppTabNavigator = (props) => {
       }}>
       <Tab.Screen name="Top">
         {(screenProps) => (
-          <MainAppStack {...screenProps} updateAuthState={updateAuthState} />
+          <AppNavigator
+            {...screenProps}
+            updateAuthState={props.updateAuthState}
+          />
         )}
       </Tab.Screen>
 
-      <Tab.Screen name="Profile" component={Profile} />
+      <Tab.Screen name="Profile" component={ProfileScreen} />
       <Tab.Screen name="Messages" component={MessagesScreen} />
     </Tab.Navigator>
   );
@@ -92,14 +96,7 @@ const AuthenticationNavigator = (props) => {
           />
         )}
       </AuthenticationStack.Screen>
-      <AuthenticationStack.Screen name="ConfirmPassword">
-        {(screenProps) => (
-          <ConfirmPassword
-            {...screenProps}
-            updateAuthState={props.updateAuthState}
-          />
-        )}
-      </AuthenticationStack.Screen>
+
       <AuthenticationStack.Screen name="SignUp" component={SignupScreen} />
       <AuthenticationStack.Screen
         name="SignUpWizard"
@@ -180,30 +177,11 @@ function Routes() {
     console.log(isUserLoggedIn);
   }
 
-  // Handle user state changes
-  // function onAuthStateChanged(user) {
-  //   // console.log(user);
-  //   setUser(user);
-
-  //   if (initializing) setInitializing(false);
-  //   setLoading(false);
-  // }
-
-  // useEffect(() => {
-  //   const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-
-  //   return subscriber; // unsubscribe on unmount
-  // }, []);
-
-  // if (loading) {
-  //   return <Loading />;
-  // }
-
   return (
     <NavigationContainer>
       {isUserLoggedIn === 'initializing' && <Loading />}
       {isUserLoggedIn === 'loggedIn' && (
-        <AppNavigator updateAuthState={updateAuthState} />
+        <AppTabNavigator updateAuthState={updateAuthState} />
       )}
       {isUserLoggedIn === 'loggedOut' && (
         <AuthenticationNavigator updateAuthState={updateAuthState} />
