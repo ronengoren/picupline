@@ -5,8 +5,9 @@ import FormInput from '../components/FormInput';
 import FormButton from '../components/FormButton';
 import {AuthContext} from '../navigation/AuthProvider';
 import {Auth} from 'aws-amplify';
+import * as Keychain from 'react-native-keychain';
 
-export default function SignupScreen({navigation}) {
+export default function SignupScreen({navigation, updateAuthState}) {
   const [username, setUsername] = useState('');
 
   const [email, setEmail] = useState('');
@@ -14,17 +15,6 @@ export default function SignupScreen({navigation}) {
 
   const {register} = useContext(AuthContext);
 
-  async function signUp() {
-    try {
-      await Auth.signUp({username, password, attributes: {email}});
-
-      console.log(' Sign-up Confirmed');
-
-      navigation.navigate('ConfirmSignUp');
-    } catch (error) {
-      console.log(' Error signing up...', error);
-    }
-  }
   return (
     <View style={styles.container}>
       <Title style={styles.titleText}>SIYU</Title>
@@ -50,7 +40,9 @@ export default function SignupScreen({navigation}) {
         title="Signup"
         modeValue="contained"
         labelStyle={styles.loginButtonLabel}
-        onPress={signUp}
+        onPress={() =>
+          register(username, email, password, updateAuthState, navigation)
+        }
       />
       <IconButton
         icon="keyboard-backspace"

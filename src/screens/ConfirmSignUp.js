@@ -13,7 +13,7 @@ export default function ConfirmSignUp({navigation}) {
     try {
       await Auth.confirmSignUp(username, authCode);
       console.log(' Code confirmed');
-      navigation.navigate('SignIn');
+      navigation.navigate('Login');
     } catch (error) {
       console.log(
         ' Verification code does not match. Please enter a valid verification code.',

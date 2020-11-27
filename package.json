@@ -10,6 +10,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@aws-amplify/datastore": "^2.8.1",
     "@react-native-async-storage/async-storage": "^1.13.2",
     "@react-native-community/datetimepicker": "^3.0.4",
     "@react-native-community/geolocation": "^2.0.2",

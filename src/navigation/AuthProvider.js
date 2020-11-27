@@ -7,6 +7,8 @@ import {utils} from '@react-native-firebase/app';
 import {Auth} from 'aws-amplify';
 import * as Keychain from 'react-native-keychain';
 import {onScreen, goBack} from '../constants';
+import {DataStore} from '@aws-amplify/datastore';
+import {User} from '../../models';
 
 /**
  * This provider is created
@@ -55,7 +57,13 @@ export const AuthProvider = ({children}) => {
             console.log(' Error signing in...', error);
           }
         },
-        register: async (email, password) => {
+        register: async (
+          email,
+          username,
+          password,
+          updateAuthState,
+          navigation,
+        ) => {
           var gender = '';
           const value = await AsyncStorage.getItem('Gender');
           if (value == 0) {
@@ -94,83 +102,60 @@ export const AuthProvider = ({children}) => {
               : profileImage;
           setUploading(true);
           setTransferred(0);
-
-          // const pref = value.find(myFunction);
-          // function myFunction(value, index, array) {
-          //   // return value[0];
-          //   console.log(value[1]);
-          // }
-
           try {
-            const response = await auth().createUserWithEmailAndPassword(
-              email,
-              password,
+            await Auth.signUp({username, password, attributes: {email}});
+            await DataStore.save(
+              new User({
+                username,
+                password,
+                attributes: {
+                  email,
+
+                  gender,
+                  preferredGender,
+                  dob,
+                  profileImage,
+                  displayname: '',
+                  aboutMe: '',
+                  height: '',
+                  weight: '',
+                  role: '',
+                  bodyType: '',
+                  relationshipStatus: '',
+                  location: '',
+                  tribes: '',
+                  lookingFor: '',
+                  hivStatus: '',
+                  alcohol: '',
+                  diet: '',
+                  education: '',
+                  kids: '',
+                  language: '',
+                  music: '',
+                  pets: '',
+                  smoke: '',
+                  sport: '',
+                  tattoos: '',
+                  likes: [],
+                  notLike: [],
+                  superLike: [],
+                },
+              }),
             );
-            const isNewUser = response.additionalUserInfo;
-            const {uid} = response.user;
+            console.log(' Sign-up Confirmed');
 
-            const userData = {
-              email,
-              uid,
-              gender,
-              preferredGender,
-              dob,
-              profileImage,
-              displayname: '',
-              aboutMe: '',
-
-              height: '',
-              weight: '',
-              role: '',
-              bodyType: '',
-              relationshipStatus: '',
-              location: '',
-              tribes: '',
-              lookingFor: '',
-              hivStatus: '',
-              alcohol: '',
-              diet: '',
-              education: '',
-              kids: '',
-              language: '',
-              music: '',
-              pets: '',
-              smoke: '',
-              sport: '',
-              tattoos: '',
-              likes: [],
-              notLike: [],
-              superLike: [],
-            };
-            const task = storage()
-              .ref('profileImages/' + filename)
-              .putFile(uploadUri);
-
-            // set progress state
-            task.on('state_changed', (snapshot) => {
-              setTransferred(
-                Math.round(snapshot.bytesTransferred / snapshot.totalBytes) *
-                  10000,
-              );
-            });
-            await task;
-
-            // console.log(uid);
-            firestore()
-              .collection('Users')
-              .doc(`${userData.uid}`)
-              .set(userData)
-              .then(() => {
-                console.log('user added');
-              });
-          } catch (e) {
-            console.log(e);
+            navigation.navigate('ConfirmSignUp');
+          } catch (error) {
+            console.log(' Error signing up...', error);
           }
-          setUploading(false);
+
+          // setUploading(false);
         },
-        logout: async () => {
+        logout: async (updateAuthState) => {
           try {
-            await auth().signOut();
+            await Auth.signOut();
+            await Keychain.resetInternetCredentials('auth');
+            updateAuthState('loggedOut');
           } catch (e) {
             console.error(e);
           }
@@ -183,3 +168,69 @@ export const AuthProvider = ({children}) => {
 const useAuth = () => useContext(AuthContext);
 export {useAuth};
 export default AuthProvider;
+
+// try {
+//   const response = await auth().createUserWithEmailAndPassword(
+//     email,
+//     password,
+//   );
+//   const isNewUser = response.additionalUserInfo;
+//   const {uid} = response.user;
+
+//   const userData = {
+//     email,
+//     uid,
+//     gender,
+//     preferredGender,
+//     dob,
+//     profileImage,
+//     displayname: '',
+//     aboutMe: '',
+
+//     height: '',
+//     weight: '',
+//     role: '',
+//     bodyType: '',
+//     relationshipStatus: '',
+//     location: '',
+//     tribes: '',
+//     lookingFor: '',
+//     hivStatus: '',
+//     alcohol: '',
+//     diet: '',
+//     education: '',
+//     kids: '',
+//     language: '',
+//     music: '',
+//     pets: '',
+//     smoke: '',
+//     sport: '',
+//     tattoos: '',
+//     likes: [],
+//     notLike: [],
+//     superLike: [],
+//   };
+//   const task = storage()
+//     .ref('profileImages/' + filename)
+//     .putFile(uploadUri);
+
+//   // set progress state
+//   task.on('state_changed', (snapshot) => {
+//     setTransferred(
+//       Math.round(snapshot.bytesTransferred / snapshot.totalBytes) *
+//         10000,
+//     );
+//   });
+//   await task;
+
+//   // console.log(uid);
+//   firestore()
+//     .collection('Users')
+//     .doc(`${userData.uid}`)
+//     .set(userData)
+//     .then(() => {
+//       console.log('user added');
+//     });
+// } catch (e) {
+//   console.log(e);
+// }

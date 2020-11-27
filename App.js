@@ -10,7 +10,7 @@ import {
 import 'react-native-gesture-handler';
 // import MainTabNavigator from './src/navigation';
 import Providers from './src/navigation';
-import Amplify, {Analytics, Auth, API} from 'aws-amplify';
+import Amplify, {Analytics, Auth, API, graphqlOperation} from 'aws-amplify';
 import config from './aws-exports';
 import * as Keychain from 'react-native-keychain';
 import {AmplifyProvider} from 'aws-amplify-react-hooks';
@@ -19,6 +19,7 @@ import {useColorScheme} from 'react-native-appearance';
 const client = {
   Auth,
   API,
+  graphqlOperation,
 };
 
 AmplifyProvider(client);

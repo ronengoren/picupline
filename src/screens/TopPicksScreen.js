@@ -30,10 +30,13 @@ import {Auth} from 'aws-amplify';
 import Amplify, {API} from 'aws-amplify';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Keychain from 'react-native-keychain';
-import {goHome, onScreen} from '../constants';
+import {goHome, onScreen, goBack} from '../constants';
 import {StackActions} from '@react-navigation/native';
 import AuthStack from '../navigation/AuthStack';
 import Routes from '../navigation';
+import {AuthContext} from '../navigation/AuthProvider';
+import {DataStore} from '@aws-amplify/datastore';
+import {User} from '../../models';
 
 function onResult(QuerySnapshot) {
   console.log('Got Users collection result.');
@@ -68,13 +71,8 @@ export default function TopPicksScreen({props, navigation, updateAuthState}) {
   const [Flag, setFlag] = useState(false);
   const currentUser = auth().currentUser;
   const ref = firestore().collection('Users');
-  const totalUsers = firestore()
-    .collection('Users')
-    .get()
-    .then((querySnapshot) => {
-      setTotals(querySnapshot.size);
-      // setAvatars(querySnapshot.docs);
-    });
+
+  const {logout} = useContext(AuthContext);
 
   const Users = () => {
     const usersList = users.map((item, index) => item);
@@ -107,15 +105,6 @@ export default function TopPicksScreen({props, navigation, updateAuthState}) {
     );
   };
 
-  async function signOut() {
-    try {
-      await Auth.signOut();
-      await Keychain.resetInternetCredentials('auth');
-      updateAuthState('loggedOut');
-    } catch (error) {
-      console.log('Error signing out: ', error);
-    }
-  }
   async function getUserInfo() {
     const userInfo = await Auth.currentAuthenticatedUser();
     const userData = await AsyncStorage.getItem('userInfo');
@@ -127,7 +116,7 @@ export default function TopPicksScreen({props, navigation, updateAuthState}) {
     getUserInfo();
 
     // console.log(response);
-    // loadUsers();
+    loadUsers();
     // findCoordinates();
     // onRefreshUsers();
   }, []);
@@ -138,52 +127,16 @@ export default function TopPicksScreen({props, navigation, updateAuthState}) {
     // setLongitude(location.longitude);
   };
 
-  const loadUsers = () => {
-    let list = [];
-
-    const unsubscribe = ref.onSnapshot((querySnapshot) => {
-      let usersLists = querySnapshot.forEach((doc) => {
-        if (doc.id !== currentUser.uid) {
-          // console.log(doc.data());
-          const {
-            uid,
-            email,
-            profileImage,
-            gender,
-            dob,
-            preferredGender,
-            uri,
-          } = doc.data();
-
-          const filename = profileImage.substring(
-            profileImage.lastIndexOf('/') + 1,
-          );
-          const ref = storage().ref('profileImages/' + filename);
-          ref.getDownloadURL().then((uri) => {
-            list.push({
-              uid,
-              email,
-              gender,
-              dob,
-              preferredGender,
-              uri,
-            });
-            setUsers(list);
-            // console.log(users);
-            // setUsers(list);
-          });
-        }
-      });
-
-      if (loading) {
-        setLoading(false);
-      }
-    });
-
-    /**
-     * unsubscribe listener
-     */
-    // return () => unsubscribe();
+  const loadUsers = async () => {
+    try {
+      const posts = await DataStore.query(User);
+      console.log(
+        'Users retrieved successfully!',
+        JSON.stringify(posts, null, 2),
+      );
+    } catch (error) {
+      console.log('Error retrieving posts', error);
+    }
   };
   const onLocation = (locationon) => {
     if (!locationon) {
@@ -404,7 +357,11 @@ export default function TopPicksScreen({props, navigation, updateAuthState}) {
             />
           )}
         </View>
-        <Button title="Sign Out" color="tomato" onPress={signOut} />
+        <Button
+          title="Sign Out"
+          color="tomato"
+          onPress={() => logout(updateAuthState)}
+        />
       </View>
     </View>
   );
