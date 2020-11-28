@@ -24,7 +24,7 @@ export default function HorizontalUserList(props) {
   };
 
   const getUserItem = (item) => {
-    console.log(item.attributes.profileImage);
+    // console.log(item.attributes.profileImage);
     if (type == 'search') {
       return (
         <TouchableOpacity

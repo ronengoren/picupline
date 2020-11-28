@@ -13,7 +13,11 @@ export const getUser = /* GraphQL */ `
       gender
       preferredGender
       dob
-      profileImage
+      profileImage {
+        bucket
+        region
+        key
+      }
       displayname
       aboutMe
       height
@@ -60,7 +64,6 @@ export const listUsers = /* GraphQL */ `
         gender
         preferredGender
         dob
-        profileImage
         displayname
         aboutMe
         height

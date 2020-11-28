@@ -14,7 +14,7 @@ type User
   gender: String
   preferredGender: String
   dob: String
-  profileImage: String
+  profileImage: S3Object
   displayname: String
   aboutMe: String
   height: String
@@ -39,4 +39,10 @@ type User
   likes: String
   notLike: String
   superLike: String
+}
+
+type S3Object {
+  bucket: String!
+  region: String!
+  key: String!
 }

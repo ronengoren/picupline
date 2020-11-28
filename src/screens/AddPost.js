@@ -9,10 +9,18 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
+
+//aws
+import {Storage, API, graphqlOperation} from 'aws-amplify';
+import {createProduct as CreateProduct} from '../../graphql/mutations';
+
+//
+
+// firebase
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
-
+//
 import uuid from 'uuid';
 import ImagePicker from 'react-native-image-crop-picker';
 import {getFilePathFromLocalUri} from '../infra/utils';
@@ -37,70 +45,67 @@ export default function AddPost({navigation, route}) {
   };
   const onSubmit = async () => {
     const filename = localuri.substring(localuri.lastIndexOf('/') + 1);
+    console.log(filename);
 
-    const uploadUri =
-      Platform.OS === 'ios'
-        ? storageImage.replace('file://', '')
-        : storageImage;
-    const reference = storage().ref(filename);
-    setUploading(true);
-    setTransferred(0);
-    const task = storage()
-      .ref('userImages/' + filename)
-      .putFile(uploadUri);
+    // const uploadUri =
+    //   Platform.OS === 'ios'
+    //     ? storageImage.replace('file://', '')
+    //     : storageImage;
+    // const reference = storage().ref(filename);
+    // setUploading(true);
+    // setTransferred(0);
+    // const task = storage()
+    //   .ref('userImages/' + filename)
+    //   .putFile(uploadUri);
 
-    task.on('state_changed', (snapshot) => {
-      setTransferred(
-        Math.round(snapshot.bytesTransferred / snapshot.totalBytes) * 10000,
-      );
-      switch (snapshot.state) {
-        case 'running':
-          setImageURI(null);
-          // setUpload({ loading: true, progress });
-          break;
-        case 'success':
-          snapshot.ref.getDownloadURL().then((downloadURL) => {
-            // console.log(downloadURL);
-            setImageURI({uri: downloadURL});
-            // setUpload({ loading: false });
-          });
-          break;
-        default:
-          break;
-      }
-    });
-    // console.log(postImageUrl);
-    // console.log(description);
+    // task.on('state_changed', (snapshot) => {
+    //   setTransferred(
+    //     Math.round(snapshot.bytesTransferred / snapshot.totalBytes) * 10000,
+    //   );
+    //   switch (snapshot.state) {
+    //     case 'running':
+    //       setImageURI(null);
+    //       // setUpload({ loading: true, progress });
+    //       break;
+    //     case 'success':
+    //       snapshot.ref.getDownloadURL().then((downloadURL) => {
+    //         // console.log(downloadURL);
+    //         setImageURI({uri: downloadURL});
+    //         // setUpload({ loading: false });
+    //       });
+    //       break;
+    //     default:
+    //       break;
+    //   }
+    // });
+    // // console.log(postImageUrl);
+    // // console.log(description);
 
-    try {
-      await task;
-      const post = {
-        photo: localuri,
-        title: title,
-        description: description,
-      };
-      let user = auth().currentUser;
-      const id = uuid.v4();
-      const uploadData = {
-        uid: user.uid,
-        id: id,
-        postPhoto: post.photo,
-        postTitle: post.title,
-        postDescription: post.description,
-        likes: [],
-      };
-      firestore().collection('posts').doc(id).set(uploadData);
-      setImage(null);
-      setTitle('');
-      setDescription('');
-      setUploading(false);
+    // try {
+    //   await task;
+    //   const post = {
+    //     photo: localuri,
+    //   };
+    //   let user = auth().currentUser;
+    //   const id = uuid.v4();
+    //   const uploadData = {
+    //     uid: user.uid,
+    //     id: id,
+    //     postPhoto: post.photo,
 
-      navigation.navigate('Home');
-    } catch (e) {
-      console.error(e);
-    }
+    //     likes: [],
+    //   };
+    //   firestore().collection('posts').doc(id).set(uploadData);
+    //   setImage(null);
+
+    //   setUploading(false);
+
+    //   navigation.navigate('Home');
+    // } catch (e) {
+    //   console.error(e);
+    // }
   };
-
+  //
   const pickSingle = (cropit, circular = false, mediaType) => {
     ImagePicker.openPicker({
       width: 500,
@@ -131,6 +136,7 @@ export default function AddPost({navigation, route}) {
           images: null,
         });
         const localuri = getFilePathFromLocalUri(image.path);
+
         setLocaluri(localuri);
       })
       .catch((e) => {
@@ -160,23 +166,12 @@ export default function AddPost({navigation, route}) {
       </View>
       <View style={{marginTop: 80, alignItems: 'center'}}>
         <Text category="h4">Post Details</Text>
-        <TextInput
-          placeholder="Enter title of the post"
-          style={{margin: 20}}
-          value={title}
-          onChangeText={(title) => onChangeTitle(title)}
-        />
-        <TextInput
-          placeholder="Enter description"
-          style={{margin: 20}}
-          value={description}
-          onChangeText={(description) => onChangeDescription(description)}
-        />
+
         <Button
           title="Add Post"
           status="success"
           onPress={() => onSubmit()}
-          disabled={image && title && description ? false : true}></Button>
+          disabled={image ? false : true}></Button>
       </View>
       {/* <TouchableOpacity style={styles.uploadButton} onPress={uploadImage}>
         <Text style={styles.buttonText}>Upload image</Text>
