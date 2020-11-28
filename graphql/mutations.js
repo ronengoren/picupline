@@ -16,7 +16,11 @@ export const createUser = /* GraphQL */ `
       gender
       preferredGender
       dob
-      profileImage
+      profileImage {
+        bucket
+        region
+        key
+      }
       displayname
       aboutMe
       height
@@ -61,7 +65,11 @@ export const updateUser = /* GraphQL */ `
       gender
       preferredGender
       dob
-      profileImage
+      profileImage {
+        bucket
+        region
+        key
+      }
       displayname
       aboutMe
       height
@@ -106,7 +114,11 @@ export const deleteUser = /* GraphQL */ `
       gender
       preferredGender
       dob
-      profileImage
+      profileImage {
+        bucket
+        region
+        key
+      }
       displayname
       aboutMe
       height
