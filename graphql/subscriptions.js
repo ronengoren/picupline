@@ -9,6 +9,35 @@ export const onCreateUser = /* GraphQL */ `
       rate
       description
       owner
+      email
+      gender
+      preferredGender
+      dob
+      profileImage
+      displayname
+      aboutMe
+      height
+      weight
+      role
+      bodyType
+      relationshipStatus
+      location
+      tribes
+      lookingFor
+      hivStatus
+      alcohol
+      diet
+      education
+      kids
+      language
+      music
+      pets
+      smoke
+      sport
+      tattoos
+      likes
+      notLike
+      superLike
       createdAt
       updatedAt
     }
@@ -22,6 +51,35 @@ export const onUpdateUser = /* GraphQL */ `
       rate
       description
       owner
+      email
+      gender
+      preferredGender
+      dob
+      profileImage
+      displayname
+      aboutMe
+      height
+      weight
+      role
+      bodyType
+      relationshipStatus
+      location
+      tribes
+      lookingFor
+      hivStatus
+      alcohol
+      diet
+      education
+      kids
+      language
+      music
+      pets
+      smoke
+      sport
+      tattoos
+      likes
+      notLike
+      superLike
       createdAt
       updatedAt
     }
@@ -35,6 +93,35 @@ export const onDeleteUser = /* GraphQL */ `
       rate
       description
       owner
+      email
+      gender
+      preferredGender
+      dob
+      profileImage
+      displayname
+      aboutMe
+      height
+      weight
+      role
+      bodyType
+      relationshipStatus
+      location
+      tribes
+      lookingFor
+      hivStatus
+      alcohol
+      diet
+      education
+      kids
+      language
+      music
+      pets
+      smoke
+      sport
+      tattoos
+      likes
+      notLike
+      superLike
       createdAt
       updatedAt
     }

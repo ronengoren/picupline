@@ -22,7 +22,7 @@ import Welcome from '../screens/welcome/Welcome';
 import ConfirmSignUp from '../screens/ConfirmSignUp';
 import TopPicksScreen from '../screens/TopPicksScreen';
 import Icon from 'react-native-vector-icons/Ionicons';
-
+import AddPost from '../screens/AddPost';
 enableScreens();
 
 const AuthenticationStack = createStackNavigator();
@@ -72,6 +72,7 @@ const AppTabNavigator = (props) => {
 
       <Tab.Screen name="Profile" component={ProfileScreen} />
       <Tab.Screen name="Messages" component={MessagesScreen} />
+      <Tab.Screen name="Add" component={AddPost} />
     </Tab.Navigator>
   );
 };
