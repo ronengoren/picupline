@@ -130,10 +130,8 @@ export default function TopPicksScreen({props, navigation, updateAuthState}) {
   const loadUsers = async () => {
     try {
       const posts = await DataStore.query(User);
-      console.log(
-        'Users retrieved successfully!',
-        JSON.stringify(posts, null, 2),
-      );
+      JSON.stringify(posts, null, 2), setUsers(posts);
+      console.log('Users retrieved successfully!');
     } catch (error) {
       console.log('Error retrieving posts', error);
     }

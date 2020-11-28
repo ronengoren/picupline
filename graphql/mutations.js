@@ -12,9 +12,6 @@ export const createUser = /* GraphQL */ `
       rate
       description
       owner
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -31,9 +28,6 @@ export const updateUser = /* GraphQL */ `
       rate
       description
       owner
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -50,9 +44,6 @@ export const deleteUser = /* GraphQL */ `
       rate
       description
       owner
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }

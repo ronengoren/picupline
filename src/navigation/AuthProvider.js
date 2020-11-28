@@ -9,6 +9,7 @@ import * as Keychain from 'react-native-keychain';
 import {onScreen, goBack} from '../constants';
 import {DataStore} from '@aws-amplify/datastore';
 import {User} from '../../models';
+import uuid from 'uuid';
 
 /**
  * This provider is created

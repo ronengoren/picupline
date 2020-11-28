@@ -1,6 +1,6 @@
 {
     "identityPoolName": "siyu470e9cfb_identitypool_470e9cfb",
-    "allowUnauthenticatedIdentities": false,
+    "allowUnauthenticatedIdentities": true,
     "resourceNameTruncated": "siyu470e9cfb",
     "userPoolName": "siyu470e9cfb_userpool_470e9cfb",
     "autoVerifiedAttributes": [

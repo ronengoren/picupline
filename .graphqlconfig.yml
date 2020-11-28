@@ -2,7 +2,7 @@ projects:
   siyudatastore:
     schemaPath: amplify/backend/api/siyudatastore/build/schema.graphql
     includes:
-      - src/graphql/**/*.js
+      - /graphql/**/*.js
     excludes:
       - ./amplify/**
     extensions:

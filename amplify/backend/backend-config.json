@@ -32,5 +32,10 @@
       "dependsOn": []
     }
   },
-  "storage": {}
+  "storage": {
+    "siyugqls3": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation"
+    }
+  }
 }
