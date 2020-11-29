@@ -8,10 +8,7 @@ export const createUser = /* GraphQL */ `
   ) {
     createUser(input: $input, condition: $condition) {
       id
-      position
-      rate
-      description
-      owner
+      username
       email
       gender
       preferredGender
@@ -47,6 +44,7 @@ export const createUser = /* GraphQL */ `
       superLike
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -57,10 +55,7 @@ export const updateUser = /* GraphQL */ `
   ) {
     updateUser(input: $input, condition: $condition) {
       id
-      position
-      rate
-      description
-      owner
+      username
       email
       gender
       preferredGender
@@ -96,6 +91,7 @@ export const updateUser = /* GraphQL */ `
       superLike
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -106,10 +102,7 @@ export const deleteUser = /* GraphQL */ `
   ) {
     deleteUser(input: $input, condition: $condition) {
       id
-      position
-      rate
-      description
-      owner
+      username
       email
       gender
       preferredGender
@@ -145,6 +138,7 @@ export const deleteUser = /* GraphQL */ `
       superLike
       createdAt
       updatedAt
+      owner
     }
   }
 `;

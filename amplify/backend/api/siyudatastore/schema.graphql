@@ -7,14 +7,10 @@ type User
         ownerField: "owner"
         operations: [create, update, delete, read]
       }
-      {allow: private, operations: [create, update, delete, read]}
     ]
   ) {
   id: ID!
-  position: String!
-  rate: String!
-  description: String!
-  owner: String
+  username: String
   email: String
   gender: String
   preferredGender: String
