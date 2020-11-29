@@ -57,6 +57,7 @@ export default function UploadImages({navigation}) {
 
   const [image, setImage] = useState(null);
   const [images, setImages] = useState(null);
+  const [imageMime, setImageMime] = useState(null);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -128,13 +129,13 @@ export default function UploadImages({navigation}) {
           },
           images: null,
         });
-        console.log('image');
+        // console.log('image');
 
         const localuri = getFilePathFromLocalUri(image.path);
         setImage(localuri);
 
-        console.log(localuri);
-        console.log('image');
+        setImageMime(image.mime);
+        // console.log('image');
       })
       .catch((e) => {
         console.log(e);
@@ -200,8 +201,10 @@ export default function UploadImages({navigation}) {
     try {
       // this.updateProfile(newUserData);
       await AsyncStorage.setItem('Profile_Image', image);
-      const dsfdf = await AsyncStorage.getItem('Profile_Image');
-      console.log(dsfdf);
+      await AsyncStorage.setItem('Profile_Image_Mime', imageMime);
+
+      const dsfdf = await AsyncStorage.getItem('Profile_Image_Mime');
+      // console.log(dsfdf);
       setIsSubmitting(false);
       navigation.navigate('SignUp');
     } catch (err) {

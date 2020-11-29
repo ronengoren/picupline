@@ -1,25 +1,54 @@
-import React, {createContext, useState, useContext} from 'react';
+import React, {
+  createContext,
+  useState,
+  useContext,
+  useReducer,
+  useEffect,
+} from 'react';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import storage from '@react-native-firebase/storage';
+// import storage from '@react-native-firebase/storage';
 import {utils} from '@react-native-firebase/app';
-import {Auth} from 'aws-amplify';
 import * as Keychain from 'react-native-keychain';
 import {onScreen, goBack} from '../constants';
 import {DataStore} from '@aws-amplify/datastore';
 import {User} from '../../models';
 import uuid from 'uuid';
+import config from '../../aws-exports';
+import {createUser as CreateUser} from '../../graphql/mutations';
+import * as mutations from '../../graphql/mutations';
 
+import {listUsers} from '../../graphql/queries';
+import {onCreateUser} from '../../graphql/subscriptions';
+import Amplify, {API, graphqlOperation, Storage, Auth} from 'aws-amplify';
+
+const {
+  aws_user_files_s3_bucket_region: region,
+  aws_user_files_s3_bucket: bucket,
+} = config;
 /**
  * This provider is created
  * to access user in whole app
  */
-
+const initialState = {
+  users: [],
+};
 const MEMORY_KEY_PREFIX = '@MyStorage:';
 let dataMemory = {};
 
 export const AuthContext = createContext({});
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'SET_USERS':
+      return {...state, users: action.users};
+    case 'ADD_USER':
+      return {...state, users: [action.user, ...state.users]};
+    default:
+      return state;
+  }
+}
 
 export const AuthProvider = ({children}) => {
   const [user, setUser] = useState(null);
@@ -28,7 +57,18 @@ export const AuthProvider = ({children}) => {
   const [transferred, setTransferred] = useState(0);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [mimeType, setMimeType] = useState(null);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
+  useEffect(() => {
+    const subscription = API.graphql(graphqlOperation(onCreateUser)).subscribe({
+      next: async (userData) => {
+        const {onCreateUser} = userData.value.data;
+        dispatch({type: 'ADD_USER', user: onCreateUser});
+      },
+    });
+    return () => subscription.unsubscribe();
+  }, []);
   return (
     <AuthContext.Provider
       value={{
@@ -93,10 +133,64 @@ export const AuthProvider = ({children}) => {
           console.log(dob);
           var profileImage = '';
           const getProfileImage = await AsyncStorage.getItem('Profile_Image');
+          const getProfileImageMime = await AsyncStorage.getItem(
+            'Profile_Image_Mime',
+          );
+          setMimeType(getProfileImageMime);
           profileImage = getProfileImage;
+
           const filename = profileImage.substring(
             profileImage.lastIndexOf('/') + 1,
           );
+          const {identityId} = await Auth.currentCredentials();
+          const visibility = 'private';
+
+          const extension = filename.split('.')[1];
+          const key = `${visibility}/${identityId}/images/${uuid()}${username}.${extension}`;
+          const url = `https://${bucket}.s3.${region}.amazonaws.com/public/${key}`;
+          const fileForUpload = {
+            bucket,
+            key,
+            region,
+            mimeType,
+            localUri: key,
+          };
+          const newUserData = {
+            username,
+            password,
+            attributes: {
+              email,
+              gender,
+              preferredGender,
+              dob,
+              profileImage: fileForUpload,
+              displayname: '',
+              aboutMe: '',
+              height: '',
+              weight: '',
+              role: '',
+              bodyType: '',
+              relationshipStatus: '',
+              location: '',
+              tribes: '',
+              lookingFor: '',
+              hivStatus: '',
+              alcohol: '',
+              diet: '',
+              education: '',
+              kids: '',
+              language: '',
+              music: '',
+              pets: '',
+              smoke: '',
+              sport: '',
+              tattoos: '',
+              likes: [],
+              notLike: [],
+              superLike: [],
+            },
+          };
+
           const uploadUri =
             Platform.OS === 'ios'
               ? profileImage.replace('file://', '')
@@ -105,44 +199,51 @@ export const AuthProvider = ({children}) => {
           setTransferred(0);
           try {
             await Auth.signUp({username, password, attributes: {email}});
-            await DataStore.save(
-              new User({
-                username,
-                password,
-                attributes: {
-                  email,
-
-                  gender,
-                  preferredGender,
-                  dob,
-                  profileImage,
-                  displayname: '',
-                  aboutMe: '',
-                  height: '',
-                  weight: '',
-                  role: '',
-                  bodyType: '',
-                  relationshipStatus: '',
-                  location: '',
-                  tribes: '',
-                  lookingFor: '',
-                  hivStatus: '',
-                  alcohol: '',
-                  diet: '',
-                  education: '',
-                  kids: '',
-                  language: '',
-                  music: '',
-                  pets: '',
-                  smoke: '',
-                  sport: '',
-                  tattoos: '',
-                  likes: [],
-                  notLike: [],
-                  superLike: [],
-                },
-              }),
+            // await Storage.put(key, profileImage, {
+            //   contentType: imageMime,
+            // });
+            await API.graphql(
+              graphqlOperation(CreateUser, {input: newUserData}),
             );
+
+            // await DataStore.save(
+            //   new User({
+            //     username,
+            //     password,
+            //     attributes: {
+            //       email,
+
+            //       gender,
+            //       preferredGender,
+            //       dob,
+            //       profileImage,
+            //       displayname: '',
+            //       aboutMe: '',
+            //       height: '',
+            //       weight: '',
+            //       role: '',
+            //       bodyType: '',
+            //       relationshipStatus: '',
+            //       location: '',
+            //       tribes: '',
+            //       lookingFor: '',
+            //       hivStatus: '',
+            //       alcohol: '',
+            //       diet: '',
+            //       education: '',
+            //       kids: '',
+            //       language: '',
+            //       music: '',
+            //       pets: '',
+            //       smoke: '',
+            //       sport: '',
+            //       tattoos: '',
+            //       likes: [],
+            //       notLike: [],
+            //       superLike: [],
+            //     },
+            //   }),
+            // );
             console.log(' Sign-up Confirmed');
 
             navigation.navigate('ConfirmSignUp');
@@ -150,7 +251,7 @@ export const AuthProvider = ({children}) => {
             console.log(' Error signing up...', error);
           }
 
-          // setUploading(false);
+          setUploading(false);
         },
         logout: async (updateAuthState) => {
           try {

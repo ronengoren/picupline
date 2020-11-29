@@ -1,4 +1,4 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React, {useState, useContext, useEffect, useReducer} from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -27,7 +27,7 @@ import UserSearchView from '../components/UserSearchView';
 import RelocateView from '../components/RelocateView';
 import Geolocation from '@react-native-community/geolocation';
 import {Auth} from 'aws-amplify';
-import Amplify, {API} from 'aws-amplify';
+import Amplify, {API, graphqlOperation, Storage} from 'aws-amplify';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Keychain from 'react-native-keychain';
 import {goHome, onScreen, goBack} from '../constants';
@@ -37,6 +37,7 @@ import Routes from '../navigation';
 import {AuthContext} from '../navigation/AuthProvider';
 import {DataStore} from '@aws-amplify/datastore';
 import {User} from '../../models';
+import {listUsers} from '../../graphql/queries';
 
 function onResult(QuerySnapshot) {
   console.log('Got Users collection result.');
@@ -46,8 +47,26 @@ function onError(error) {
   console.error(error);
 }
 
+const initialState = {
+  users: [],
+};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'SET_USERS':
+      return {...state, users: action.users};
+    case 'ADD_USER':
+      return {...state, users: [action.user, ...state.users]};
+    default:
+      return state;
+  }
+}
+
 export default function TopPicksScreen({props, navigation, updateAuthState}) {
   const [users, setUsers] = useState([]);
+  const [qlusers, setQlUsers] = useState([]);
+  const [state, dispatch] = useReducer(reducer, initialState);
+
   const [user, setUser] = useState([]);
   const [total, setTotals] = useState('');
   const [searchon, setSearchon] = useState(false);
@@ -71,9 +90,18 @@ export default function TopPicksScreen({props, navigation, updateAuthState}) {
   const [Flag, setFlag] = useState(false);
   const currentUser = auth().currentUser;
   const ref = firestore().collection('Users');
-
   const {logout} = useContext(AuthContext);
 
+  async function fetchUsers() {
+    try {
+      let aqlusers = await API.graphql(graphqlOperation(listUsers));
+      // aqlusers = users.data.listUsers.items;
+      console.log(aqlusers.data);
+      dispatch({type: 'SET_USERS', users});
+    } catch (err) {
+      console.log(err);
+    }
+  }
   const Users = () => {
     const usersList = users.map((item, index) => item);
 
@@ -114,9 +142,9 @@ export default function TopPicksScreen({props, navigation, updateAuthState}) {
   }
   useEffect(() => {
     getUserInfo();
-
+    fetchUsers();
     // console.log(response);
-    loadUsers();
+    // loadUsers();
     // findCoordinates();
     // onRefreshUsers();
   }, []);
