@@ -12,7 +12,10 @@ import {
 
 //aws
 import {Storage, API, graphqlOperation} from 'aws-amplify';
-import {createProduct as CreateProduct} from '../../graphql/mutations';
+import {createUser as CreateUser} from '../../graphql/mutations';
+import {listUsers} from '../../graphql/queries';
+import {onCreateUser} from '../../graphql/subscriptions';
+import config from '../../aws-exports';
 
 //
 
@@ -29,7 +32,7 @@ export default function AddPost({navigation, route}) {
   const [image, setImage] = useState(null);
   const [storageImage, setStorageImage] = useState(null);
   const [postImageUrl, setPostImageUrl] = useState(null);
-
+  const [imageMime, setImageMime] = useState('');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [localuri, setLocaluri] = useState(null);
@@ -45,12 +48,14 @@ export default function AddPost({navigation, route}) {
   };
   const onSubmit = async () => {
     const filename = localuri.substring(localuri.lastIndexOf('/') + 1);
-    console.log(filename);
 
-    // const uploadUri =
-    //   Platform.OS === 'ios'
-    //     ? storageImage.replace('file://', '')
-    //     : storageImage;
+    const uploadUri =
+      Platform.OS === 'ios'
+        ? storageImage.replace('file://', '')
+        : storageImage;
+    const extension = filename.split('.')[1];
+    console.log(imageMime);
+
     // const reference = storage().ref(filename);
     // setUploading(true);
     // setTransferred(0);
@@ -125,6 +130,7 @@ export default function AddPost({navigation, route}) {
     })
       .then((image) => {
         setStorageImage(image.path);
+        setImageMime(image.mime);
         // setAndroidImage(image.path);
         setImage({
           image: {
