@@ -6,8 +6,6 @@ type User
     ]
   ) {
   id: ID!
-  position: String!
-  rate: Int!
-  description: String!
-  owner: String
+  username: String!
+  description: String
 }

@@ -34,8 +34,6 @@ import {getFilePathFromLocalUri} from '../infra/utils';
 export default function AddPost({navigation, route}) {
   const [check, setOwner] = useState(false);
   const [input, setJob] = useState({
-    position: '',
-    rate: '',
     description: '',
   });
   const onChange = (item) => setUser(item);
