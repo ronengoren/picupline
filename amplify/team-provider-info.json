@@ -9,7 +9,7 @@
       "UnauthRoleName": "amplify-siyu-test-131431-unauthRole",
       "StackName": "amplify-siyu-test-131431",
       "StackId": "arn:aws:cloudformation:us-east-1:144552980965:stack/amplify-siyu-test-131431/bc129d60-326e-11eb-a0c6-0e65dccd8cb7",
-      "AmplifyAppId": "d3qhe2ll8p9sss"
+      "AmplifyAppId": "d48f69lgrmlxj"
     },
     "categories": {
       "auth": {
