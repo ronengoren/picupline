@@ -2,13 +2,10 @@
 // this is an auto generated file. This will be overwritten
 
 export const onCreateUser = /* GraphQL */ `
-  subscription OnCreateUser {
-    onCreateUser {
+  subscription OnCreateUser($owner: String!) {
+    onCreateUser(owner: $owner) {
       id
-      position
-      rate
-      description
-      owner
+      username
       email
       gender
       preferredGender
@@ -44,17 +41,15 @@ export const onCreateUser = /* GraphQL */ `
       superLike
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onUpdateUser = /* GraphQL */ `
-  subscription OnUpdateUser {
-    onUpdateUser {
+  subscription OnUpdateUser($owner: String!) {
+    onUpdateUser(owner: $owner) {
       id
-      position
-      rate
-      description
-      owner
+      username
       email
       gender
       preferredGender
@@ -90,17 +85,15 @@ export const onUpdateUser = /* GraphQL */ `
       superLike
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onDeleteUser = /* GraphQL */ `
-  subscription OnDeleteUser {
-    onDeleteUser {
+  subscription OnDeleteUser($owner: String!) {
+    onDeleteUser(owner: $owner) {
       id
-      position
-      rate
-      description
-      owner
+      username
       email
       gender
       preferredGender
@@ -136,6 +129,7 @@ export const onDeleteUser = /* GraphQL */ `
       superLike
       createdAt
       updatedAt
+      owner
     }
   }
 `;

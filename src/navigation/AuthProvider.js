@@ -142,53 +142,48 @@ export const AuthProvider = ({children}) => {
           const filename = profileImage.substring(
             profileImage.lastIndexOf('/') + 1,
           );
-          const {identityId} = await Auth.currentCredentials();
           const visibility = 'private';
 
           const extension = filename.split('.')[1];
-          const key = `${visibility}/${identityId}/images/${uuid()}${username}.${extension}`;
+          const key = `/images/${uuid()}${username}.${extension}`;
           const url = `https://${bucket}.s3.${region}.amazonaws.com/public/${key}`;
-          const fileForUpload = {
-            bucket,
-            key,
-            region,
-            mimeType,
-            localUri: key,
+
+          const file = {
+            key: key,
+            bucket: config.aws_user_files_s3_bucket,
+            region: config.aws_project_region,
           };
           const newUserData = {
             username,
-            password,
-            attributes: {
-              email,
-              gender,
-              preferredGender,
-              dob,
-              profileImage: fileForUpload,
-              displayname: '',
-              aboutMe: '',
-              height: '',
-              weight: '',
-              role: '',
-              bodyType: '',
-              relationshipStatus: '',
-              location: '',
-              tribes: '',
-              lookingFor: '',
-              hivStatus: '',
-              alcohol: '',
-              diet: '',
-              education: '',
-              kids: '',
-              language: '',
-              music: '',
-              pets: '',
-              smoke: '',
-              sport: '',
-              tattoos: '',
-              likes: [],
-              notLike: [],
-              superLike: [],
-            },
+            email,
+            gender,
+            preferredGender,
+            dob,
+            profileImage: file,
+            displayname: '',
+            aboutMe: '',
+            height: '',
+            weight: '',
+            role: '',
+            bodyType: '',
+            relationshipStatus: '',
+            location: '',
+            tribes: '',
+            lookingFor: '',
+            hivStatus: '',
+            alcohol: '',
+            diet: '',
+            education: '',
+            kids: '',
+            language: '',
+            music: '',
+            pets: '',
+            smoke: '',
+            sport: '',
+            tattoos: '',
+            likes: [],
+            notLike: [],
+            superLike: [],
           };
 
           const uploadUri =
@@ -199,51 +194,13 @@ export const AuthProvider = ({children}) => {
           setTransferred(0);
           try {
             await Auth.signUp({username, password, attributes: {email}});
-            // await Storage.put(key, profileImage, {
-            //   contentType: imageMime,
+            // await Storage.put(key, file, {
+            //   contentType: mimeType,
             // });
             await API.graphql(
               graphqlOperation(CreateUser, {input: newUserData}),
             );
 
-            // await DataStore.save(
-            //   new User({
-            //     username,
-            //     password,
-            //     attributes: {
-            //       email,
-
-            //       gender,
-            //       preferredGender,
-            //       dob,
-            //       profileImage,
-            //       displayname: '',
-            //       aboutMe: '',
-            //       height: '',
-            //       weight: '',
-            //       role: '',
-            //       bodyType: '',
-            //       relationshipStatus: '',
-            //       location: '',
-            //       tribes: '',
-            //       lookingFor: '',
-            //       hivStatus: '',
-            //       alcohol: '',
-            //       diet: '',
-            //       education: '',
-            //       kids: '',
-            //       language: '',
-            //       music: '',
-            //       pets: '',
-            //       smoke: '',
-            //       sport: '',
-            //       tattoos: '',
-            //       likes: [],
-            //       notLike: [],
-            //       superLike: [],
-            //     },
-            //   }),
-            // );
             console.log(' Sign-up Confirmed');
 
             navigation.navigate('ConfirmSignUp');
@@ -336,3 +293,42 @@ export default AuthProvider;
 // } catch (e) {
 //   console.log(e);
 // }
+
+// await DataStore.save(
+//   new User({
+//     username,
+//     password,
+//     attributes: {
+//       email,
+
+//       gender,
+//       preferredGender,
+//       dob,
+//       profileImage,
+//       displayname: '',
+//       aboutMe: '',
+//       height: '',
+//       weight: '',
+//       role: '',
+//       bodyType: '',
+//       relationshipStatus: '',
+//       location: '',
+//       tribes: '',
+//       lookingFor: '',
+//       hivStatus: '',
+//       alcohol: '',
+//       diet: '',
+//       education: '',
+//       kids: '',
+//       language: '',
+//       music: '',
+//       pets: '',
+//       smoke: '',
+//       sport: '',
+//       tattoos: '',
+//       likes: [],
+//       notLike: [],
+//       superLike: [],
+//     },
+//   }),
+// );
