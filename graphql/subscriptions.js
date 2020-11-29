@@ -5,12 +5,11 @@ export const onCreateUser = /* GraphQL */ `
   subscription OnCreateUser {
     onCreateUser {
       id
-      position
-      rate
+      username
       description
-      owner
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -18,12 +17,11 @@ export const onUpdateUser = /* GraphQL */ `
   subscription OnUpdateUser {
     onUpdateUser {
       id
-      position
-      rate
+      username
       description
-      owner
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -31,12 +29,11 @@ export const onDeleteUser = /* GraphQL */ `
   subscription OnDeleteUser {
     onDeleteUser {
       id
-      position
-      rate
+      username
       description
-      owner
       createdAt
       updatedAt
+      owner
     }
   }
 `;
