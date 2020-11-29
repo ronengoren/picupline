@@ -20,7 +20,6 @@ import AddRoomScreen from '../screens/AddRoomScreen';
 import RoomScreen from '../screens/RoomScreen';
 import {AuthContext} from '../navigation/AuthProvider';
 
-const RootStack = createStackNavigator();
 const MainStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();

@@ -24,7 +24,7 @@ DEFAULT_LOCATION = {
   longitude: -74.005974,
 };
 export default function UsersGrid(props) {
-  //   console.log(props.users);
+  // console.log(props.users);
   const [users, setUsers] = useState(props.users);
   const [onRefresh, setOnRefresh] = useState();
   const [hasError, setHasError] = useState();

@@ -5,24 +5,27 @@ import React, {
   useReducer,
   useEffect,
 } from 'react';
+//firebase
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 // import storage from '@react-native-firebase/storage';
 import {utils} from '@react-native-firebase/app';
-import * as Keychain from 'react-native-keychain';
+//navigation
 import {onScreen, goBack} from '../constants';
-import {DataStore} from '@aws-amplify/datastore';
-import {User} from '../../models';
+//libraries
 import uuid from 'uuid';
+import {DataStore} from '@aws-amplify/datastore';
+import Amplify, {API, graphqlOperation, Storage, Auth} from 'aws-amplify';
+import {useMutation} from 'aws-amplify-react-hooks';
+import * as Keychain from 'react-native-keychain';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+//aws
 import config from '../../aws-exports';
 import {createUser as CreateUser} from '../../graphql/mutations';
 import * as mutations from '../../graphql/mutations';
-
+import {User} from '../../models';
 import {listUsers} from '../../graphql/queries';
 import {onCreateUser} from '../../graphql/subscriptions';
-import Amplify, {API, graphqlOperation, Storage, Auth} from 'aws-amplify';
-
 const {
   aws_user_files_s3_bucket_region: region,
   aws_user_files_s3_bucket: bucket,
@@ -51,6 +54,12 @@ function reducer(state, action) {
 }
 
 export const AuthProvider = ({children}) => {
+  const [check, setOwner] = useState(false);
+  const [input, setJob] = useState({
+    position: '',
+    rate: '',
+    description: '',
+  });
   const [user, setUser] = useState(null);
   const [storageProfileImage, setStorageProfileImage] = useState(null);
   const [uploading, setUploading] = useState(false);
@@ -59,16 +68,17 @@ export const AuthProvider = ({children}) => {
   const [loading, setLoading] = useState(false);
   const [mimeType, setMimeType] = useState(null);
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [setCreate, {loader, err}] = useMutation(input);
 
-  useEffect(() => {
-    const subscription = API.graphql(graphqlOperation(onCreateUser)).subscribe({
-      next: async (userData) => {
-        const {onCreateUser} = userData.value.data;
-        dispatch({type: 'ADD_USER', user: onCreateUser});
-      },
-    });
-    return () => subscription.unsubscribe();
-  }, []);
+  // useEffect(() => {
+  //   const subscription = API.graphql(graphqlOperation(onCreateUser)).subscribe({
+  //     next: async (userData) => {
+  //       const {onCreateUser} = userData.value.data;
+  //       dispatch({type: 'ADD_USER', user: onCreateUser});
+  //     },
+  //   });
+  //   return () => subscription.unsubscribe();
+  // }, []);
   return (
     <AuthContext.Provider
       value={{
@@ -86,12 +96,12 @@ export const AuthProvider = ({children}) => {
             console.log(' Success');
             updateAuthState('loggedIn');
             if (user) {
-              console.log('userInfo');
+              // console.log('userInfo');
               const session = await Auth.currentSession();
               const userInfo = session?.getIdToken().payload;
 
-              console.log(userInfo);
-              console.log('userInfo');
+              // console.log(userInfo);
+              // console.log('userInfo');
             }
             const userInfo = await Auth.currentAuthenticatedUser();
           } catch (error) {
@@ -194,16 +204,12 @@ export const AuthProvider = ({children}) => {
           setTransferred(0);
           try {
             await Auth.signUp({username, password, attributes: {email}});
-            // await Storage.put(key, file, {
-            //   contentType: mimeType,
-            // });
-            await API.graphql(
-              graphqlOperation(CreateUser, {input: newUserData}),
-            );
-
             console.log(' Sign-up Confirmed');
 
-            navigation.navigate('ConfirmSignUp');
+            navigation.navigate('ConfirmSignUp', {
+              username: username,
+              password: password,
+            });
           } catch (error) {
             console.log(' Error signing up...', error);
           }
