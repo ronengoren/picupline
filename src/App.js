@@ -8,8 +8,7 @@ import {
   StatusBar,
 } from 'react-native';
 import 'react-native-gesture-handler';
-// import MainTabNavigator from './src/navigation';
-import Providers from './src/navigation';
+import Providers from './navigation';
 import Amplify, {
   Analytics,
   Auth,
@@ -17,7 +16,7 @@ import Amplify, {
   graphqlOperation,
   Storage,
 } from 'aws-amplify';
-import config from './aws-exports';
+import config from '../aws-exports';
 import * as Keychain from 'react-native-keychain';
 import {AmplifyProvider} from 'aws-amplify-react-hooks';
 import {useColorScheme} from 'react-native-appearance';
@@ -70,6 +69,7 @@ const App = () => {
   return (
     <>
       <AmplifyProvider client={client}>
+        <StatusBar barStyle="dark-content" />
         <Providers />
       </AmplifyProvider>
     </>

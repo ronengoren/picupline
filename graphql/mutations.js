@@ -8,43 +8,12 @@ export const createUser = /* GraphQL */ `
   ) {
     createUser(input: $input, condition: $condition) {
       id
-      username
-      email
-      gender
-      preferredGender
-      dob
-      profileImage {
-        bucket
-        region
-        key
-      }
-      displayname
-      aboutMe
-      height
-      weight
-      role
-      bodyType
-      relationshipStatus
-      location
-      tribes
-      lookingFor
-      hivStatus
-      alcohol
-      diet
-      education
-      kids
-      language
-      music
-      pets
-      smoke
-      sport
-      tattoos
-      likes
-      notLike
-      superLike
+      position
+      rate
+      description
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -55,43 +24,12 @@ export const updateUser = /* GraphQL */ `
   ) {
     updateUser(input: $input, condition: $condition) {
       id
-      username
-      email
-      gender
-      preferredGender
-      dob
-      profileImage {
-        bucket
-        region
-        key
-      }
-      displayname
-      aboutMe
-      height
-      weight
-      role
-      bodyType
-      relationshipStatus
-      location
-      tribes
-      lookingFor
-      hivStatus
-      alcohol
-      diet
-      education
-      kids
-      language
-      music
-      pets
-      smoke
-      sport
-      tattoos
-      likes
-      notLike
-      superLike
+      position
+      rate
+      description
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -102,43 +40,12 @@ export const deleteUser = /* GraphQL */ `
   ) {
     deleteUser(input: $input, condition: $condition) {
       id
-      username
-      email
-      gender
-      preferredGender
-      dob
-      profileImage {
-        bucket
-        region
-        key
-      }
-      displayname
-      aboutMe
-      height
-      weight
-      role
-      bodyType
-      relationshipStatus
-      location
-      tribes
-      lookingFor
-      hivStatus
-      alcohol
-      diet
-      education
-      kids
-      language
-      music
-      pets
-      smoke
-      sport
-      tattoos
-      likes
-      notLike
-      superLike
+      position
+      rate
+      description
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;

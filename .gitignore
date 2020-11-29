@@ -58,6 +58,9 @@ buck-out/
 # CocoaPods
 /ios/Pods/
 
+# react-native-config codegen
+ios/tmp.xcconfig
+
 #amplify
 amplify/\#current-cloud-backend
 amplify/.config/local-*
@@ -73,6 +76,3 @@ amplifyconfiguration.json
 amplify-build-config.json
 amplify-gradle-config.json
 amplifytools.xcconfig
-
-# react-native-config codegen
-ios/tmp.xcconfig

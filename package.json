@@ -31,6 +31,7 @@
     "aws-amplify": "^3.3.9",
     "aws-amplify-react-hooks": "^1.0.13",
     "aws-amplify-react-native": "^4.2.9",
+    "aws-appsync": "^4.0.1",
     "events": "^3.2.0",
     "firebase-admin": "^9.3.0",
     "htmlparser2": "^5.0.0",

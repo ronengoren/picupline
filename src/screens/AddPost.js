@@ -23,12 +23,26 @@ import config from '../../aws-exports';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
-//
+// libraries
 import uuid from 'uuid';
 import ImagePicker from 'react-native-image-crop-picker';
+import {useMutation} from 'aws-amplify-react-hooks';
+
+//style
 import {getFilePathFromLocalUri} from '../infra/utils';
 
 export default function AddPost({navigation, route}) {
+  const [check, setOwner] = useState(false);
+  const [input, setJob] = useState({
+    position: '',
+    rate: '',
+    description: '',
+  });
+  const onChange = (item) => setUser(item);
+  const [setCreate, setUpdate, setDelete, {loading, error}] = useMutation(
+    input,
+  );
+
   const [image, setImage] = useState(null);
   const [storageImage, setStorageImage] = useState(null);
   const [postImageUrl, setPostImageUrl] = useState(null);

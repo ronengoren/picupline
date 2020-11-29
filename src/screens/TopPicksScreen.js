@@ -10,34 +10,43 @@ import {
   Image,
   Button,
 } from 'react-native';
-import {Text, Tile} from 'react-native-elements';
+//firebase
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
+import {Text, Tile} from 'react-native-elements';
+//libraries
 import CardStack, {Card} from 'react-native-card-stack-swiper';
-import Demo from '../constants/demo';
+import Swiper from 'react-native-deck-swiper';
+import Geolocation from '@react-native-community/geolocation';
+import * as Keychain from 'react-native-keychain';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useQuery, getNames} from 'aws-amplify-react-hooks';
+//components
 import City from '../components/City';
 import Filters from '../components/Filters';
 import CardItem from '../components/CardItem';
-import Colors from '../constants/Colors';
-import Swiper from 'react-native-deck-swiper';
 import HorizontalUserList from '../components/HorizontalUserList';
 import UsersGrid from '../components/UsersGrid';
 import UserSearchView from '../components/UserSearchView';
 import RelocateView from '../components/RelocateView';
-import Geolocation from '@react-native-community/geolocation';
-import {Auth} from 'aws-amplify';
-import Amplify, {API, graphqlOperation, Storage} from 'aws-amplify';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import * as Keychain from 'react-native-keychain';
+//style
+import Colors from '../constants/Colors';
+//navigation
 import {goHome, onScreen, goBack} from '../constants';
-import {StackActions} from '@react-navigation/native';
 import AuthStack from '../navigation/AuthStack';
 import Routes from '../navigation';
 import {AuthContext} from '../navigation/AuthProvider';
-import {DataStore} from '@aws-amplify/datastore';
+//aws
+import {Auth} from 'aws-amplify';
+import Amplify, {API, graphqlOperation, Storage} from 'aws-amplify';
 import {User} from '../../models';
 import {listUsers} from '../../graphql/queries';
+import {
+  onCreateUser,
+  onUpdateUser,
+  onDeleteUser,
+} from '../../graphql/subscriptions';
 
 function onResult(QuerySnapshot) {
   console.log('Got Users collection result.');
@@ -66,7 +75,6 @@ export default function TopPicksScreen({props, navigation, updateAuthState}) {
   const [users, setUsers] = useState([]);
   const [qlusers, setQlUsers] = useState([]);
   const [state, dispatch] = useReducer(reducer, initialState);
-
   const [user, setUser] = useState([]);
   const [total, setTotals] = useState('');
   const [searchon, setSearchon] = useState(false);
@@ -91,6 +99,20 @@ export default function TopPicksScreen({props, navigation, updateAuthState}) {
   const currentUser = auth().currentUser;
   const ref = firestore().collection('Users');
   const {logout} = useContext(AuthContext);
+  const owner = Auth.user.attributes.sub;
+
+  const {data, loader, err, fetchMore} = useQuery(
+    {
+      listUsers,
+      onCreateUser,
+      onUpdateUser,
+      onDeleteUser,
+    },
+    {
+      variables: {limit: 5},
+    },
+    getNames({listUsers, onCreateUser, onUpdateUser, onDeleteUser}),
+  );
 
   async function fetchUsers() {
     try {
@@ -135,14 +157,14 @@ export default function TopPicksScreen({props, navigation, updateAuthState}) {
 
   async function getUserInfo() {
     const userInfo = await Auth.currentAuthenticatedUser();
-    const userData = await AsyncStorage.getItem('userInfo');
+    // const userData = await AsyncStorage.getItem('userInfo');
     // console.log(userData);
     // console.log('current user info in TopPicksScreen', userInfo);
     setUserInfo(userInfo);
   }
   useEffect(() => {
-    getUserInfo();
-    fetchUsers();
+    // getUserInfo();
+    // fetchUsers();
     // console.log(response);
     // loadUsers();
     // findCoordinates();
@@ -155,15 +177,7 @@ export default function TopPicksScreen({props, navigation, updateAuthState}) {
     // setLongitude(location.longitude);
   };
 
-  const loadUsers = async () => {
-    try {
-      const posts = await DataStore.query(User);
-      JSON.stringify(posts, null, 2), setUsers(posts);
-      console.log('Users retrieved successfully!');
-    } catch (error) {
-      console.log('Error retrieving posts', error);
-    }
-  };
+  const loadUsers = async () => {};
   const onLocation = (locationon) => {
     if (!locationon) {
       setIsVisibleMap(!isVisibleMap);
@@ -360,7 +374,7 @@ export default function TopPicksScreen({props, navigation, updateAuthState}) {
             userType={'topUsers'}
             showType={'horizontal'}
             navigation={navigation}
-            users={users}
+            users={data}
             onRefresh={() => {
               loadUsers();
             }}
@@ -369,7 +383,7 @@ export default function TopPicksScreen({props, navigation, updateAuthState}) {
             onRefresh={() => {
               loadUsers();
             }}
-            users={users}
+            users={data}
             navigation={navigation}
           />
           {searchon && <UserSearchView users={users} navigation={navigation} />}

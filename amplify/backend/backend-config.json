@@ -1,6 +1,6 @@
 {
   "auth": {
-    "siyu470e9cfb": {
+    "siyu69edbaf3": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
@@ -8,7 +8,7 @@
     }
   },
   "api": {
-    "siyudatastore": {
+    "siyuapi": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
       "output": {
@@ -16,26 +16,12 @@
           "defaultAuthentication": {
             "authenticationType": "AMAZON_COGNITO_USER_POOLS",
             "userPoolConfig": {
-              "userPoolId": "authsiyu470e9cfb"
+              "userPoolId": "authsiyu69edbaf3"
             }
           },
           "additionalAuthenticationProviders": []
         }
       }
-    }
-  },
-  "function": {
-    "welcomefunction": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda",
-      "dependsOn": []
-    }
-  },
-  "storage": {
-    "siyugqls3": {
-      "service": "S3",
-      "providerPlugin": "awscloudformation"
     }
   }
 }
