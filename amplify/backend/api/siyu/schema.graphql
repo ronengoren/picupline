@@ -1,0 +1,14 @@
+type User
+  @model
+  @auth(
+    rules: [
+      {
+        allow: owner
+        ownerField: "owner"
+        operations: [create, update, delete, read]
+      }
+    ]
+  ) {
+  id: ID!
+  description: String
+}

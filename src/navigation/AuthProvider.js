@@ -56,8 +56,6 @@ function reducer(state, action) {
 export const AuthProvider = ({children}) => {
   const [check, setOwner] = useState(false);
   const [input, setJob] = useState({
-    position: '',
-    rate: '',
     description: '',
   });
   const [user, setUser] = useState(null);
