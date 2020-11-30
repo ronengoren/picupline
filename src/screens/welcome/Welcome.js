@@ -10,8 +10,8 @@ import {
   StatusBar,
   SafeAreaView,
 } from 'react-native';
-import auth from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
+// import auth from '@react-native-firebase/auth';
+// import firestore from '@react-native-firebase/firestore';
 import Colors from '../../constants/Colors';
 import Swiper from 'react-native-deck-swiper';
 import {WelcomeScreenPics} from '../../constants/Pics';

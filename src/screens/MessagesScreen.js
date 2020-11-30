@@ -10,7 +10,7 @@ import {
   Text,
 } from 'react-native';
 import {List, Divider} from 'react-native-paper';
-import firestore from '@react-native-firebase/firestore';
+// import firestore from '@react-native-firebase/firestore';
 import Loading from '../components/Loading';
 import useStatsBar from '../utils/useStatusBar';
 import auth from '@react-native-firebase/auth';
@@ -25,58 +25,58 @@ export default function MessagesScreen({navigation}) {
   /**
    * Fetch threads from Firestore
    */
-  useEffect(() => {
-    const unsubscribe = firestore()
-      .collection('THREADS')
-      .where('match', 'array-contains', user.uid)
-      .onSnapshot((querySnapshot) => {
-        const treads = querySnapshot.docs.map((doc) => {
-          return {
-            _id: doc.id,
-            name: '',
-            latestMessage: {
-              text: '',
-            },
-            ...doc.data(),
-          };
-        });
-        setChats(treads);
+  // useEffect(() => {
+  //   const unsubscribe = firestore()
+  //     .collection('THREADS')
+  //     .where('match', 'array-contains', user.uid)
+  //     .onSnapshot((querySnapshot) => {
+  //       const treads = querySnapshot.docs.map((doc) => {
+  //         return {
+  //           _id: doc.id,
+  //           name: '',
+  //           latestMessage: {
+  //             text: '',
+  //           },
+  //           ...doc.data(),
+  //         };
+  //       });
+  //       setChats(treads);
 
-        if (loading) {
-          setLoading(false);
-        }
-      });
+  //       if (loading) {
+  //         setLoading(false);
+  //       }
+  //     });
 
-    const chatQueryRes = firestore()
-      .collection('THREADS')
-      .orderBy('latestMessage.createdAt', 'desc')
-      .onSnapshot((querySnapshot) => {
-        const threads = querySnapshot.docs.map((documentSnapshot) => {
-          // console.log(documentSnapshot.data());
-          return {
-            _id: documentSnapshot.id,
-            // give defaults
-            name: '',
+  //   const chatQueryRes = firestore()
+  //     .collection('THREADS')
+  //     .orderBy('latestMessage.createdAt', 'desc')
+  //     .onSnapshot((querySnapshot) => {
+  //       const threads = querySnapshot.docs.map((documentSnapshot) => {
+  //         // console.log(documentSnapshot.data());
+  //         return {
+  //           _id: documentSnapshot.id,
+  //           // give defaults
+  //           name: '',
 
-            latestMessage: {
-              text: '',
-            },
-            ...documentSnapshot.data(),
-          };
-        });
+  //           latestMessage: {
+  //             text: '',
+  //           },
+  //           ...documentSnapshot.data(),
+  //         };
+  //       });
 
-        setThreads(threads);
-        // console.log(threads);
-        if (loading) {
-          setLoading(false);
-        }
-      });
+  //       setThreads(threads);
+  //       // console.log(threads);
+  //       if (loading) {
+  //         setLoading(false);
+  //       }
+  //     });
 
-    /**
-     * unsubscribe listener
-     */
-    return () => unsubscribe();
-  }, []);
+  //   /**
+  //    * unsubscribe listener
+  //    */
+  //   return () => unsubscribe();
+  // }, []);
 
   if (loading) {
     return <Loading />;

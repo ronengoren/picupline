@@ -9,7 +9,7 @@ import {
 import {Divider, Text, Avatar, Accessory, Image} from 'react-native-elements';
 
 import auth from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
+// import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
 
 export default function Gallery({navigation, route, items}) {

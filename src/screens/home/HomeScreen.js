@@ -13,7 +13,7 @@ import {
   Pressable,
 } from 'react-native';
 import {List} from 'react-native-paper';
-import firestore from '@react-native-firebase/firestore';
+// import firestore from '@react-native-firebase/firestore';
 import Loading from '../../components/Loading';
 import useStatsBar from '../../utils/useStatusBar';
 import Swiper from 'react-native-deck-swiper';
@@ -57,50 +57,50 @@ export default function HomeScreen({navigation}) {
   const [avatarStorage, setAvatarStorage] = useState([null]);
   const [usersThreads, setUsersThreads] = useState([]);
   const [count, setCount] = useState(0);
-  const ref = firestore().collection('Users');
+  // const ref = firestore().collection('Users');
   const currentUser = auth().currentUser;
 
   /**
    * Fetch threads from Firestore
    */
-  useEffect(() => {
-    let list = [];
-    const unsubscribe = ref.onSnapshot((querySnapshot) => {
-      const usersLists = querySnapshot.docs.map((doc) => {
-        if (doc.id !== currentUser.uid) {
-          const {
-            uid,
-            email,
-            profileImage,
-            dob,
-            preferredGender,
-            gender,
-            uri,
-          } = doc.data();
-          const filename = profileImage.substring(
-            profileImage.lastIndexOf('/') + 1,
-          );
-          const ref = storage().ref('profileImages/' + filename);
-          ref.getDownloadURL().then((uri) => {
-            list.push({uid, email, dob, preferredGender, uri, gender});
-            setUsersThreads(list);
-            // console.log(usersThreads);
-            // setUsers(list);
-          });
-        }
-        // console.log(doc.id);
-      });
+  // useEffect(() => {
+  //   let list = [];
+  //   const unsubscribe = ref.onSnapshot((querySnapshot) => {
+  //     const usersLists = querySnapshot.docs.map((doc) => {
+  //       if (doc.id !== currentUser.uid) {
+  //         const {
+  //           uid,
+  //           email,
+  //           profileImage,
+  //           dob,
+  //           preferredGender,
+  //           gender,
+  //           uri,
+  //         } = doc.data();
+  //         const filename = profileImage.substring(
+  //           profileImage.lastIndexOf('/') + 1,
+  //         );
+  //         const ref = storage().ref('profileImages/' + filename);
+  //         ref.getDownloadURL().then((uri) => {
+  //           list.push({uid, email, dob, preferredGender, uri, gender});
+  //           setUsersThreads(list);
+  //           // console.log(usersThreads);
+  //           // setUsers(list);
+  //         });
+  //       }
+  //       // console.log(doc.id);
+  //     });
 
-      if (loading) {
-        setLoading(false);
-      }
-    });
+  //     if (loading) {
+  //       setLoading(false);
+  //     }
+  //   });
 
-    /**
-     * unsubscribe listener
-     */
-    return () => unsubscribe();
-  }, []);
+  //   /**
+  //    * unsubscribe listener
+  //    */
+  //   return () => unsubscribe();
+  // }, []);
   const onRefresh = React.useCallback(async () => {
     setIsRefreshing(true);
     if (posts.length < 10) {

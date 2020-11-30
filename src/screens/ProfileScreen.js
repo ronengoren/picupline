@@ -18,7 +18,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 import {useAuth} from '../navigation/AuthProvider';
 import auth from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
+// import firestore from '@react-native-firebase/firestore';
 import Gallery from '../components/Gallery';
 import ImagePicker from 'react-native-image-crop-picker';
 import {getFilePathFromLocalUri} from '../infra/utils';
@@ -201,17 +201,17 @@ export default function ProfileScreen({props, navigation, route}) {
       });
   };
   const onSubmit = async (localuri) => {
-    let user = auth().currentUser;
-    // console.log(localuri);
-    try {
-      firestore().collection('Users').doc(user.uid).update({
-        profileImage: localuri,
-      });
-      setAvatar(localuri);
-      // navigation.navigate('Profile', {profileImage: avatar});
-    } catch (e) {
-      console.error(e);
-    }
+    // let user = auth().currentUser;
+    // // console.log(localuri);
+    // try {
+    //   firestore().collection('Users').doc(user.uid).update({
+    //     profileImage: localuri,
+    //   });
+    //   setAvatar(localuri);
+    //   // navigation.navigate('Profile', {profileImage: avatar});
+    // } catch (e) {
+    //   console.error(e);
+    // }
   };
   async function onMessage(params) {
     const threadref = firestore().collection('THREADS');

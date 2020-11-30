@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 //firebase
 import auth from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
+// import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
 import {Text, Tile} from 'react-native-elements';
 //libraries
@@ -97,7 +97,7 @@ export default function TopPicksScreen({props, navigation, updateAuthState}) {
   const [userInfo, setUserInfo] = useState([]);
   const [Flag, setFlag] = useState(false);
   const currentUser = auth().currentUser;
-  const ref = firestore().collection('Users');
+  // const ref = firestore().collection('Users');
   const {logout} = useContext(AuthContext);
   const owner = Auth.user.attributes.sub;
 
@@ -124,36 +124,36 @@ export default function TopPicksScreen({props, navigation, updateAuthState}) {
       console.log(err);
     }
   }
-  const Users = () => {
-    const usersList = users.map((item, index) => item);
+  // const Users = () => {
+  //   const usersList = users.map((item, index) => item);
 
-    return (
-      <CardStack
-        loop={true}
-        verticalSwipe={false}
-        renderNoMoreCards={() => null}
-        ref={(swiper) => (this.swiper = swiper)}
-        onSwiped={() => console.log('onSwiped')}
-        onSwipedLeft={() => console.log('onSwipedLeft')}
-        onSwipedRight={() => console.log('onRightLeft')}>
-        {usersList.map((profile, i) => (
-          <Card key={i}>
-            <CardItem
-              image={{uri: profile.uri}}
-              name={profile.gender}
-              matches={'44'}
-              titleStyle={styles.title}
-              description={profile.email}
-              captionStyle={styles.caption}
-              actions
-              onPressLeft={() => this.swiper.swipeLeft(console.log('left'))}
-              onPressRight={() => this.swiper.swipeRight(console.log('right'))}
-            />
-          </Card>
-        ))}
-      </CardStack>
-    );
-  };
+  //   return (
+  //     <CardStack
+  //       loop={true}
+  //       verticalSwipe={false}
+  //       renderNoMoreCards={() => null}
+  //       ref={(swiper) => (this.swiper = swiper)}
+  //       onSwiped={() => console.log('onSwiped')}
+  //       onSwipedLeft={() => console.log('onSwipedLeft')}
+  //       onSwipedRight={() => console.log('onRightLeft')}>
+  //       {usersList.map((profile, i) => (
+  //         <Card key={i}>
+  //           <CardItem
+  //             image={{uri: profile.uri}}
+  //             name={profile.gender}
+  //             matches={'44'}
+  //             titleStyle={styles.title}
+  //             description={profile.email}
+  //             captionStyle={styles.caption}
+  //             actions
+  //             onPressLeft={() => this.swiper.swipeLeft(console.log('left'))}
+  //             onPressRight={() => this.swiper.swipeRight(console.log('right'))}
+  //           />
+  //         </Card>
+  //       ))}
+  //     </CardStack>
+  //   );
+  // };
 
   async function getUserInfo() {
     const userInfo = await Auth.currentAuthenticatedUser();

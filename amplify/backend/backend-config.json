@@ -1,27 +1,11 @@
 {
   "auth": {
-    "siyu69edbaf3": {
+    "siyuf133c563": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
       "customAuth": false
     }
   },
-  "api": {
-    "siyuapi": {
-      "service": "AppSync",
-      "providerPlugin": "awscloudformation",
-      "output": {
-        "authConfig": {
-          "defaultAuthentication": {
-            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
-            "userPoolConfig": {
-              "userPoolId": "authsiyu69edbaf3"
-            }
-          },
-          "additionalAuthenticationProviders": []
-        }
-      }
-    }
-  }
+  "api": {}
 }
