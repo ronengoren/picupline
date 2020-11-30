@@ -5,11 +5,9 @@ export const getUser = /* GraphQL */ `
   query GetUser($id: ID!) {
     getUser(id: $id) {
       id
-      username
       description
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -22,11 +20,9 @@ export const listUsers = /* GraphQL */ `
     listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        username
         description
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }

@@ -8,11 +8,9 @@ export const createUser = /* GraphQL */ `
   ) {
     createUser(input: $input, condition: $condition) {
       id
-      username
       description
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -23,11 +21,9 @@ export const updateUser = /* GraphQL */ `
   ) {
     updateUser(input: $input, condition: $condition) {
       id
-      username
       description
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -38,11 +34,9 @@ export const deleteUser = /* GraphQL */ `
   ) {
     deleteUser(input: $input, condition: $condition) {
       id
-      username
       description
       createdAt
       updatedAt
-      owner
     }
   }
 `;

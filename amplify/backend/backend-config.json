@@ -7,5 +7,21 @@
       "customAuth": false
     }
   },
-  "api": {}
+  "api": {
+    "siyu": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authsiyuf133c563"
+            }
+          },
+          "additionalAuthenticationProviders": []
+        }
+      }
+    }
+  }
 }
