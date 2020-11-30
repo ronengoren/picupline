@@ -7,7 +7,7 @@ import {AuthContext} from '../navigation/AuthProvider';
 import {useAuth} from '../navigation/AuthProvider';
 import Form, {TYPES} from 'react-native-basic-form';
 import {Picker} from '@react-native-community/picker';
-import firestore from '@react-native-firebase/firestore';
+// import firestore from '@react-native-firebase/firestore';
 import Colors from '../constants/Colors';
 import {
   Input,
@@ -603,10 +603,10 @@ export default function EditProfile({navigation, route}) {
   ];
 
   async function onSubmit(data) {
-    const updateRef = firestore()
-      .collection('Users')
-      .doc(user.uid)
-      .update(data);
+    // const updateRef = firestore()
+    //   .collection('Users')
+    //   .doc(user.uid)
+    //   .update(data);
     navigation.goBack();
     setLoading(true);
   }

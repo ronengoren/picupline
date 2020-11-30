@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View, StyleSheet, Text, Button, Image, Platform} from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 import auth from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
+// import firestore from '@react-native-firebase/firestore';
 var RNFS = require('react-native-fs');
 
 export default function EditAvatar({navigation, route}) {
@@ -29,16 +29,16 @@ export default function EditAvatar({navigation, route}) {
   };
 
   const onSubmit = async () => {
-    let user = auth().currentUser;
-    console.log(avatarImage);
-    try {
-      firestore().collection('Users').doc(user.uid).update({
-        avatar: avatarImage,
-      });
-      navigation.navigate('Profile', {avatar: avatarImage});
-    } catch (e) {
-      console.error(e);
-    }
+    // let user = auth().currentUser;
+    // console.log(avatarImage);
+    // try {
+    //   firestore().collection('Users').doc(user.uid).update({
+    //     avatar: avatarImage,
+    //   });
+    //   navigation.navigate('Profile', {avatar: avatarImage});
+    // } catch (e) {
+    //   console.error(e);
+    // }
   };
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>

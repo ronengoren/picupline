@@ -10,10 +10,23 @@
       "StackName": "amplify-siyu-test-131431",
       "StackId": "arn:aws:cloudformation:us-east-1:144552980965:stack/amplify-siyu-test-131431/bc129d60-326e-11eb-a0c6-0e65dccd8cb7",
       "AmplifyAppId": "d48f69lgrmlxj"
+    }
+  },
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-siyu-dev-193415-authRole",
+      "UnauthRoleArn": "arn:aws:iam::672860809763:role/amplify-siyu-dev-193415-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::672860809763:role/amplify-siyu-dev-193415-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-siyu-dev-193415-deployment",
+      "UnauthRoleName": "amplify-siyu-dev-193415-unauthRole",
+      "StackName": "amplify-siyu-dev-193415",
+      "StackId": "arn:aws:cloudformation:us-east-1:672860809763:stack/amplify-siyu-dev-193415/c8c0aae0-32a3-11eb-beb7-0a1b80b6a4c7",
+      "AmplifyAppId": "d2nt8tluku1ljr"
     },
     "categories": {
       "auth": {
-        "siyu69edbaf3": {}
+        "siyuf133c563": {}
       }
     }
   }

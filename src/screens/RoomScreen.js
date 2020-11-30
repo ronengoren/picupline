@@ -8,7 +8,7 @@ import {
 import {ActivityIndicator, View, StyleSheet} from 'react-native';
 import {IconButton} from 'react-native-paper';
 import {AuthContext} from '../navigation/AuthProvider';
-import firestore from '@react-native-firebase/firestore';
+// import firestore from '@react-native-firebase/firestore';
 import useStatsBar from '../utils/useStatusBar';
 
 export default function RoomScreen({route}) {
@@ -22,66 +22,66 @@ export default function RoomScreen({route}) {
   async function handleSend(messages) {
     const text = messages[0].text;
 
-    firestore()
-      .collection('THREADS')
-      .doc(thread._id)
-      .collection('MESSAGES')
-      .add({
-        text,
-        createdAt: new Date().getTime(),
-        user: {
-          _id: currentUser.uid,
-          email: currentUser.email,
-        },
-      });
+  //   firestore()
+  //     .collection('THREADS')
+  //     .doc(thread._id)
+  //     .collection('MESSAGES')
+  //     .add({
+  //       text,
+  //       createdAt: new Date().getTime(),
+  //       user: {
+  //         _id: currentUser.uid,
+  //         email: currentUser.email,
+  //       },
+  //     });
 
-    await firestore()
-      .collection('THREADS')
-      .doc(thread._id)
-      .set(
-        {
-          latestMessage: {
-            text,
-            createdAt: new Date().getTime(),
-          },
-        },
-        {merge: true},
-      );
-  }
+  //   await firestore()
+  //     .collection('THREADS')
+  //     .doc(thread._id)
+  //     .set(
+  //       {
+  //         latestMessage: {
+  //           text,
+  //           createdAt: new Date().getTime(),
+  //         },
+  //       },
+  //       {merge: true},
+  //     );
+  // }
 
-  useEffect(() => {
-    const messagesListener = firestore()
-      .collection('THREADS')
-      .doc(thread._id)
-      .collection('MESSAGES')
-      .orderBy('createdAt', 'desc')
-      .onSnapshot((querySnapshot) => {
-        const messages = querySnapshot.docs.map((doc) => {
-          const firebaseData = doc.data();
+  // useEffect(() => {
+  //   const messagesListener = firestore()
+  //     .collection('THREADS')
+  //     .doc(thread._id)
+  //     .collection('MESSAGES')
+  //     .orderBy('createdAt', 'desc')
+  //     .onSnapshot((querySnapshot) => {
+  //       const messages = querySnapshot.docs.map((doc) => {
+  //         const firebaseData = doc.data();
 
-          const data = {
-            _id: doc.id,
-            text: '',
-            createdAt: new Date().getTime(),
-            ...firebaseData,
-          };
+  //         const data = {
+  //           _id: doc.id,
+  //           text: '',
+  //           createdAt: new Date().getTime(),
+  //           ...firebaseData,
+  //         };
 
-          if (!firebaseData.system) {
-            data.user = {
-              ...firebaseData.user,
-              name: firebaseData.user.email,
-            };
-          }
+  //         if (!firebaseData.system) {
+  //           data.user = {
+  //             ...firebaseData.user,
+  //             name: firebaseData.user.email,
+  //           };
+  //         }
 
-          return data;
-        });
+  //         return data;
+  //       });
 
-        setMessages(messages);
-      });
+  //       setMessages(messages);
+  //     });
 
-    // Stop listening for updates whenever the component unmounts
-    return () => messagesListener();
-  }, []);
+  //   // Stop listening for updates whenever the component unmounts
+  //   return () => messagesListener();
+  // }, []);
 
   function renderBubble(props) {
     return (

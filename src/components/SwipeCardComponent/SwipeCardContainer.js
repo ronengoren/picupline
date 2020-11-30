@@ -11,7 +11,7 @@ import {
   Text,
   Image,
 } from 'react-native';
-import firestore from '@react-native-firebase/firestore';
+// import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 
 const SwipeCardContainer = (props) => {
@@ -134,50 +134,50 @@ const SwipeCardContainer = (props) => {
   ).current;
 
   async function onLike(data) {
-    // console.log(data);
-    // console.log(currentUser.uid);
-    const updateRef = firestore()
-      .collection('Users')
-      .doc(currentUser.uid)
-      .update({
-        likes: firestore.FieldValue.arrayUnion(data),
-      })
-      .then(() => {
-        const updatedfdRef = firestore()
-          .collection('Users')
-          .doc(data)
-          .onSnapshot((documentSnapshot) => {
-            const likesArray = documentSnapshot.data().likes;
-            for (let i = 0; i < likesArray.length; i++) {
-              if ((likesArray[i] = currentUser.uid)) return alert('match');
-            }
-          });
-      })
-      .catch((err) => {});
-    // navigation.goBack();
-    // setLoading(true);
+    // // console.log(data);
+    // // console.log(currentUser.uid);
+    // const updateRef = firestore()
+    //   .collection('Users')
+    //   .doc(currentUser.uid)
+    //   .update({
+    //     likes: firestore.FieldValue.arrayUnion(data),
+    //   })
+    //   .then(() => {
+    //     const updatedfdRef = firestore()
+    //       .collection('Users')
+    //       .doc(data)
+    //       .onSnapshot((documentSnapshot) => {
+    //         const likesArray = documentSnapshot.data().likes;
+    //         for (let i = 0; i < likesArray.length; i++) {
+    //           if ((likesArray[i] = currentUser.uid)) return alert('match');
+    //         }
+    //       });
+    //   })
+    //   .catch((err) => {});
+    // // navigation.goBack();
+    // // setLoading(true);
   }
   async function onUnLike(data) {
     // console.log(data);
-    // console.log(currentUser.uid);
-    const updateRef = firestore()
-      .collection('Users')
-      .doc(currentUser.uid)
-      .update({
-        notLike: firestore.FieldValue.arrayUnion(data),
-      });
-    // navigation.goBack();
-    // setLoading(true);
+    // // console.log(currentUser.uid);
+    // const updateRef = firestore()
+    //   .collection('Users')
+    //   .doc(currentUser.uid)
+    //   .update({
+    //     notLike: firestore.FieldValue.arrayUnion(data),
+    //   });
+    // // navigation.goBack();
+    // // setLoading(true);
   }
   async function superLike(data) {
     // console.log(data);
     // console.log(currentUser.uid);
-    const updateRef = firestore()
-      .collection('Users')
-      .doc(currentUser.uid)
-      .update({
-        superLike: firestore.FieldValue.arrayUnion(data),
-      });
+    // const updateRef = firestore()
+    //   .collection('Users')
+    //   .doc(currentUser.uid)
+    //   .update({
+    //     superLike: firestore.FieldValue.arrayUnion(data),
+    //   });
     // navigation.goBack();
     // setLoading(true);
   }
