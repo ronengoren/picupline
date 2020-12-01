@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "siyuf133c563_identitypool_f133c563",
+    "identityPoolName": "picuplinecabe5575_identitypool_cabe5575",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "siyuf133c563",
-    "userPoolName": "siyuf133c563_userpool_f133c563",
+    "resourceNameTruncated": "picuplcabe5575",
+    "userPoolName": "picuplinecabe5575_userpool_cabe5575",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -28,10 +28,10 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "siyuf1f133c563_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "picuplcabe5575_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "f133c563",
-    "resourceName": "siyuf133c563",
+    "sharedId": "cabe5575",
+    "resourceName": "picuplinecabe5575",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [

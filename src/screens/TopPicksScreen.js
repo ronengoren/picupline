@@ -40,13 +40,8 @@ import {AuthContext} from '../navigation/AuthProvider';
 //aws
 import {Auth} from 'aws-amplify';
 import Amplify, {API, graphqlOperation, Storage} from 'aws-amplify';
-import {User} from '../../models';
+// import {User} from '../../models';
 import {listUsers} from '../../graphql/queries';
-import {
-  onCreateUser,
-  onUpdateUser,
-  onDeleteUser,
-} from '../../graphql/subscriptions';
 
 function onResult(QuerySnapshot) {
   console.log('Got Users collection result.');
@@ -60,21 +55,9 @@ const initialState = {
   users: [],
 };
 
-function reducer(state, action) {
-  switch (action.type) {
-    case 'SET_USERS':
-      return {...state, users: action.users};
-    case 'ADD_USER':
-      return {...state, users: [action.user, ...state.users]};
-    default:
-      return state;
-  }
-}
-
 export default function TopPicksScreen({props, navigation, updateAuthState}) {
   const [users, setUsers] = useState([]);
   const [qlusers, setQlUsers] = useState([]);
-  const [state, dispatch] = useReducer(reducer, initialState);
   const [user, setUser] = useState([]);
   const [total, setTotals] = useState('');
   const [searchon, setSearchon] = useState(false);
@@ -101,27 +84,30 @@ export default function TopPicksScreen({props, navigation, updateAuthState}) {
   const {logout} = useContext(AuthContext);
   const owner = Auth.user.attributes.sub;
 
-  const {data, loader, err, fetchMore} = useQuery(
-    {
-      listUsers,
-      onCreateUser,
-      onUpdateUser,
-      onDeleteUser,
-    },
-    {
-      variables: {limit: 5},
-    },
-    getNames({listUsers, onCreateUser, onUpdateUser, onDeleteUser}),
-  );
+  // const {data, loader, err, fetchMore} = useQuery(
+  //   {
+  //     listUsers,
+  //     onCreateUser,
+  //     onUpdateUser,
+  //     onDeleteUser,
+  //   },
+  //   {
+  //     variables: {limit: 5},
+  //   },
+  //   getNames({listUsers, onCreateUser, onUpdateUser, onDeleteUser}),
+  // );
 
   async function fetchUsers() {
     try {
-      let aqlusers = await API.graphql(graphqlOperation(listUsers));
-      // aqlusers = users.data.listUsers.items;
-      console.log(aqlusers.data);
-      dispatch({type: 'SET_USERS', users});
+      setLoading(true);
+
+      const userData = await API.graphql(graphqlOperation(listUsers));
+      const users = userData.data.listUsers.items;
+      setUsers(users);
+      setLoading(false);
     } catch (err) {
-      console.log(err);
+      setLoading(false);
+      console.log('Error fetching data');
     }
   }
   // const Users = () => {
@@ -164,7 +150,7 @@ export default function TopPicksScreen({props, navigation, updateAuthState}) {
   }
   useEffect(() => {
     // getUserInfo();
-    // fetchUsers();
+    fetchUsers();
     // console.log(response);
     // loadUsers();
     // findCoordinates();
@@ -374,7 +360,7 @@ export default function TopPicksScreen({props, navigation, updateAuthState}) {
             userType={'topUsers'}
             showType={'horizontal'}
             navigation={navigation}
-            users={data}
+            users={users}
             onRefresh={() => {
               loadUsers();
             }}
@@ -383,7 +369,7 @@ export default function TopPicksScreen({props, navigation, updateAuthState}) {
             onRefresh={() => {
               loadUsers();
             }}
-            users={data}
+            users={users}
             navigation={navigation}
           />
           {searchon && <UserSearchView users={users} navigation={navigation} />}

@@ -75,7 +75,7 @@ export default function UsersGrid(props) {
   getUserItem = (item) => {
     // console.log('item');
 
-    // console.log(item);
+    console.log(item.owner);
     // console.log('item');
 
     return (

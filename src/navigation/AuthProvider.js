@@ -21,11 +21,11 @@ import * as Keychain from 'react-native-keychain';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 //aws
 import config from '../../aws-exports';
-import {createUser as CreateUser} from '../../graphql/mutations';
-import * as mutations from '../../graphql/mutations';
-import {User} from '../../models';
-import {listUsers} from '../../graphql/queries';
-import {onCreateUser} from '../../graphql/subscriptions';
+// import {createUser as CreateUser} from '../../graphql/mutations';
+// import * as mutations from '../../graphql/mutations';
+// import {User} from '../../models';
+// import {listUsers} from '../../graphql/queries';
+// import {onCreateUser} from '../../graphql/subscriptions';
 const {
   aws_user_files_s3_bucket_region: region,
   aws_user_files_s3_bucket: bucket,
@@ -66,7 +66,7 @@ export const AuthProvider = ({children}) => {
   const [loading, setLoading] = useState(false);
   const [mimeType, setMimeType] = useState(null);
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [setCreate, {loader, err}] = useMutation(input);
+  // const [setCreate, {loader, err}] = useMutation(input);
 
   // useEffect(() => {
   //   const subscription = API.graphql(graphqlOperation(onCreateUser)).subscribe({
@@ -204,10 +204,7 @@ export const AuthProvider = ({children}) => {
             await Auth.signUp({username, password, attributes: {email}});
             console.log(' Sign-up Confirmed');
 
-            navigation.navigate('ConfirmSignUp', {
-              username: username,
-              password: password,
-            });
+            navigation.navigate('ConfirmSignUp');
           } catch (error) {
             console.log(' Error signing up...', error);
           }

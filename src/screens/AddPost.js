@@ -1,21 +1,24 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
-  StyleSheet,
   Text,
-  Button,
-  Image,
   TextInput,
   TouchableOpacity,
-  Alert,
+  StyleSheet,
+  Button,
+  ScrollView,
+  Dimensions,
+  ActivityIndicator,
 } from 'react-native';
 
 //aws
 import {Storage, API, graphqlOperation} from 'aws-amplify';
-import {createUser as CreateUser} from '../../graphql/mutations';
+import {createUser, deleteUser} from '../../graphql/mutations';
 import {listUsers} from '../../graphql/queries';
-import {onCreateUser} from '../../graphql/subscriptions';
+// import {onCreateUser} from '../../graphql/subscriptions';
 import config from '../../aws-exports';
+
+import {Auth} from 'aws-amplify';
 
 //
 
@@ -27,20 +30,14 @@ import storage from '@react-native-firebase/storage';
 import uuid from 'uuid';
 import ImagePicker from 'react-native-image-crop-picker';
 import {useMutation} from 'aws-amplify-react-hooks';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 //style
 import {getFilePathFromLocalUri} from '../infra/utils';
 
-export default function AddPost({navigation, route}) {
-  const [check, setOwner] = useState(false);
-  const [input, setJob] = useState({
-    description: '',
-  });
-  const onChange = (item) => setUser(item);
-  const [setCreate, setUpdate, setDelete, {loading, error}] = useMutation(
-    input,
-  );
+const {width} = Dimensions.get('window');
 
+export default function AddPost({navigation, route}) {
   const [image, setImage] = useState(null);
   const [storageImage, setStorageImage] = useState(null);
   const [postImageUrl, setPostImageUrl] = useState(null);
@@ -51,7 +48,13 @@ export default function AddPost({navigation, route}) {
   const [uploading, setUploading] = useState(false);
   const [transferred, setTransferred] = useState(0);
   const [imageURI, setImageURI] = useState(null);
+  const [name, setName] = useState('');
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    fetchUsers();
+  }, []);
   const onChangeTitle = (title) => {
     setTitle(title);
   };
@@ -162,10 +165,82 @@ export default function AddPost({navigation, route}) {
         console.log(e.message ? e.message : e);
       });
   };
+  async function signOut() {
+    try {
+      await Auth.signOut();
+      updateAuthState('loggedOut');
+    } catch (error) {
+      console.log('Error signing out: ', error);
+    }
+  }
+  const addUser = async () => {
+    const input = {name};
+    console.log(input);
+    const result = await API.graphql(graphqlOperation(createUser, {input}));
+    const newUser = result.data.createUser;
+    const updatedUser = [newUser, ...users];
+    setUsers(updatedUser);
+    setName('');
+  };
+  const removeUser = async (id) => {
+    try {
+      const input = {id};
+      const result = await API.graphql(
+        graphqlOperation(deleteUser, {
+          input,
+        }),
+      );
+      const deletedUserId = result.data.deleteUser.id;
+      const updatedUser = users.filter((user) => user.id !== deletedUserId);
+      setUsers(updatedUser);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  async function fetchUsers() {
+    try {
+      setLoading(true);
+
+      const userData = await API.graphql(graphqlOperation(listUsers));
+      const users = userData.data.listUsers.items;
+      setUsers(users);
+      setLoading(false);
+    } catch (err) {
+      setLoading(false);
+      console.log('Error fetching data');
+    }
+  }
 
   return (
-    <View style={{flex: 1, marginTop: 60}}>
-      <View>
+    <View style={styles.container}>
+      <Button title="Sign Out" color="tomato" onPress={signOut} />
+      <ScrollView>
+        <TextInput
+          style={styles.input}
+          value={name}
+          onChangeText={(text) => setName(text)}
+          placeholder="Add a User"
+        />
+        <TouchableOpacity onPress={addUser} style={styles.buttonContainer}>
+          <Text style={styles.buttonText}>Add</Text>
+        </TouchableOpacity>
+        {loading && (
+          <View style={styles.loadingContainer}>
+            <ActivityIndicator size="large" color="tomato" />
+          </View>
+        )}
+        {users.map((user, index) => (
+          <View key={index} style={styles.itemContainer}>
+            {/* <Text style={styles.itemName}>{user.name}</Text> */}
+            <Text style={styles.itemName}>{user.owner}</Text>
+            <TouchableOpacity onPress={() => removeUser(user.id)}>
+              <Icon name="md-trash" size={18} color="tomato" />
+            </TouchableOpacity>
+          </View>
+        ))}
+      </ScrollView>
+      {/* <View>
         {image ? (
           <Image
             source={{uri: 'file://' + localuri}}
@@ -190,7 +265,7 @@ export default function AddPost({navigation, route}) {
           status="success"
           onPress={() => onSubmit()}
           disabled={image ? false : true}></Button>
-      </View>
+      </View> */}
       {/* <TouchableOpacity style={styles.uploadButton} onPress={uploadImage}>
         <Text style={styles.buttonText}>Upload image</Text>
       </TouchableOpacity> */}
@@ -203,6 +278,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     backgroundColor: '#bbded6',
+    marginTop: 20,
   },
   selectButton: {
     borderRadius: 5,
@@ -237,5 +313,39 @@ const styles = StyleSheet.create({
   imageBox: {
     width: 300,
     height: 300,
+  },
+  input: {
+    height: 50,
+    borderBottomWidth: 2,
+    borderBottomColor: 'tomato',
+    marginVertical: 10,
+    width: width * 0.8,
+    fontSize: 16,
+  },
+  buttonContainer: {
+    backgroundColor: 'tomato',
+    marginVertical: 10,
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+    width: width * 0.8,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 24,
+  },
+  itemContainer: {
+    marginTop: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd',
+    paddingVertical: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  itemName: {
+    fontSize: 18,
+  },
+  loadingContainer: {
+    marginVertical: 10,
   },
 });
