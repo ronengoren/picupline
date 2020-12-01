@@ -15,7 +15,7 @@ export default function HorizontalUserList(props) {
   const [showType, setShowType] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState(props.users);
   // console.log(props.users);
 
   const onUserPressed = (item) => {
@@ -24,7 +24,7 @@ export default function HorizontalUserList(props) {
   };
 
   const getUserItem = (item) => {
-    // console.log(item.attributes.profileImage);
+    console.log(item);
     if (type == 'search') {
       return (
         <TouchableOpacity

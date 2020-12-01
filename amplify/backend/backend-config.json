@@ -1,6 +1,6 @@
 {
   "auth": {
-    "siyuf133c563": {
+    "picuplinecabe5575": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
@@ -8,7 +8,7 @@
     }
   },
   "api": {
-    "siyu": {
+    "picupline": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
       "output": {
@@ -16,7 +16,7 @@
           "defaultAuthentication": {
             "authenticationType": "AMAZON_COGNITO_USER_POOLS",
             "userPoolConfig": {
-              "userPoolId": "authsiyuf133c563"
+              "userPoolId": "authpicuplinecabe5575"
             }
           },
           "additionalAuthenticationProviders": []

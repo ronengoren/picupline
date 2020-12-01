@@ -1,10 +1,10 @@
 {
-    "AppSyncApiName": "siyu",
+    "AppSyncApiName": "picupline",
     "DynamoDBBillingMode": "PAY_PER_REQUEST",
     "DynamoDBEnableServerSideEncryption": false,
     "AuthCognitoUserPoolId": {
         "Fn::GetAtt": [
-            "authsiyuf133c563",
+            "authpicuplinecabe5575",
             "Outputs.UserPoolId"
         ]
     }
