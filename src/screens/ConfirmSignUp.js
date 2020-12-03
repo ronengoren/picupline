@@ -1,19 +1,30 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {Auth} from 'aws-amplify';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import FormInput from '../components/FormInput';
 import FormButton from '../components/FormButton';
+import {AuthContext} from '../navigation/AuthProvider';
+import {createUser} from '../../graphql/mutations';
+import config from '../../aws-exports';
+import {Storage, API, graphqlOperation} from 'aws-amplify';
 
-export default function ConfirmSignUp({navigation}) {
+export default function ConfirmSignUp({navigation, updateAuthState, route}) {
   const [username, setUsername] = useState('');
   const [authCode, setAuthCode] = useState('');
+  const [password, setPassword] = useState(route.params.password);
+  const [name, setName] = useState('');
+  const [users, setUsers] = useState([]);
+
+  // console.log(updateAuthState);
+
+  const {firstlogin} = useContext(AuthContext);
 
   async function confirmSignUp() {
     try {
       await Auth.confirmSignUp(username, authCode);
       console.log(' Code confirmed');
-      navigation.navigate('Login');
+      firstlogin(username, password, updateAuthState, navigation);
     } catch (error) {
       console.log(
         ' Verification code does not match. Please enter a valid verification code.',

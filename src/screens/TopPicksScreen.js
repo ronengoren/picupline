@@ -84,62 +84,22 @@ export default function TopPicksScreen({props, navigation, updateAuthState}) {
   const {logout} = useContext(AuthContext);
   const owner = Auth.user.attributes.sub;
 
-  // const {data, loader, err, fetchMore} = useQuery(
-  //   {
-  //     listUsers,
-  //     onCreateUser,
-  //     onUpdateUser,
-  //     onDeleteUser,
-  //   },
-  //   {
-  //     variables: {limit: 5},
-  //   },
-  //   getNames({listUsers, onCreateUser, onUpdateUser, onDeleteUser}),
-  // );
-
   async function fetchUsers() {
     try {
       setLoading(true);
 
       const userData = await API.graphql(graphqlOperation(listUsers));
       const users = userData.data.listUsers.items;
+
       setUsers(users);
+      console.log(users);
+
       setLoading(false);
     } catch (err) {
       setLoading(false);
       console.log('Error fetching data');
     }
   }
-  // const Users = () => {
-  //   const usersList = users.map((item, index) => item);
-
-  //   return (
-  //     <CardStack
-  //       loop={true}
-  //       verticalSwipe={false}
-  //       renderNoMoreCards={() => null}
-  //       ref={(swiper) => (this.swiper = swiper)}
-  //       onSwiped={() => console.log('onSwiped')}
-  //       onSwipedLeft={() => console.log('onSwipedLeft')}
-  //       onSwipedRight={() => console.log('onRightLeft')}>
-  //       {usersList.map((profile, i) => (
-  //         <Card key={i}>
-  //           <CardItem
-  //             image={{uri: profile.uri}}
-  //             name={profile.gender}
-  //             matches={'44'}
-  //             titleStyle={styles.title}
-  //             description={profile.email}
-  //             captionStyle={styles.caption}
-  //             actions
-  //             onPressLeft={() => this.swiper.swipeLeft(console.log('left'))}
-  //             onPressRight={() => this.swiper.swipeRight(console.log('right'))}
-  //           />
-  //         </Card>
-  //       ))}
-  //     </CardStack>
-  //   );
-  // };
 
   async function getUserInfo() {
     const userInfo = await Auth.currentAuthenticatedUser();
@@ -149,12 +109,12 @@ export default function TopPicksScreen({props, navigation, updateAuthState}) {
     setUserInfo(userInfo);
   }
   useEffect(() => {
-    // getUserInfo();
+    getUserInfo();
     fetchUsers();
     // console.log(response);
     // loadUsers();
     // findCoordinates();
-    // onRefreshUsers();
+    onRefreshUsers();
   }, []);
 
   findCoordinates = () => {

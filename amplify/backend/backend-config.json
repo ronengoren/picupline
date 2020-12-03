@@ -19,7 +19,11 @@
               "userPoolId": "authpicuplinecabe5575"
             }
           },
-          "additionalAuthenticationProviders": []
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "AWS_IAM"
+            }
+          ]
         }
       }
     }

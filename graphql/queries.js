@@ -7,6 +7,34 @@ export const getUser = /* GraphQL */ `
       id
       name
       description
+      gender
+      preferredGender
+      dob
+      profileImage
+      displayname
+      aboutMe
+      height
+      weight
+      role
+      bodyType
+      relationshipStatus
+      location
+      tribes
+      lookingFor
+      hivStatus
+      alcohol
+      diet
+      education
+      kids
+      language
+      music
+      pets
+      smoke
+      sport
+      tattoos
+      likes
+      notLike
+      superLike
       createdAt
       updatedAt
       owner
@@ -24,6 +52,34 @@ export const listUsers = /* GraphQL */ `
         id
         name
         description
+        gender
+        preferredGender
+        dob
+        profileImage
+        displayname
+        aboutMe
+        height
+        weight
+        role
+        bodyType
+        relationshipStatus
+        location
+        tribes
+        lookingFor
+        hivStatus
+        alcohol
+        diet
+        education
+        kids
+        language
+        music
+        pets
+        smoke
+        sport
+        tattoos
+        likes
+        notLike
+        superLike
         createdAt
         updatedAt
         owner

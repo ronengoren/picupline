@@ -175,10 +175,10 @@ export default function AddPost({navigation, route}) {
   }
   const addUser = async () => {
     const input = {name};
-    console.log(input);
     const result = await API.graphql(graphqlOperation(createUser, {input}));
     const newUser = result.data.createUser;
     const updatedUser = [newUser, ...users];
+    console.log(result);
     setUsers(updatedUser);
     setName('');
   };
