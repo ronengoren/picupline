@@ -88,7 +88,7 @@ export default function ProfileScreen({props, navigation, route}) {
 
   async function getUserInfo() {
     const userInfo = await Auth.currentUserInfo();
-    console.log('userInfo in ProfileScreen', userInfo);
+    console.log(' in ProfileScreen', userInfo);
     setUserInfo(userInfo);
     setUserDetails(userInfo);
   }

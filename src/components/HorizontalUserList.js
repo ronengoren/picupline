@@ -24,7 +24,6 @@ export default function HorizontalUserList(props) {
   };
 
   const getUserItem = (item) => {
-    console.log(item);
     if (type == 'search') {
       return (
         <TouchableOpacity

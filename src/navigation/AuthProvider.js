@@ -21,11 +21,11 @@ import * as Keychain from 'react-native-keychain';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 //aws
 import config from '../../aws-exports';
-// import {createUser as CreateUser} from '../../graphql/mutations';
+import {createUser} from '../../graphql/mutations';
+
 // import * as mutations from '../../graphql/mutations';
 // import {User} from '../../models';
 // import {listUsers} from '../../graphql/queries';
-// import {onCreateUser} from '../../graphql/subscriptions';
 const {
   aws_user_files_s3_bucket_region: region,
   aws_user_files_s3_bucket: bucket,
@@ -66,40 +66,27 @@ export const AuthProvider = ({children}) => {
   const [loading, setLoading] = useState(false);
   const [mimeType, setMimeType] = useState(null);
   const [state, dispatch] = useReducer(reducer, initialState);
-  // const [setCreate, {loader, err}] = useMutation(input);
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
 
-  // useEffect(() => {
-  //   const subscription = API.graphql(graphqlOperation(onCreateUser)).subscribe({
-  //     next: async (userData) => {
-  //       const {onCreateUser} = userData.value.data;
-  //       dispatch({type: 'ADD_USER', user: onCreateUser});
-  //     },
-  //   });
-  //   return () => subscription.unsubscribe();
-  // }, []);
+  const [users, setUsers] = useState([]);
+
   return (
     <AuthContext.Provider
       value={{
         user,
         setUser,
-
         login: async (username, password, updateAuthState, navigation) => {
           setError('');
-
           try {
             const user = await Auth.signIn(username, password);
             await Keychain.setInternetCredentials('auth', username, password);
             setLoading(false);
-
             console.log(' Success');
             updateAuthState('loggedIn');
             if (user) {
-              // console.log('userInfo');
               const session = await Auth.currentSession();
               const userInfo = session?.getIdToken().payload;
-
-              // console.log(userInfo);
-              // console.log('userInfo');
             }
             const userInfo = await Auth.currentAuthenticatedUser();
           } catch (error) {
@@ -122,7 +109,6 @@ export const AuthProvider = ({children}) => {
           }
           console.log(gender);
           var preferredGender = '';
-
           const prefGenderValue = await AsyncStorage.getItem(
             'Preferred Gender',
           );
@@ -146,16 +132,13 @@ export const AuthProvider = ({children}) => {
           );
           setMimeType(getProfileImageMime);
           profileImage = getProfileImage;
-
           const filename = profileImage.substring(
             profileImage.lastIndexOf('/') + 1,
           );
           const visibility = 'private';
-
           const extension = filename.split('.')[1];
           const key = `/images/${uuid()}${username}.${extension}`;
           const url = `https://${bucket}.s3.${region}.amazonaws.com/public/${key}`;
-
           const file = {
             key: key,
             bucket: config.aws_user_files_s3_bucket,
@@ -204,7 +187,9 @@ export const AuthProvider = ({children}) => {
             await Auth.signUp({username, password, attributes: {email}});
             console.log(' Sign-up Confirmed');
 
-            navigation.navigate('ConfirmSignUp');
+            navigation.navigate('ConfirmSignUp', {
+              password: password,
+            });
           } catch (error) {
             console.log(' Error signing up...', error);
           }
@@ -220,10 +205,126 @@ export const AuthProvider = ({children}) => {
             console.error(e);
           }
         },
+        firstlogin: async (username, password, updateAuthState, navigation) => {
+          var gender = '';
+          const value = await AsyncStorage.getItem('Gender');
+          if (value == 0) {
+            gender = 'Male';
+          } else {
+            gender = 'Female';
+          }
+          console.log(gender);
+          var preferredGender = '';
+          const prefGenderValue = await AsyncStorage.getItem(
+            'Preferred Gender',
+          );
+          if (prefGenderValue == 0) {
+            preferredGender = 'Male';
+          }
+          if (prefGenderValue == 1) {
+            preferredGender = 'Female';
+          } else {
+            preferredGender = 'Both';
+          }
+          console.log(preferredGender);
+          var dob = '';
+          const getDob = await AsyncStorage.getItem('DOB');
+          dob = getDob;
+          console.log(dob);
+          var profileImage = '';
+          const getProfileImage = await AsyncStorage.getItem('Profile_Image');
+          const getProfileImageMime = await AsyncStorage.getItem(
+            'Profile_Image_Mime',
+          );
+          setMimeType(getProfileImageMime);
+          profileImage = getProfileImage;
+          const filename = profileImage.substring(
+            profileImage.lastIndexOf('/') + 1,
+          );
+          const visibility = 'private';
+          const extension = filename.split('.')[1];
+          const key = `/images/${uuid()}${username}.${extension}`;
+          const url = `https://${bucket}.s3.${region}.amazonaws.com/public/${key}`;
+          const file = {
+            key: key,
+            bucket: config.aws_user_files_s3_bucket,
+            region: config.aws_project_region,
+          };
+          console.log('firstlogin');
+          setError('');
+          try {
+            const user = await Auth.signIn(username, password);
+            await Keychain.setInternetCredentials('auth', username, password);
+            setLoading(false);
+            console.log(' Success');
+            updateAuthState('loggedIn');
+            if (user) {
+              const session = await Auth.currentSession();
+              const userInfo = session?.getIdToken().payload;
+            }
+            const userInfo = await Auth.currentAuthenticatedUser();
+            setName(userInfo.attributes.sub);
+            setDescription(userInfo.attributes.sub);
+            // const input = {name, description};
+            const input = {
+              name,
+              description,
+              gender,
+              preferredGender,
+              dob,
+              profileImage,
+              displayname: '',
+              aboutMe: '',
+              height: '',
+              weight: '',
+              role: '',
+              bodyType: '',
+              relationshipStatus: '',
+              location: '',
+              tribes: '',
+              lookingFor: '',
+              hivStatus: '',
+              alcohol: '',
+              diet: '',
+              education: '',
+              kids: '',
+              language: '',
+              music: '',
+              pets: '',
+              smoke: '',
+              sport: '',
+              tattoos: '',
+              likes: [],
+              notLike: [],
+              superLike: [],
+            };
+            const result = await API.graphql(
+              graphqlOperation(createUser, {input}),
+            );
+            const newUser = result.data.createUser;
+
+            const updatedUser = [newUser, ...users];
+            console.log(result);
+            setUsers(updatedUser);
+            setName('');
+          } catch (error) {
+            console.log(' Error signing in...', error);
+          }
+        },
       }}>
       {children}
     </AuthContext.Provider>
   );
+};
+
+const addUser = async () => {
+  const input = {name};
+  const result = await API.graphql(graphqlOperation(createUser, {input}));
+  const newUser = result.data.createUser;
+  const updatedUser = [newUser, ...users];
+  console.log(result);
+  setUsers(updatedUser);
+  setName('');
 };
 const useAuth = () => useContext(AuthContext);
 export {useAuth};
@@ -237,39 +338,6 @@ export default AuthProvider;
 //   const isNewUser = response.additionalUserInfo;
 //   const {uid} = response.user;
 
-//   const userData = {
-//     email,
-//     uid,
-//     gender,
-//     preferredGender,
-//     dob,
-//     profileImage,
-//     displayname: '',
-//     aboutMe: '',
-
-//     height: '',
-//     weight: '',
-//     role: '',
-//     bodyType: '',
-//     relationshipStatus: '',
-//     location: '',
-//     tribes: '',
-//     lookingFor: '',
-//     hivStatus: '',
-//     alcohol: '',
-//     diet: '',
-//     education: '',
-//     kids: '',
-//     language: '',
-//     music: '',
-//     pets: '',
-//     smoke: '',
-//     sport: '',
-//     tattoos: '',
-//     likes: [],
-//     notLike: [],
-//     superLike: [],
-//   };
 //   const task = storage()
 //     .ref('profileImages/' + filename)
 //     .putFile(uploadUri);

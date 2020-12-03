@@ -10,6 +10,34 @@ export const createUser = /* GraphQL */ `
       id
       name
       description
+      gender
+      preferredGender
+      dob
+      profileImage
+      displayname
+      aboutMe
+      height
+      weight
+      role
+      bodyType
+      relationshipStatus
+      location
+      tribes
+      lookingFor
+      hivStatus
+      alcohol
+      diet
+      education
+      kids
+      language
+      music
+      pets
+      smoke
+      sport
+      tattoos
+      likes
+      notLike
+      superLike
       createdAt
       updatedAt
       owner
@@ -25,6 +53,34 @@ export const updateUser = /* GraphQL */ `
       id
       name
       description
+      gender
+      preferredGender
+      dob
+      profileImage
+      displayname
+      aboutMe
+      height
+      weight
+      role
+      bodyType
+      relationshipStatus
+      location
+      tribes
+      lookingFor
+      hivStatus
+      alcohol
+      diet
+      education
+      kids
+      language
+      music
+      pets
+      smoke
+      sport
+      tattoos
+      likes
+      notLike
+      superLike
       createdAt
       updatedAt
       owner
@@ -40,6 +96,34 @@ export const deleteUser = /* GraphQL */ `
       id
       name
       description
+      gender
+      preferredGender
+      dob
+      profileImage
+      displayname
+      aboutMe
+      height
+      weight
+      role
+      bodyType
+      relationshipStatus
+      location
+      tribes
+      lookingFor
+      hivStatus
+      alcohol
+      diet
+      education
+      kids
+      language
+      music
+      pets
+      smoke
+      sport
+      tattoos
+      likes
+      notLike
+      superLike
       createdAt
       updatedAt
       owner

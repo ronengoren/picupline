@@ -4,4 +4,32 @@ type User
   id: ID!
   name: String!
   description: String
+  gender: String
+  preferredGender: String
+  dob: String
+  profileImage: String
+  displayname: String
+  aboutMe: String
+  height: String
+  weight: String
+  role: String
+  bodyType: String
+  relationshipStatus: String
+  location: String
+  tribes: String
+  lookingFor: String
+  hivStatus: String
+  alcohol: String
+  diet: String
+  education: String
+  kids: String
+  language: String
+  music: String
+  pets: String
+  smoke: String
+  sport: String
+  tattoos: String
+  likes: String
+  notLike: String
+  superLike: String
 }

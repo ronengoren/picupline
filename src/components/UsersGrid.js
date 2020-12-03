@@ -24,8 +24,8 @@ DEFAULT_LOCATION = {
   longitude: -74.005974,
 };
 export default function UsersGrid(props) {
-  // console.log(props.users);
   const [users, setUsers] = useState(props.users);
+
   const [onRefresh, setOnRefresh] = useState();
   const [hasError, setHasError] = useState();
   const [distance, setDistance] = useState(props.gender);
@@ -73,9 +73,9 @@ export default function UsersGrid(props) {
     return <Text style={styles.distance}>{distance + ' km'}</Text>;
   };
   getUserItem = (item) => {
-    // console.log('item');
+    console.log(item.gender);
 
-    console.log(item.owner);
+    // console.log(item.owner);
     // console.log('item');
 
     return (
@@ -93,7 +93,7 @@ export default function UsersGrid(props) {
           />
           {getOnlineStatus(item.onlineStatus)}
           {getDistanceView(item.distance)}
-          {item.role && item.role.abbreviatedName != '' && (
+          {item.gender != '' && (
             <View
               style={{
                 width: 24,
@@ -107,7 +107,7 @@ export default function UsersGrid(props) {
                 justifyContent: 'center',
               }}>
               <Text style={{color: Colors.red, fontWeight: 'bold'}}>
-                {/* {item.role.abbreviatedName} */}
+                {item.gender}
               </Text>
             </View>
           )}
