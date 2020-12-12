@@ -16,5 +16,23 @@
         "picuplinecabe5575": {}
       }
     }
+  },
+  "test": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-picupline-test-02459-authRole",
+      "UnauthRoleArn": "arn:aws:iam::672860809763:role/amplify-picupline-test-02459-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::672860809763:role/amplify-picupline-test-02459-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-picupline-test-02459-deployment",
+      "UnauthRoleName": "amplify-picupline-test-02459-unauthRole",
+      "StackName": "amplify-picupline-test-02459",
+      "StackId": "arn:aws:cloudformation:us-east-2:672860809763:stack/amplify-picupline-test-02459/0cacf3b0-3aa8-11eb-96e4-026856bf7736",
+      "AmplifyAppId": "d19elixrbaggff"
+    },
+    "categories": {
+      "auth": {
+        "picuplinecabe5575": {}
+      }
+    }
   }
 }

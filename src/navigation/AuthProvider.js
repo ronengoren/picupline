@@ -68,6 +68,7 @@ export const AuthProvider = ({children}) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+  const [imageFileName, setImageFileName] = useState(null);
 
   const [users, setUsers] = useState([]);
 
@@ -232,31 +233,56 @@ export const AuthProvider = ({children}) => {
           dob = getDob;
           console.log(dob);
           var profileImage = '';
-          const getProfileImage = await AsyncStorage.getItem('Profile_Image');
+          // const getProfileImage = await AsyncStorage.getItem('Profile_Image');
+
           const getProfileImageMime = await AsyncStorage.getItem(
             'Profile_Image_Mime',
           );
-          setMimeType(getProfileImageMime);
-          profileImage = getProfileImage;
-          const filename = profileImage.substring(
-            profileImage.lastIndexOf('/') + 1,
+          console.log('getProfileImage');
+
+          const getProfileImageFileName = await AsyncStorage.getItem(
+            'Profile_Image_File_Name',
           );
-          const visibility = 'private';
-          const extension = filename.split('.')[1];
-          const key = `/images/${uuid()}${username}.${extension}`;
-          const url = `https://${bucket}.s3.${region}.amazonaws.com/public/${key}`;
+          console.log('getProfileImageFileName');
+
+          const suggestedFileName = getProfileImageFileName.split('/').pop();
+          // console.log(suggestedFileName);
+
+          // console.log('getProfileImageFileName');
+          setImageFileName(getProfileImageFileName);
+          setMimeType(getProfileImageMime);
+          // profileImage = getProfileImage;
+
+          // const filenamde = profileImage.substring(
+          //   getProfileImageFileName.lastIndexOf('/') + 1,
+          // );
+          const imageExtension = getProfileImageFileName.substring(
+            getProfileImageFileName.lastIndexOf('/') + 1,
+          );
+
+          const visibility = 'protected';
+          const extension = imageExtension.split('.')[1];
+          const key = `images/${uuid()}.${extension}`;
+          const keyFile = `${imageExtension}.${extension}`;
+          const url = `https://${bucket}.s3.${region}.amazonaws.com/protected/${imageExtension}`;
+
           const file = {
-            key: key,
+            key: imageExtension,
             bucket: config.aws_user_files_s3_bucket,
             region: config.aws_project_region,
           };
-          console.log('firstlogin');
+
+          console.log(file);
           setError('');
+
           try {
             const user = await Auth.signIn(username, password);
             await Keychain.setInternetCredentials('auth', username, password);
+            await Storage.put(imageExtension, visibility, {
+              contentType: mimeType,
+              level: 'protected',
+            });
             setLoading(false);
-            console.log(' Success');
             updateAuthState('loggedIn');
             if (user) {
               const session = await Auth.currentSession();
@@ -265,15 +291,19 @@ export const AuthProvider = ({children}) => {
             const userInfo = await Auth.currentAuthenticatedUser();
             setName(userInfo.attributes.sub);
             setDescription(userInfo.attributes.sub);
+            console.log('name');
+            console.log(userInfo.attributes.sub);
+            console.log('name');
+
             // const input = {name, description};
             const input = {
-              name,
+              name: userInfo.attributes.sub,
               description,
               gender,
               preferredGender,
               dob,
-              profileImage,
-              displayname: '',
+              profileImage: file,
+              displayname: username,
               aboutMe: '',
               height: '',
               weight: '',
@@ -294,10 +324,11 @@ export const AuthProvider = ({children}) => {
               smoke: '',
               sport: '',
               tattoos: '',
-              likes: [],
-              notLike: [],
-              superLike: [],
+              likes: '',
+              notLike: '',
+              superLike: '',
             };
+
             const result = await API.graphql(
               graphqlOperation(createUser, {input}),
             );

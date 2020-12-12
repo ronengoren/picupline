@@ -5,7 +5,6 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import FormInput from '../components/FormInput';
 import FormButton from '../components/FormButton';
 import {AuthContext} from '../navigation/AuthProvider';
-import {createUser} from '../../graphql/mutations';
 import config from '../../aws-exports';
 import {Storage, API, graphqlOperation} from 'aws-amplify';
 

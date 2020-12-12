@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   View,
@@ -10,6 +10,9 @@ import {
 } from 'react-native';
 import Colors from '../constants/Colors';
 import calculatePortraitDimension from '../constants/calculatePortraitDimension';
+import Amplify, {API, graphqlOperation, Storage} from 'aws-amplify';
+import {S3Image, S3Album} from 'aws-amplify-react-native';
+import config from '../../aws-exports';
 
 const {width: deviceWidth, height: deviceHeight} = calculatePortraitDimension();
 const LATITUDE_DELTA = 25;
@@ -19,16 +22,26 @@ delta = {
   longitudeDelta: LONGITUDE_DELTA,
 };
 
+const {
+  aws_user_files_s3_bucket_region: region,
+  aws_user_files_s3_bucket: bucket,
+} = config;
 DEFAULT_LOCATION = {
   latitude: 40.712776,
   longitude: -74.005974,
 };
 export default function UsersGrid(props) {
-  const [users, setUsers] = useState(props.users);
-
+  const [users, setUsers] = useState();
   const [onRefresh, setOnRefresh] = useState();
   const [hasError, setHasError] = useState();
   const [distance, setDistance] = useState(props.gender);
+  const [image, setImage] = useState();
+  useEffect(() => {
+    if (props.users) {
+      setUsers(props.users);
+    }
+  });
+
   onUserPressed = (item) => {
     console.log('user pressed', item);
     props.navigation.navigate('Profile', {itemId: item.uid});
@@ -73,10 +86,21 @@ export default function UsersGrid(props) {
     return <Text style={styles.distance}>{distance + ' km'}</Text>;
   };
   getUserItem = (item) => {
-    console.log(item.gender);
+    const signedURL = Storage.get(item.profileImage.key, {level: 'protected'})
+      .then((url) => {
+        var myRequest = new Request(url);
+        fetch(myRequest).then(function (response) {
+          if (response.status === 200) {
+            setImage(response.url.split('?')[0]);
+            console.log(image);
+          }
+        });
+      })
+      .catch((err) => console.log(err));
 
-    // console.log(item.owner);
-    // console.log('item');
+    // const image = Storage.get(item.profileImage.key);
+    // const url = `https://${bucket}.s3.${region}.amazonaws.com/protected/${item.profileImage.key}`;
+    // console.log(url);
 
     return (
       <TouchableOpacity
@@ -87,10 +111,15 @@ export default function UsersGrid(props) {
         <View style={styles.profileContainer}>
           <Image
             style={styles.profileImage}
-            source={{uri: item.uri}}
+            source={{uri: image}}
             defaultImage={require('../assets/images/defaultImage.png')}
             resizeMode="cover"
           />
+          {/* <S3Image
+            style={styles.profileImage}
+            level="protected"
+            imgKey={item.profileImage.key}
+          /> */}
           {getOnlineStatus(item.onlineStatus)}
           {getDistanceView(item.distance)}
           {item.gender != '' && (
@@ -116,17 +145,19 @@ export default function UsersGrid(props) {
     );
   };
   renderItem = ({item}) => {
+    // console.log(JSON.stringify(item, null, 2));
+
     return getUserItem(item);
   };
   renderUsersGrid = () => {
     return (
       <FlatList
-        data={props.users}
+        data={users}
         renderItem={renderItem}
         ListFooterComponent={renderFooterComponent()}
         refreshing={false}
         keyExtractor={(item, index) => index.toString()}
-        onRefresh={onRefresh}
+        onRefresh={props.onRefresh}
         numColumns={3}
       />
     );
