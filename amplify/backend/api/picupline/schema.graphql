@@ -1,13 +1,13 @@
 type User
   @model
-  @auth(rules: [{allow: owner, operations: [create, update, delete, read]}]) {
+  @auth(rules: [{allow: owner, operations: [create, update, delete]}]) {
   id: ID!
   name: String!
   description: String
   gender: String
   preferredGender: String
   dob: String
-  profileImage: String
+  profileImage: S3Object
   displayname: String
   aboutMe: String
   height: String
@@ -32,4 +32,10 @@ type User
   likes: String
   notLike: String
   superLike: String
+}
+
+type S3Object {
+  bucket: String!
+  region: String!
+  key: String!
 }

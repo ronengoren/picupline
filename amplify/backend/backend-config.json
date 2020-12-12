@@ -16,7 +16,7 @@
           "defaultAuthentication": {
             "authenticationType": "AMAZON_COGNITO_USER_POOLS",
             "userPoolConfig": {
-              "userPoolId": "authpicuplinecabe5575"
+              "userPoolId": "authpicuplinecabe5575_userpool_cabe5575"
             }
           },
           "additionalAuthenticationProviders": [
@@ -26,6 +26,12 @@
           ]
         }
       }
+    }
+  },
+  "storage": {
+    "siyustorage": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation"
     }
   }
 }

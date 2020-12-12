@@ -2,15 +2,19 @@
 // this is an auto generated file. This will be overwritten
 
 export const onCreateUser = /* GraphQL */ `
-  subscription OnCreateUser($owner: String!) {
-    onCreateUser(owner: $owner) {
+  subscription OnCreateUser {
+    onCreateUser {
       id
       name
       description
       gender
       preferredGender
       dob
-      profileImage
+      profileImage {
+        bucket
+        region
+        key
+      }
       displayname
       aboutMe
       height
@@ -35,6 +39,9 @@ export const onCreateUser = /* GraphQL */ `
       likes
       notLike
       superLike
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
       owner
@@ -42,15 +49,19 @@ export const onCreateUser = /* GraphQL */ `
   }
 `;
 export const onUpdateUser = /* GraphQL */ `
-  subscription OnUpdateUser($owner: String!) {
-    onUpdateUser(owner: $owner) {
+  subscription OnUpdateUser {
+    onUpdateUser {
       id
       name
       description
       gender
       preferredGender
       dob
-      profileImage
+      profileImage {
+        bucket
+        region
+        key
+      }
       displayname
       aboutMe
       height
@@ -75,6 +86,9 @@ export const onUpdateUser = /* GraphQL */ `
       likes
       notLike
       superLike
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
       owner
@@ -82,15 +96,19 @@ export const onUpdateUser = /* GraphQL */ `
   }
 `;
 export const onDeleteUser = /* GraphQL */ `
-  subscription OnDeleteUser($owner: String!) {
-    onDeleteUser(owner: $owner) {
+  subscription OnDeleteUser {
+    onDeleteUser {
       id
       name
       description
       gender
       preferredGender
       dob
-      profileImage
+      profileImage {
+        bucket
+        region
+        key
+      }
       displayname
       aboutMe
       height
@@ -115,6 +133,9 @@ export const onDeleteUser = /* GraphQL */ `
       likes
       notLike
       superLike
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
       owner

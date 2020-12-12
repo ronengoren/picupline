@@ -84,16 +84,60 @@ export default function TopPicksScreen({props, navigation, updateAuthState}) {
   const {logout} = useContext(AuthContext);
   const owner = Auth.user.attributes.sub;
 
+  useEffect(() => {
+    getUserInfo();
+    fetchUsers();
+    // console.log(response);
+    // loadUsers();
+    // findCoordinates();
+    // onRefreshUsers();
+  }, []);
+
+  async function loadUsers() {
+    console.log('loadUsers');
+    const productData = await API.graphql({query: listUsers});
+    const products = await Promise.all(
+      productData.data.listUsers.items.map(async (product) => {
+        const image = await Storage.get(product.profileImage.key, {
+          level: 'protected',
+        });
+
+        product.s3Image = image;
+        // const filendsame = image.substring(image.lastIndexOf('/') + 1);
+        // console.log(image);
+
+        return product;
+      }),
+    );
+    // console.log(products);
+    // Storage.get(item.profileImage.key, {
+    //   level: 'protected',
+    // })
+    //   .then((url) => {
+    //     var myRequest = new Request(url);
+    //     fetch(myRequest).then(function (response) {
+    //       // console.log('response');
+
+    //       // console.log(response.name);
+    //       // console.log('response');
+
+    //       if (response.status === 200) {
+    //         setImage(url);
+    //         // console.log(image);
+    //       }
+    //     });
+    //   })
+    //   .catch((err) => console.log(err));
+  }
+
   async function fetchUsers() {
     try {
       setLoading(true);
 
       const userData = await API.graphql(graphqlOperation(listUsers));
-      const users = userData.data.listUsers.items;
-
-      setUsers(users);
-      console.log(users);
-
+      const usersList = userData.data.listUsers.items;
+      setUsers(usersList);
+      // console.log(users);
       setLoading(false);
     } catch (err) {
       setLoading(false);
@@ -104,18 +148,10 @@ export default function TopPicksScreen({props, navigation, updateAuthState}) {
   async function getUserInfo() {
     const userInfo = await Auth.currentAuthenticatedUser();
     // const userData = await AsyncStorage.getItem('userInfo');
-    // console.log(userData);
-    // console.log('current user info in TopPicksScreen', userInfo);
+    // console.log(userInfo);
+    // console.log('current user info in TopPicksScreen');
     setUserInfo(userInfo);
   }
-  useEffect(() => {
-    getUserInfo();
-    fetchUsers();
-    // console.log(response);
-    // loadUsers();
-    // findCoordinates();
-    onRefreshUsers();
-  }, []);
 
   findCoordinates = () => {
     Geolocation.getCurrentPosition((info) => setLocation(info.coords));
@@ -123,7 +159,6 @@ export default function TopPicksScreen({props, navigation, updateAuthState}) {
     // setLongitude(location.longitude);
   };
 
-  const loadUsers = async () => {};
   const onLocation = (locationon) => {
     if (!locationon) {
       setIsVisibleMap(!isVisibleMap);
@@ -276,17 +311,17 @@ export default function TopPicksScreen({props, navigation, updateAuthState}) {
     );
   };
   const onRefreshUsers = () => {
-    // const {filteron, eyeon, locationon, filters, online} = users;
+    const {filteron, eyeon, locationon, filters, online} = users;
     if (filteron) {
       let data = {
-        id: currentUser.uid,
+        id: owner,
         limit: 40,
         offset: 0,
         online: online,
       };
     } else if (eyeon) {
       let data = {
-        id: user.uid,
+        id: owner,
         limit: 40,
         offset: 0,
         online: online,
@@ -316,18 +351,18 @@ export default function TopPicksScreen({props, navigation, updateAuthState}) {
       <View style={styles.container}>
         {getTopToolBar(searchon, locationon, eyeon, filteron, online)}
         <View style={styles.content}>
-          <HorizontalUserList
+          {/* <HorizontalUserList
             userType={'topUsers'}
             showType={'horizontal'}
             navigation={navigation}
             users={users}
             onRefresh={() => {
-              loadUsers();
+              fetchUsers();
             }}
-          />
+          /> */}
           <UsersGrid
             onRefresh={() => {
-              loadUsers();
+              fetchUsers();
             }}
             users={users}
             navigation={navigation}

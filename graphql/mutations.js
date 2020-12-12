@@ -13,7 +13,11 @@ export const createUser = /* GraphQL */ `
       gender
       preferredGender
       dob
-      profileImage
+      profileImage {
+        bucket
+        region
+        key
+      }
       displayname
       aboutMe
       height
@@ -38,6 +42,9 @@ export const createUser = /* GraphQL */ `
       likes
       notLike
       superLike
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
       owner
@@ -56,7 +63,11 @@ export const updateUser = /* GraphQL */ `
       gender
       preferredGender
       dob
-      profileImage
+      profileImage {
+        bucket
+        region
+        key
+      }
       displayname
       aboutMe
       height
@@ -81,6 +92,9 @@ export const updateUser = /* GraphQL */ `
       likes
       notLike
       superLike
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
       owner
@@ -99,7 +113,11 @@ export const deleteUser = /* GraphQL */ `
       gender
       preferredGender
       dob
-      profileImage
+      profileImage {
+        bucket
+        region
+        key
+      }
       displayname
       aboutMe
       height
@@ -124,6 +142,9 @@ export const deleteUser = /* GraphQL */ `
       likes
       notLike
       superLike
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
       owner

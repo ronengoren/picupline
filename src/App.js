@@ -64,7 +64,9 @@ Amplify.configure({
   },
   storage: MyStorage,
 });
-
+Storage.configure({
+  ...config,
+});
 const App = () => {
   return (
     <>

@@ -55,10 +55,11 @@ export default function UploadImages({navigation}) {
   // this.currentProfileImage = get(this.props, 'user.media.thumbnail', '');
   // const source = {uri: this.currentProfileImage};
 
-  const [image, setImage] = useState(null);
-  const [images, setImages] = useState(null);
+  const [image, setImage] = useState([]);
+  const [images, setImages] = useState([]);
   const [imageMime, setImageMime] = useState(null);
-
+  const [imageFileName, setImageFileName] = useState(null);
+  const [imageUri, setImageUri] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const hideModalAndAllowKeyboardAnimation = () => {
@@ -119,23 +120,30 @@ export default function UploadImages({navigation}) {
       .then((image) => {
         // setIosImage(image.sourceURL);
         // setAndroidImage(image.path);
-        // console.log('received image', image);
-        setImage({
-          image: {
-            uri: image.path,
-            width: image.width,
-            height: image.height,
-            mime: image.mime,
-          },
-          images: null,
-        });
-        // console.log('image');
+        // console.log('received image', image.path);
+        const img = {
+          uri: image.path,
+          width: image.width,
+          height: image.height,
+          mime: image.mime,
+          filename:
+            image.filename ||
+            image.path.substr(image.path.lastIndexOf('/') + 1),
+        };
+        setImage((prevImages) => prevImages.concat(img));
+        // const suggestedFileName = image.path.split('/').pop();
 
-        const localuri = getFilePathFromLocalUri(image.path);
-        setImage(localuri);
+        // const localuri = getFilePathFromLocalUri(image.path);
+        // console.log(localuri);
+        // console.log(suggestedFileName);
 
-        setImageMime(image.mime);
-        // console.log('image');
+        // setImage(suggestedFileName);
+        setImageUri(img.uri);
+        setImageMime(img.mime);
+        setImageFileName(img.filename);
+        // console.log(imageFileName);
+        // console.log('img');
+        // console.log(localuri);
       })
       .catch((e) => {
         console.log(e);
@@ -169,26 +177,27 @@ export default function UploadImages({navigation}) {
       .catch((e) => alert(e));
   };
 
-  const renderImage = (image) => {
+  const renderImage = (imageUri) => {
     if (image) {
       return (
         <Image
           style={{width: 300, height: 300, resizeMode: 'contain'}}
-          source={{uri: 'file://' + image}}
+          source={{uri: 'file://' + imageUri}}
         />
       );
     }
   };
 
   function RenderNextButton() {
-    const isDisabled = isNil(image) || isSubmitting;
+    const isDisabled = isNil(imageUri) || isSubmitting;
     const onPress = isDisabled ? () => setShowError(true) : next;
     return <Button title="Next" onPress={onPress} isDisabled={isDisabled} />;
   }
 
   next = async () => {
-    if (image) {
+    if (imageUri) {
       console.log('User upload a profile image');
+      // console.log(image);
     } else console.log('User didnt upload a profile image');
 
     // const { user } = this.props;
@@ -200,10 +209,11 @@ export default function UploadImages({navigation}) {
     setIsSubmitting(true);
     try {
       // this.updateProfile(newUserData);
-      await AsyncStorage.setItem('Profile_Image', image);
+      // await AsyncStorage.setItem('Profile_Image', image.uri);
       await AsyncStorage.setItem('Profile_Image_Mime', imageMime);
-
-      const dsfdf = await AsyncStorage.getItem('Profile_Image_Mime');
+      await AsyncStorage.setItem('Profile_Image_File_Name', imageFileName);
+      // console.log(imageMime);
+      // const dsfdf = await AsyncStorage.getItem('Profile_Image_File_Name');
       // console.log(dsfdf);
       setIsSubmitting(false);
       navigation.navigate('SignUp');
@@ -233,7 +243,7 @@ export default function UploadImages({navigation}) {
         isSmaller={!isHighDevice}
       /> */}
 
-      <ScrollView>{image ? renderImage(image) : null}</ScrollView>
+      <ScrollView>{imageUri ? renderImage(imageUri) : null}</ScrollView>
       <View style={styles.innerContainer}>
         <TouchableOpacity
           onPress={() => pickSingle(false)}
@@ -250,7 +260,7 @@ export default function UploadImages({navigation}) {
             <Text size={14} color={Colors.white} bold center>
               {I18n.t(
                 `onboarding.user_profile_header.${
-                  image ? 'edit' : 'upload'
+                  imageUri ? 'edit' : 'upload'
                 }_button`,
               )}
             </Text>
